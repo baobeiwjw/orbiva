@@ -7,27 +7,57 @@ import Badge from '@/components/ui/Badge';
 import GradientText from '@/components/ui/GradientText';
 import { ArrowRight, Play, Sparkles, Zap } from 'lucide-react';
 
-// 懒加载3D组件以优化首屏性能
-const Model3DViewer = lazy(() => import('@/components/3d/Model3DViewer'));
+// 懒加载3D场景组件
+const ProductScene = lazy(() => import('@/components/3d/ProductScene'));
 
-// 3D模型加载占位组件
-function Model3DFallback() {
+// 3D模型加载占位组件 - CUDIS 风格
+function SceneFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="relative w-24 h-24">
-        <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-secondary rounded-xl blur-xl opacity-50 animate-pulse" />
-        <div className="relative w-full h-full rounded-xl bg-background-secondary border border-border flex items-center justify-center">
+      <div className="relative">
+        {/* 脉冲环 */}
+        <div className="absolute inset-0 -m-8">
+          <div className="w-32 h-32 rounded-full border border-[#06B6D4]/20 animate-ping" style={{ animationDuration: '2s' }} />
+        </div>
+        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[#06B6D4]/20 to-[#7C3AED]/20 backdrop-blur flex items-center justify-center">
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           >
-            <Sparkles className="w-8 h-8 text-accent" />
+            <Sparkles className="w-6 h-6 text-[#06B6D4]" />
           </motion.div>
         </div>
       </div>
     </div>
   );
 }
+
+// 动画变体
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      delay,
+      ease: [0.25, 0.4, 0.25, 1],
+    },
+  }),
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1,
+      delay,
+      ease: [0.25, 0.4, 0.25, 1],
+    },
+  }),
+};
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,164 +66,253 @@ export default function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // 视差和淡出效果
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.6], [1, 0.95]);
+  
+  // 3D模型视差 - 稍微快一点
+  const model3DY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 grid-pattern" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+      {/* 背景渐变 */}
+      <div className="absolute inset-0 bg-gradient-radial from-[#0a0a0a] via-[#050505] to-black" />
       
-      {/* Animated Glow Orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
+      {/* 网格背景 - 更微妙 */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px'
         }}
-        transition={{ duration: 8, repeat: Infinity }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
       />
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ duration: 10, repeat: Infinity }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/20 rounded-full blur-3xl"
-      />
-
-      {/* Content */}
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
-          <Badge variant="accent" icon={<Sparkles className="w-4 h-4" />}>
-            AI 驱动 · 数字孪生 · 健康革命
-          </Badge>
-        </motion.div>
-
-        {/* Main Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
-        >
-          <GradientText className="block mt-2">数字孪生健康生态</GradientText>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg sm:text-xl text-foreground-muted max-w-3xl mx-auto mb-10"
-        >
-          Orbiva 通过 AI 驱动的 VivaBox 智能小方块，构建您的数字健康分身，
-          <br className="hidden sm:block" />
-          预见未来 14-30 天的身体状态，让健康管理从被动变主动。
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-        >
-          <Button
-            variant="primary"
-            size="lg"
-            icon={<ArrowRight className="w-5 h-5" />}
-          >
-            立即体验
-          </Button>
-          <Button
-            variant="secondary"
-            size="lg"
-            icon={<Play className="w-5 h-5" />}
-            iconPosition="left"
-          >
-            观看演示
-          </Button>
-        </motion.div>
-
-        {/* VivaBox 3D Preview */}
-        <motion.div
+      
+      {/* 大椭圆装饰线 - CUDIS 风格 */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        {/* 最外层椭圆 */}
+        <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="relative"
-        >
-          {/* 3D Model Container */}
-          <div className="relative mx-auto w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px]">
-            {/* Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-secondary rounded-3xl blur-2xl opacity-30 animate-pulse-glow" />
-            
-            {/* 3D Model Viewer */}
-            <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-background-secondary/80 to-background-tertiary/80 border border-border/50 overflow-hidden backdrop-blur-sm">
-              <Suspense fallback={<Model3DFallback />}>
-                <Model3DViewer
-                  modelUrl="/cube.glb"
-                  className="w-full h-full"
-                  autoRotate={true}
-                  rotateSpeed={0.3}
-                  enableZoom={true}
-                  enablePan={false}
-                  minDistance={3}
-                  maxDistance={8}
-                  cameraPosition={[0, 0, 5]}
-                />
-              </Suspense>
-            </div>
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="absolute w-[150vw] h-[80vh] border border-white/[0.03] rounded-[50%]"
+          style={{ transform: 'rotate(-5deg)' }}
+        />
+        {/* 中间椭圆 */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.7 }}
+          className="absolute w-[130vw] h-[65vh] border border-[#06B6D4]/[0.05] rounded-[50%]"
+          style={{ transform: 'rotate(-3deg)' }}
+        />
+        {/* 内层椭圆 */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.9 }}
+          className="absolute w-[110vw] h-[50vh] border border-white/[0.02] rounded-[50%]"
+          style={{ transform: 'rotate(-1deg)' }}
+        />
+      </div>
+      
+      {/* 环境光效果 */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#06B6D4]/[0.03] rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#7C3AED]/[0.02] rounded-full blur-[120px]" />
 
-            {/* Floating Elements */}
+      {/* 主内容区域 */}
+      <motion.div 
+        style={{ y, opacity, scale }} 
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 min-h-[80vh] py-24 pt-32">
+          
+          {/* 左侧文字内容 */}
+          <div className="flex-1 text-center lg:text-left max-w-xl">
+            {/* Badge */}
             <motion.div
-              animate={{ y: [-10, 10, -10], x: [-5, 5, -5] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="absolute -top-8 -right-8 px-4 py-2 rounded-xl glass text-sm"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
+              className="mb-6"
             >
-              <span className="text-accent-secondary font-medium">+89%</span>
-              <span className="text-foreground-muted ml-2">健康预测准确率</span>
+              <Badge variant="accent" icon={<Sparkles className="w-4 h-4" />}>
+                AI 驱动 · 数字孪生 · 健康革命
+              </Badge>
             </motion.div>
 
-            <motion.div
-              animate={{ y: [10, -10, 10], x: [5, -5, 5] }}
-              transition={{ duration: 6, repeat: Infinity }}
-              className="absolute -bottom-8 -left-8 px-4 py-2 rounded-xl glass text-sm"
+            {/* Main Headline */}
+            <motion.h1
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.15}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight"
             >
-              <Zap className="w-4 h-4 text-accent inline mr-2" />
-              <span className="text-foreground-muted">14天健康预测</span>
+              <span className="block text-white/90">智能</span>
+              <GradientText className="block">健康小方块</GradientText>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.3}
+              className="text-base sm:text-lg text-white/50 mb-8 leading-relaxed"
+            >
+              Orbiva 通过 AI 驱动的 VivaBox 智能小方块，
+              <br className="hidden sm:block" />
+              构建您的数字健康分身，预见未来健康状态
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.45}
+              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
+            >
+              <Button
+                variant="primary"
+                size="lg"
+                icon={<ArrowRight className="w-5 h-5" />}
+              >
+                立即体验
+              </Button>
+              <Button
+                variant="secondary"
+                size="lg"
+                icon={<Play className="w-5 h-5" />}
+                iconPosition="left"
+              >
+                观看演示
+              </Button>
+            </motion.div>
+            
+            {/* 产品亮点 */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0.6}
+              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm"
+            >
+              <div className="flex items-center gap-2 text-white/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
+                <span>14天续航</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
+                <span>AI健康预测</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
+                <span>实时数据同步</span>
+              </div>
             </motion.div>
           </div>
-        </motion.div>
+
+          {/* 右侧 3D 产品展示 */}
+          <motion.div
+            style={{ y: model3DY }}
+            className="flex-shrink-0 w-full lg:w-[400px] xl:w-[450px]"
+          >
+            <motion.div
+              variants={scaleIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.3}
+              className="relative w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[400px] mx-auto"
+            >
+              {/* 发光效果 */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#06B6D4]/10 to-[#7C3AED]/10 rounded-full blur-[80px] opacity-50" />
+              
+              {/* 3D 场景容器 - 固定宽高比 */}
+              <div className="relative w-full pb-[100%]">
+                <div className="absolute inset-0">
+                  <Suspense fallback={<SceneFallback />}>
+                    <ProductScene
+                      modelUrl="/cube.glb"
+                      className="w-full h-full"
+                      autoRotate={true}
+                      rotateSpeed={0.25}
+                      enableZoom={true}
+                      showEllipse={false}
+                      cameraPosition={[0, 0, 5]}
+                    />
+                  </Suspense>
+                </div>
+              </div>
+
+              {/* 浮动信息卡片 - 右上 */}
+              <motion.div
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                custom={1}
+                className="absolute right-0 top-1/4 translate-x-1/2 hidden xl:block z-10"
+              >
+                <div className="px-4 py-3 rounded-xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.05]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#06B6D4]/20 to-[#7C3AED]/20 flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-[#06B6D4]" />
+                    </div>
+                    <div>
+                      <p className="text-[#7C3AED] font-semibold text-lg">89%</p>
+                      <p className="text-white/40 text-xs">健康预测准确率</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* 浮动信息卡片 - 左下 */}
+              <motion.div
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                custom={1.2}
+                className="absolute left-0 bottom-1/4 -translate-x-1/2 hidden xl:block z-10"
+              >
+                <div className="px-4 py-3 rounded-xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.05]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#06B6D4]/20 to-[#7C3AED]/20 flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-[#7C3AED]" />
+                    </div>
+                    <div>
+                      <p className="text-[#06B6D4] font-semibold text-lg">14天</p>
+                      <p className="text-white/40 text-xs">健康预测周期</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* 底部滚动指示器 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-foreground-subtle flex items-start justify-center p-2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center gap-2"
         >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-2 rounded-full bg-accent"
-          />
+          <span className="text-white/20 text-xs tracking-widest">SCROLL</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
       </motion.div>
     </section>

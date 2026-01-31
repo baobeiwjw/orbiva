@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { I18nProvider } from '@/lib/i18n';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,23 +16,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Orbiva | AI 驱动的数字孪生健康生态',
+  title: 'Orbiva | AI-Powered Digital Twin Health Ecosystem',
   description:
-    'Orbiva 通过 AI 驱动的 VivaBox 智能小方块，构建您的数字健康分身，预见未来健康状态，让健康管理从被动变主动。',
+    'Orbiva builds your digital health twin through AI-powered VivaBox smart cube, predicting your future health status.',
   keywords: [
-    '数字孪生',
-    '健康管理',
-    'AI健康',
-    '智能硬件',
+    'Digital Twin',
+    'Health Management',
+    'AI Health',
+    'Smart Hardware',
     'VivaBox',
-    '健康预测',
+    'Health Prediction',
   ],
   authors: [{ name: 'Orbiva' }],
   openGraph: {
-    title: 'Orbiva | AI 驱动的数字孪生健康生态',
-    description: '通过 AI 驱动的智能硬件，构建您的数字健康分身',
+    title: 'Orbiva | AI-Powered Digital Twin Health Ecosystem',
+    description: 'Build your digital health twin through AI-powered smart hardware',
     type: 'website',
-    locale: 'zh_CN',
   },
 };
 
@@ -41,13 +41,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <I18nProvider>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

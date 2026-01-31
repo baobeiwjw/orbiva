@@ -6,10 +6,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { useI18n } from '@/lib/i18n';
 import {
   Menu,
   X,
-  ChevronDown,
   Sparkles,
   Box,
   Cpu,
@@ -19,19 +20,20 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-const navigation = [
-  { name: '首页', href: '/' },
-  { name: '产品中心', href: '/products', icon: Box },
-  { name: '技术核心', href: '/technology', icon: Cpu },
-  { name: '价值生态', href: '/ecosystem', icon: Leaf },
-  { name: '合作伙伴', href: '/partners', icon: Users },
-  { name: '关于我们', href: '/about', icon: FileText },
-];
-
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useI18n();
+
+  const navigation = [
+    { name: t('nav', 'home'), href: '/' },
+    { name: t('nav', 'products'), href: '/products', icon: Box },
+    { name: t('nav', 'technology'), href: '/technology', icon: Cpu },
+    { name: t('nav', 'ecosystem'), href: '/ecosystem', icon: Leaf },
+    { name: t('nav', 'partners'), href: '/partners', icon: Users },
+    { name: t('nav', 'about'), href: '/about', icon: FileText },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +76,7 @@ export default function Header() {
             <nav className="hidden lg:flex items-center gap-1">
               {navigation.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item.href}
                   href={item.href}
                   className={cn(
                     'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
@@ -88,31 +90,32 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
-              <Button variant="ghost" size="sm">
-                登录
-              </Button>
+            {/* Desktop CTA & Language Switcher */}
+            <div className="hidden lg:flex items-center gap-3">
+              <LanguageSwitcher variant="compact" />
               <Button
                 variant="primary"
                 size="sm"
                 icon={<ArrowRight className="w-4 h-4" />}
               >
-                开始体验
+                {t('common', 'getStarted')}
               </Button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-background-secondary transition-colors"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6 text-foreground" />
-              ) : (
-                <Menu className="w-6 h-6 text-foreground" />
-              )}
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <LanguageSwitcher variant="compact" />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg hover:bg-background-secondary transition-colors"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6 text-foreground" />
+                ) : (
+                  <Menu className="w-6 h-6 text-foreground" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -145,7 +148,7 @@ export default function Header() {
               <div className="space-y-2">
                 {navigation.map((item, index) => (
                   <motion.div
-                    key={item.name}
+                    key={item.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -168,15 +171,12 @@ export default function Header() {
               </div>
 
               <div className="mt-8 pt-8 border-t border-border space-y-4">
-                <Button variant="outline" className="w-full">
-                  登录
-                </Button>
                 <Button
                   variant="primary"
                   className="w-full"
                   icon={<ArrowRight className="w-4 h-4" />}
                 >
-                  开始体验
+                  {t('common', 'getStarted')}
                 </Button>
               </div>
             </motion.nav>
