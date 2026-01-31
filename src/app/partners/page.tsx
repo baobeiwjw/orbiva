@@ -90,8 +90,8 @@ const partnerTypesConfig = [
     icon: FlaskConical,
     headlineKey: 'typePharmaHeadline',
     descKey: 'typePharmaDesc',
-    benefitKeys: ['typePharmaB1', 'typePharmaB2', 'typePharmaB3', 'typePharmaB4'],
-    stats: [{ valueKey: 'typePharmaS1V', labelKey: 'typePharmaS1L' }, { valueKey: 'typePharmaS2V', labelKey: 'typePharmaS2L' }, { valueKey: 'typePharmaS3V', labelKey: 'typePharmaS3L' }],
+    benefitKeys: ['typePharmaB1', 'typePharmaB2', 'typePharmaB3', 'typePharmaB4'] as const,
+    stats: [{ valueKey: 'typePharmaS1V', labelKey: 'typePharmaS1L' }, { valueKey: 'typePharmaS2V', labelKey: 'typePharmaS2L' }, { valueKey: 'typePharmaS3V', labelKey: 'typePharmaS3L' }] as const,
     color: 'from-[#EC4899] to-[#a78bfa]',
   },
   {
@@ -100,8 +100,8 @@ const partnerTypesConfig = [
     icon: Shield,
     headlineKey: 'typeInsuranceHeadline',
     descKey: 'typeInsuranceDesc',
-    benefitKeys: ['typeInsuranceB1', 'typeInsuranceB2', 'typeInsuranceB3', 'typeInsuranceB4'],
-    stats: [{ valueKey: 'typeInsuranceS1V', labelKey: 'typeInsuranceS1L' }, { valueKey: 'typeInsuranceS2V', labelKey: 'typeInsuranceS2L' }, { valueKey: 'typeInsuranceS3V', labelKey: 'typeInsuranceS3L' }],
+    benefitKeys: ['typeInsuranceB1', 'typeInsuranceB2', 'typeInsuranceB3', 'typeInsuranceB4'] as const,
+    stats: [{ valueKey: 'typeInsuranceS1V', labelKey: 'typeInsuranceS1L' }, { valueKey: 'typeInsuranceS2V', labelKey: 'typeInsuranceS2L' }, { valueKey: 'typeInsuranceS3V', labelKey: 'typeInsuranceS3L' }] as const,
     color: 'from-[#06B6D4] to-[#7C3AED]',
   },
   {
@@ -110,24 +110,24 @@ const partnerTypesConfig = [
     icon: Cpu,
     headlineKey: 'typeHardwareHeadline',
     descKey: 'typeHardwareDesc',
-    benefitKeys: ['typeHardwareB1', 'typeHardwareB2', 'typeHardwareB3', 'typeHardwareB4'],
-    stats: [{ valueKey: 'typeHardwareS1V', labelKey: 'typeHardwareS1L' }, { valueKey: 'typeHardwareS2V', labelKey: 'typeHardwareS2L' }, { valueKey: 'typeHardwareS3V', labelKey: 'typeHardwareS3L' }],
+    benefitKeys: ['typeHardwareB1', 'typeHardwareB2', 'typeHardwareB3', 'typeHardwareB4'] as const,
+    stats: [{ valueKey: 'typeHardwareS1V', labelKey: 'typeHardwareS1L' }, { valueKey: 'typeHardwareS2V', labelKey: 'typeHardwareS2L' }, { valueKey: 'typeHardwareS3V', labelKey: 'typeHardwareS3L' }] as const,
     color: 'from-[#3b82f6] to-[#06b6d4]',
   },
-];
+] as const;
 
 const successCasesConfig = [
   { logo: '🏥', nameKey: 'case1Name', typeKey: 'case1Type', resultKey: 'case1Result' },
   { logo: '🛡️', nameKey: 'case2Name', typeKey: 'case2Type', resultKey: 'case2Result' },
   { logo: '⌚', nameKey: 'case3Name', typeKey: 'case3Type', resultKey: 'case3Result' },
-];
+] as const;
 
 const cooperationProcessConfig = [
   { step: 1, titleKey: 'process1Title', descKey: 'process1Desc' },
   { step: 2, titleKey: 'process2Title', descKey: 'process2Desc' },
   { step: 3, titleKey: 'process3Title', descKey: 'process3Desc' },
   { step: 4, titleKey: 'process4Title', descKey: 'process4Desc' },
-];
+] as const;
 
 // ========== Hero 区块 ==========
 function HeroSection() {

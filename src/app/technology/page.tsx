@@ -89,7 +89,7 @@ const certifications = [
   { name: 'GDPR', descKey: 'cert2' },
   { name: 'SOC 2', descKey: 'cert3' },
   { name: 'HIPAA', descKey: 'cert4' },
-];
+] as const;
 
 // ========== Hero 区块 ==========
 function HeroSection() {

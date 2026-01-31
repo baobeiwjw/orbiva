@@ -3,12 +3,15 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { Locale, translations, getTranslation } from './translations';
 
+// 定义翻译键类型
+type TranslationKey<S extends keyof typeof translations> = keyof typeof translations[S]['zh-CN'];
+
 interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: <S extends keyof typeof translations>(
     section: S,
-    key: keyof typeof translations[S]['zh-CN']
+    key: TranslationKey<S> | string
   ) => string;
 }
 
@@ -47,12 +50,12 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // 当前使用的 locale（mounted 前使用默认值避免 hydration 问题）
   const currentLocale = mounted ? locale : 'zh-CN';
 
-  // 翻译函数直接使用 currentLocale
+  // 翻译函数直接使用 currentLocale，接受 string 类型的 key
   const t = <S extends keyof typeof translations>(
     section: S,
-    key: keyof typeof translations[S]['zh-CN']
+    key: TranslationKey<S> | string
   ): string => {
-    return getTranslation(section, key, currentLocale);
+    return getTranslation(section, key as TranslationKey<S>, currentLocale);
   };
 
   return (
@@ -76,6 +79,6 @@ export function useTranslation<S extends keyof typeof translations>(section: S) 
   
   return {
     locale,
-    t: (key: keyof typeof translations[S]['zh-CN']) => t(section, key),
+    t: (key: TranslationKey<S> | string) => t(section, key),
   };
 }

@@ -93,27 +93,27 @@ const healthTasksConfig = [
   { icon: Heart, titleKey: 'task4Title', descKey: 'task4Desc', pointsKey: 'task4Points', freqKey: 'task4Freq' },
   { icon: Database, titleKey: 'task5Title', descKey: 'task5Desc', pointsKey: 'task5Points', freqKey: 'task5Freq' },
   { icon: Users, titleKey: 'task6Title', descKey: 'task6Desc', pointsKey: 'task6Points', freqKey: 'task6Freq' },
-];
+] as const;
 
 const rewardCategoriesConfig = [
-  { titleKey: 'rewardCat1', itemKeys: ['rewardCat1Item1', 'rewardCat1Item2', 'rewardCat1Item3', 'rewardCat1Item4'] },
-  { titleKey: 'rewardCat2', itemKeys: ['rewardCat2Item1', 'rewardCat2Item2', 'rewardCat2Item3', 'rewardCat2Item4'] },
-  { titleKey: 'rewardCat3', itemKeys: ['rewardCat3Item1', 'rewardCat3Item2', 'rewardCat3Item3', 'rewardCat3Item4'] },
-];
+  { titleKey: 'rewardCat1', itemKeys: ['rewardCat1Item1', 'rewardCat1Item2', 'rewardCat1Item3', 'rewardCat1Item4'] as const },
+  { titleKey: 'rewardCat2', itemKeys: ['rewardCat2Item1', 'rewardCat2Item2', 'rewardCat2Item3', 'rewardCat2Item4'] as const },
+  { titleKey: 'rewardCat3', itemKeys: ['rewardCat3Item1', 'rewardCat3Item2', 'rewardCat3Item3', 'rewardCat3Item4'] as const },
+] as const;
 
 const dataRightsConfig = [
   { icon: Lock, titleKey: 'right1Title', descKey: 'right1Desc' },
   { icon: Shield, titleKey: 'right2Title', descKey: 'right2Desc' },
   { icon: Share2, titleKey: 'right3Title', descKey: 'right3Desc' },
   { icon: Gift, titleKey: 'right4Title', descKey: 'right4Desc' },
-];
+] as const;
 
 const ecosystemFlowConfig = [
   { step: 1, titleKey: 'flow1Title', descKey: 'flow1Desc', icon: Shield },
   { step: 2, titleKey: 'flow2Title', descKey: 'flow2Desc', icon: Lock },
   { step: 3, titleKey: 'flow3Title', descKey: 'flow3Desc', icon: Database },
   { step: 4, titleKey: 'flow4Title', descKey: 'flow4Desc', icon: Gift },
-];
+] as const;
 
 // ========== Hero 区块 ==========
 function HeroSection() {

@@ -87,7 +87,7 @@ const companyHighlightsConfig = [
   { icon: Globe, titleKey: 'highlight2Title', descKey: 'highlight2Desc' },
   { icon: Users, titleKey: 'highlight3Title', descKey: 'highlight3Desc' },
   { icon: Award, titleKey: 'highlight4Title', descKey: 'highlight4Desc' },
-];
+] as const;
 
 const timelineConfig = [
   { year: '2021', eventKey: 'timeline2021' },
@@ -95,20 +95,20 @@ const timelineConfig = [
   { year: '2023', eventKey: 'timeline2023' },
   { year: '2024', eventKey: 'timeline2024' },
   { year: '2025', eventKey: 'timeline2025' },
-];
+] as const;
 
 const newsConfig = [
   { date: '2025-01-15', categoryKey: 'newsCat1', titleKey: 'news1Title' },
   { date: '2025-01-08', categoryKey: 'newsCat2', titleKey: 'news2Title' },
   { date: '2024-12-20', categoryKey: 'newsCat3', titleKey: 'news3Title' },
   { date: '2024-12-05', categoryKey: 'newsCat4', titleKey: 'news4Title' },
-];
+] as const;
 
 const officesConfig = [
   { cityKey: 'office1City', addressKey: 'office1Address', phone: '+65 6123 4567' },
   { cityKey: 'office2City', addressKey: 'office2Address', phone: '+852 1234 5678' },
   { cityKey: 'office3City', addressKey: 'office3Address', phone: '+86 755 1234 5678' },
-];
+] as const;
 
 // ========== Hero 区块 ==========
 function HeroSection() {
