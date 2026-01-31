@@ -5,15 +5,13 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   OrbitControls, 
   useGLTF, 
-  Environment, 
-  ContactShadows,
   Html,
   useProgress,
   Center,
-  Bounds,
-  useBounds
+  Bounds
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { PMREMGenerator, Scene, MeshBasicMaterial, Mesh, SphereGeometry } from 'three';
 import { motion } from 'framer-motion';
 
 // 加载进度显示组件
@@ -41,6 +39,54 @@ function Loader() {
   );
 }
 
+// 生成程序化环境贴图
+function useProceduralEnvMap() {
+  const { gl } = useThree();
+  
+  const envMap = useMemo(() => {
+    const pmremGenerator = new PMREMGenerator(gl);
+    pmremGenerator.compileEquirectangularShader();
+    
+    const envScene = new Scene();
+    
+    // 创建渐变天空球
+    const geometry = new SphereGeometry(50, 32, 32);
+    const material = new MeshBasicMaterial({ side: THREE.BackSide });
+    
+    const colors = [];
+    const positions = geometry.attributes.position;
+    for (let i = 0; i < positions.count; i++) {
+      const y = positions.getY(i);
+      const normalizedY = (y + 50) / 100;
+      const gray = 0.15 + normalizedY * 0.25;
+      colors.push(gray, gray, gray);
+    }
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    material.vertexColors = true;
+    
+    const skyMesh = new Mesh(geometry, material);
+    envScene.add(skyMesh);
+    
+    // 添加亮点模拟光源
+    const lightGeom = new SphereGeometry(2, 16, 16);
+    const lightMat = new MeshBasicMaterial({ color: 0xffffff });
+    const light1 = new Mesh(lightGeom, lightMat);
+    light1.position.set(20, 30, 20);
+    envScene.add(light1);
+    
+    const light2 = new Mesh(lightGeom.clone(), new MeshBasicMaterial({ color: 0xcccccc }));
+    light2.position.set(-20, 15, 10);
+    envScene.add(light2);
+    
+    const envMapTexture = pmremGenerator.fromScene(envScene, 0.04).texture;
+    pmremGenerator.dispose();
+    
+    return envMapTexture;
+  }, [gl]);
+  
+  return envMap;
+}
+
 // 3D模型组件
 interface ModelProps {
   url: string;
@@ -58,22 +104,31 @@ const Model = memo(function Model({
   const groupRef = useRef<THREE.Group>(null);
   const { scene } = useGLTF(url);
   const [isDragging, setIsDragging] = useState(false);
+  const envMap = useProceduralEnvMap();
   
   // 使用 useMemo 来克隆场景，只在 scene 变化时重新克隆
   const clonedScene = useMemo(() => {
     const cloned = scene.clone();
-    // 优化材质以提高性能
     cloned.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        // 启用视锥体剔除
+        mesh.castShadow = false;
+        mesh.receiveShadow = false;
         mesh.frustumCulled = true;
+        
+        // 设置材质使用程序化环境贴图
+        if (mesh.material) {
+          const mat = mesh.material as THREE.MeshStandardMaterial;
+          if (mat.isMeshStandardMaterial) {
+            mat.envMap = envMap;
+            mat.envMapIntensity = 0.8;
+            mat.needsUpdate = true;
+          }
+        }
       }
     });
     return cloned;
-  }, [scene]);
+  }, [scene, envMap]);
   
   // 计算模型边界框并居中
   useEffect(() => {
@@ -118,37 +173,26 @@ const Model = memo(function Model({
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        intensity={1}
-        castShadow
-        shadow-mapSize={[512, 512]}
-      />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#06B6D4" />
-      <pointLight position={[10, -5, 5]} intensity={0.3} color="#667eea" />
+      <ambientLight intensity={0.6} />
+      <hemisphereLight intensity={0.5} color="#ffffff" groundColor="#333333" />
+      <directionalLight position={[5, 5, 5]} intensity={0.8} />
+      <directionalLight position={[-5, 3, 2]} intensity={0.4} />
     </>
   );
 }
 
 // 自适应像素比和性能优化
 function PerformanceOptimizer() {
-  const { gl, size } = useThree();
+  const { gl } = useThree();
   
   useEffect(() => {
-    // 根据设备性能和屏幕尺寸调整像素比
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
     gl.setPixelRatio(pixelRatio);
-    
-    // 优化渲染器设置
-    gl.shadowMap.enabled = true;
-    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    gl.shadowMap.enabled = false;
     gl.outputColorSpace = THREE.SRGBColorSpace;
     gl.toneMapping = THREE.ACESFilmicToneMapping;
     gl.toneMappingExposure = 1;
-  }, [gl, size]);
+  }, [gl]);
   
   return null;
 }
@@ -244,18 +288,6 @@ export default function Model3DViewer({
               />
             </Center>
           </Bounds>
-          
-          {/* 环境光照 - 使用较轻量级的preset */}
-          <Environment preset="apartment" />
-          
-          {/* 接触阴影 */}
-          <ContactShadows
-            position={[0, -1.5, 0]}
-            opacity={0.4}
-            scale={10}
-            blur={2}
-            far={4}
-          />
         </Suspense>
         
         {/* 轨道控制器 */}

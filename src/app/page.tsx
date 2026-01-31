@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef, lazy, Suspense, ReactNode } from 'react';
+import { useRef, lazy, Suspense, ReactNode, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import Button from '@/components/ui/Button';
+import VideoModal from '@/components/ui/VideoModal';
 import { useI18n } from '@/lib/i18n';
 import { ArrowRight, Play, Sparkles, Zap, Box, Cpu, Coins, Heart, Brain, Shield, Activity, Moon } from 'lucide-react';
 
@@ -39,7 +40,7 @@ const fadeInUp = {
     transition: {
       duration: 0.8,
       delay,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
     },
   }),
 };
@@ -52,7 +53,7 @@ const scaleIn = {
     transition: {
       duration: 1,
       delay,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
     },
   }),
 };
@@ -236,6 +237,10 @@ function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const { t } = useI18n();
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  
+  // 视频 URL
+  const videoUrl = 'https://public-read-1252768970.cos.ap-guangzhou.myqcloud.com/1%E6%9C%8831%E6%97%A5-%E5%8D%A1%E7%82%B9.mp4';
   
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -322,7 +327,13 @@ function HeroSection() {
               <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
                 {t('home', 'tryNow')}
               </Button>
-              <Button variant="secondary" size="lg" icon={<Play className="w-5 h-5" />} iconPosition="left">
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                icon={<Play className="w-5 h-5" />} 
+                iconPosition="left"
+                onClick={() => setIsVideoOpen(true)}
+              >
                 {t('home', 'watchDemo')}
               </Button>
             </motion.div>
@@ -358,8 +369,6 @@ function HeroSection() {
             className="flex-shrink-0 w-full lg:w-[450px] xl:w-[500px]"
           >
             <div className="relative w-full max-w-[400px] lg:max-w-[450px] mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#7C3AED]/10 to-[#06B6D4]/10 rounded-full blur-[100px] opacity-30" />
-              
               <div className="relative w-full pb-[120%]">
                 <div className="absolute inset-0">
                   <Suspense fallback={<SceneFallback />}>
@@ -435,6 +444,14 @@ function HeroSection() {
           <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
       </motion.div>
+
+      {/* 视频弹窗 */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoUrl={videoUrl}
+        title="Orbiva 产品演示"
+      />
     </div>
   );
 }

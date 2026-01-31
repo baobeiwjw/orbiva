@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, lazy, Suspense } from 'react';
+import { useRef, lazy, Suspense, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import GradientText from '@/components/ui/GradientText';
+import VideoModal from '@/components/ui/VideoModal';
 import { ArrowRight, Play, Sparkles, Zap } from 'lucide-react';
 
 // 懒加载3D场景组件
@@ -41,7 +42,7 @@ const fadeInUp = {
     transition: {
       duration: 0.8,
       delay,
-      ease: [0.25, 0.4, 0.25, 1],
+      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
     },
   }),
 };
@@ -54,17 +55,22 @@ const scaleIn = {
     transition: {
       duration: 1,
       delay,
-      ease: [0.25, 0.4, 0.25, 1],
+      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
     },
   }),
 };
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
+
+  // 视频 URL
+  const videoUrl = 'https://public-read-1252768970.cos.ap-guangzhou.myqcloud.com/1%E6%9C%8831%E6%97%A5-%E5%8D%A1%E7%82%B9.mp4';
 
   // 视差和淡出效果
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
@@ -193,6 +199,7 @@ export default function HeroSection() {
                 size="lg"
                 icon={<Play className="w-5 h-5" />}
                 iconPosition="left"
+                onClick={() => setIsVideoOpen(true)}
               >
                 观看演示
               </Button>
@@ -315,6 +322,14 @@ export default function HeroSection() {
           <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
       </motion.div>
+
+      {/* 视频弹窗 */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoUrl={videoUrl}
+        title="Orbiva 产品演示"
+      />
     </section>
   );
 }

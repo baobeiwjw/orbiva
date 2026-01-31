@@ -5,20 +5,12 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   OrbitControls, 
   useGLTF, 
-  Environment, 
-  ContactShadows,
   Html,
-  useProgress,
-  Center,
-  MeshTransmissionMaterial,
-  Lightformer,
-  AccumulativeShadows,
-  RandomizedLight,
-  SpotLight,
-  useDepthBuffer
+  useProgress
 } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PMREMGenerator, Scene, Color, MeshBasicMaterial, Mesh, SphereGeometry } from 'three';
 
 // 加载进度显示组件 - CUDIS 风格
 function Loader() {
@@ -69,6 +61,60 @@ function Loader() {
   );
 }
 
+// 生成程序化环境贴图（避免远程加载 CORS 问题）
+function useProceduralEnvMap() {
+  const { gl } = useThree();
+  
+  const envMap = useMemo(() => {
+    const pmremGenerator = new PMREMGenerator(gl);
+    pmremGenerator.compileEquirectangularShader();
+    
+    // 创建一个简单的渐变环境场景
+    const envScene = new Scene();
+    
+    // 创建一个渐变天空球
+    const geometry = new SphereGeometry(50, 32, 32);
+    const material = new MeshBasicMaterial({
+      side: THREE.BackSide,
+    });
+    
+    // 使用顶点颜色创建渐变
+    const colors = [];
+    const positions = geometry.attributes.position;
+    for (let i = 0; i < positions.count; i++) {
+      const y = positions.getY(i);
+      const normalizedY = (y + 50) / 100; // 0 到 1
+      // 从深灰到浅灰的渐变
+      const gray = 0.15 + normalizedY * 0.25;
+      colors.push(gray, gray, gray);
+    }
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    material.vertexColors = true;
+    
+    const skyMesh = new Mesh(geometry, material);
+    envScene.add(skyMesh);
+    
+    // 添加一些亮点模拟光源
+    const lightGeom = new SphereGeometry(2, 16, 16);
+    const lightMat = new MeshBasicMaterial({ color: 0xffffff });
+    const light1 = new Mesh(lightGeom, lightMat);
+    light1.position.set(20, 30, 20);
+    envScene.add(light1);
+    
+    const light2 = new Mesh(lightGeom.clone(), new MeshBasicMaterial({ color: 0xcccccc }));
+    light2.position.set(-20, 15, 10);
+    envScene.add(light2);
+    
+    // 生成环境贴图
+    const envMapTexture = pmremGenerator.fromScene(envScene, 0.04).texture;
+    pmremGenerator.dispose();
+    
+    return envMapTexture;
+  }, [gl]);
+  
+  return envMap;
+}
+
 // 3D产品模型组件
 interface ProductModelProps {
   url: string;
@@ -86,6 +132,7 @@ const ProductModel = memo(function ProductModel({
   const groupRef = useRef<THREE.Group>(null);
   const { scene } = useGLTF(url);
   const [localDragging, setLocalDragging] = useState(false);
+  const envMap = useProceduralEnvMap();
   
   // 使用 useMemo 来克隆场景
   const clonedScene = useMemo(() => {
@@ -93,22 +140,23 @@ const ProductModel = memo(function ProductModel({
     cloned.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
+        mesh.castShadow = false;
+        mesh.receiveShadow = false;
         mesh.frustumCulled = true;
         
-        // 增强材质效果
+        // 设置材质使用程序化环境贴图
         if (mesh.material) {
           const mat = mesh.material as THREE.MeshStandardMaterial;
           if (mat.isMeshStandardMaterial) {
-            mat.envMapIntensity = 1.5;
-            mat.roughness = Math.max(0.1, mat.roughness);
+            mat.envMap = envMap;
+            mat.envMapIntensity = 0.8;
+            mat.needsUpdate = true;
           }
         }
       }
     });
     return cloned;
-  }, [scene]);
+  }, [scene, envMap]);
   
   // 计算模型边界框并居中 - 确保模型中心对准原点
   useEffect(() => {
@@ -164,91 +212,38 @@ const ProductModel = memo(function ProductModel({
   );
 });
 
-// 高级灯光配置 - CUDIS 风格
+// 简洁灯光配置 - 无阴影，避免色块
 function StudioLights() {
   return (
     <>
-      {/* 主环境光 */}
-      <ambientLight intensity={0.2} />
+      {/* 环境光 */}
+      <ambientLight intensity={0.8} />
       
-      {/* 主光源 - 从上方照射 */}
-      <spotLight
-        position={[0, 10, 5]}
-        angle={0.3}
-        penumbra={1}
-        intensity={2}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-bias={-0.0001}
-      />
-      
-      {/* 补光 - 青色调 */}
-      <pointLight 
-        position={[-5, 2, -5]} 
-        intensity={0.5} 
-        color="#06B6D4" 
-      />
-      
-      {/* 补光 - 绿色调 */}
-      <pointLight 
-        position={[5, -2, 5]} 
-        intensity={0.3} 
-        color="#7C3AED" 
-      />
-      
-      {/* 轮廓光 */}
-      <pointLight 
-        position={[0, -5, 0]} 
-        intensity={0.2} 
+      {/* 半球光 - 模拟天空环境 */}
+      <hemisphereLight 
+        intensity={0.6} 
         color="#ffffff" 
+        groundColor="#333333" 
       />
       
-      {/* 顶部柔光 */}
-      <rectAreaLight
-        width={10}
-        height={10}
-        position={[0, 5, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
+      {/* 主光源 */}
+      <directionalLight
+        position={[5, 5, 5]}
         intensity={1}
       />
-    </>
-  );
-}
-
-// 背景元素 - 椭圆形装饰
-function BackgroundElements() {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.1) * 0.02;
-    }
-  });
-  
-  return (
-    <group ref={groupRef} position={[0, 0, -5]}>
-      {/* 大椭圆 */}
-      <mesh>
-        <ringGeometry args={[4.8, 5, 64]} />
-        <meshBasicMaterial 
-          color="#ffffff" 
-          transparent 
-          opacity={0.03} 
-          side={THREE.DoubleSide}
-        />
-      </mesh>
       
-      {/* 中椭圆 */}
-      <mesh scale={[1.2, 0.8, 1]}>
-        <ringGeometry args={[3.8, 3.85, 64]} />
-        <meshBasicMaterial 
-          color="#06B6D4" 
-          transparent 
-          opacity={0.05} 
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </group>
+      {/* 补光 */}
+      <directionalLight 
+        position={[-5, 3, 2]} 
+        intensity={0.5} 
+      />
+      
+      {/* 背光 */}
+      <directionalLight 
+        position={[0, 2, -5]} 
+        intensity={0.3} 
+      />
+    </>
   );
 }
 
@@ -259,11 +254,10 @@ function PerformanceOptimizer() {
   useEffect(() => {
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
     gl.setPixelRatio(pixelRatio);
-    gl.shadowMap.enabled = true;
-    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    gl.shadowMap.enabled = false; // 禁用阴影
     gl.outputColorSpace = THREE.SRGBColorSpace;
     gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.toneMappingExposure = 1.2;
+    gl.toneMappingExposure = 1.0;
   }, [gl]);
   
   return null;
@@ -371,19 +365,6 @@ export default function ProductScene({
             autoRotate={autoRotate && !isDragging}
             rotateSpeed={rotateSpeed}
             setIsDragging={setIsDragging}
-          />
-          
-          {/* 高质量环境贴图 */}
-          <Environment resolution={256} preset="studio" />
-          
-          {/* 地面阴影 */}
-          <ContactShadows
-            position={[0, -1.8, 0]}
-            opacity={0.5}
-            scale={8}
-            blur={2.5}
-            far={4}
-            color="#000000"
           />
         </Suspense>
         
