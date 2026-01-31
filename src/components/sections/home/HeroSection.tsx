@@ -1,11 +1,33 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, lazy, Suspense } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import GradientText from '@/components/ui/GradientText';
 import { ArrowRight, Play, Sparkles, Zap } from 'lucide-react';
+
+// 懒加载3D组件以优化首屏性能
+const Model3DViewer = lazy(() => import('@/components/3d/Model3DViewer'));
+
+// 3D模型加载占位组件
+function Model3DFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative w-24 h-24">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-secondary rounded-xl blur-xl opacity-50 animate-pulse" />
+        <div className="relative w-full h-full rounded-xl bg-background-secondary border border-border flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+          >
+            <Sparkles className="w-8 h-8 text-accent" />
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -111,42 +133,27 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="relative"
         >
-          {/* Floating VivaBox Mockup */}
-          <div className="relative mx-auto w-72 h-72 sm:w-96 sm:h-96">
+          {/* 3D Model Container */}
+          <div className="relative mx-auto w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px]">
             {/* Glow Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent-secondary rounded-3xl blur-2xl opacity-30 animate-pulse-glow" />
             
-            {/* Main Device */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative w-full h-full rounded-3xl bg-gradient-to-br from-background-secondary to-background-tertiary border border-border overflow-hidden"
-            >
-              {/* Device Screen Content */}
-              <div className="absolute inset-4 rounded-2xl bg-background flex flex-col items-center justify-center">
-                {/* Orbiva Logo */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  className="w-16 h-16 mb-4 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center"
-                >
-                  <Sparkles className="w-8 h-8 text-white" />
-                </motion.div>
-                <span className="text-foreground font-bold text-lg">VivaBox</span>
-                <span className="text-foreground-muted text-sm mt-1">智能健康小方块</span>
-                
-                {/* Health Indicator */}
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-secondary/10 border border-accent-secondary/20">
-                    <div className="w-2 h-2 rounded-full bg-accent-secondary animate-pulse" />
-                    <span className="text-accent-secondary text-xs font-medium">健康状态良好</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Corner Accents */}
-              <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-accent animate-pulse" />
-            </motion.div>
+            {/* 3D Model Viewer */}
+            <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-background-secondary/80 to-background-tertiary/80 border border-border/50 overflow-hidden backdrop-blur-sm">
+              <Suspense fallback={<Model3DFallback />}>
+                <Model3DViewer
+                  modelUrl="/cube.glb"
+                  className="w-full h-full"
+                  autoRotate={true}
+                  rotateSpeed={0.3}
+                  enableZoom={true}
+                  enablePan={false}
+                  minDistance={3}
+                  maxDistance={8}
+                  cameraPosition={[0, 0, 5]}
+                />
+              </Suspense>
+            </div>
 
             {/* Floating Elements */}
             <motion.div
