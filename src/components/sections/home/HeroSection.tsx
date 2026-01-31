@@ -162,8 +162,8 @@ export default function HeroSection() {
               custom={0.15}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight"
             >
-              <span className="block text-white/90">智能</span>
-              <GradientText className="block">健康小方块</GradientText>
+              <span className="block text-white/90">AI驱动的</span>
+              <GradientText className="block">数字孪生健康生态</GradientText>
             </motion.h1>
 
             {/* Subtitle */}

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Button from '@/components/ui/Button';
+import { useI18n } from '@/lib/i18n';
 import {
   Building2,
   Globe,
@@ -81,38 +82,39 @@ function ScrollSectionWrapper({
 }
 
 // ========== 数据 ==========
-const companyHighlights = [
-  { icon: Building2, title: '香港主板上市', description: '母公司为香港主板上市公司' },
-  { icon: Globe, title: '全球化布局', description: '总部新加坡，研发中心遍布亚洲' },
-  { icon: Users, title: '专业团队', description: '核心团队来自顶级科技公司' },
-  { icon: Award, title: '权威认证', description: 'ISO 27001、GDPR 合规' },
+const companyHighlightsConfig = [
+  { icon: Building2, titleKey: 'highlight1Title', descKey: 'highlight1Desc' },
+  { icon: Globe, titleKey: 'highlight2Title', descKey: 'highlight2Desc' },
+  { icon: Users, titleKey: 'highlight3Title', descKey: 'highlight3Desc' },
+  { icon: Award, titleKey: 'highlight4Title', descKey: 'highlight4Desc' },
 ];
 
-const timeline = [
-  { year: '2021', event: '公司成立，完成天使轮融资' },
-  { year: '2022', event: '与新加坡南洋理工大学建立战略合作' },
-  { year: '2023', event: 'VivaBox 1.0 发布，完成 A 轮融资' },
-  { year: '2024', event: '用户突破 10 万，开启生态权益计划' },
-  { year: '2025', event: 'VivaBox 2.0 发布，全球化扩张启动' },
+const timelineConfig = [
+  { year: '2021', eventKey: 'timeline2021' },
+  { year: '2022', eventKey: 'timeline2022' },
+  { year: '2023', eventKey: 'timeline2023' },
+  { year: '2024', eventKey: 'timeline2024' },
+  { year: '2025', eventKey: 'timeline2025' },
 ];
 
-const news = [
-  { date: '2025-01-15', category: '融资动态', title: 'Orbiva 完成 B 轮融资，估值突破 5 亿美元' },
-  { date: '2025-01-08', category: '产品发布', title: 'VivaBox 2.0 正式发布，AI 健康预测准确率提升至 89%' },
-  { date: '2024-12-20', category: '战略合作', title: 'Orbiva 与新加坡国立医院达成战略合作' },
-  { date: '2024-12-05', category: '行业荣誉', title: 'Orbiva 荣获 2024 年度最具创新力健康科技企业' },
+const newsConfig = [
+  { date: '2025-01-15', categoryKey: 'newsCat1', titleKey: 'news1Title' },
+  { date: '2025-01-08', categoryKey: 'newsCat2', titleKey: 'news2Title' },
+  { date: '2024-12-20', categoryKey: 'newsCat3', titleKey: 'news3Title' },
+  { date: '2024-12-05', categoryKey: 'newsCat4', titleKey: 'news4Title' },
 ];
 
-const offices = [
-  { city: '新加坡（总部）', address: '1 Raffles Place, Tower 2', phone: '+65 6123 4567' },
-  { city: '香港', address: '中环德辅道中 88 号', phone: '+852 1234 5678' },
-  { city: '深圳', address: '南山区科技园南区', phone: '+86 755 1234 5678' },
+const officesConfig = [
+  { cityKey: 'office1City', addressKey: 'office1Address', phone: '+65 6123 4567' },
+  { cityKey: 'office2City', addressKey: 'office2Address', phone: '+852 1234 5678' },
+  { cityKey: 'office3City', addressKey: 'office3Address', phone: '+86 755 1234 5678' },
 ];
 
 // ========== Hero 区块 ==========
 function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -147,7 +149,7 @@ function HeroSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/60 text-sm mb-6">
             <Building2 className="w-4 h-4 text-[#EC4899]" />
-            关于 Orbiva
+            {t('about', 'heroTag')}
           </span>
 
           <motion.h1
@@ -157,10 +159,10 @@ function HeroSection() {
             custom={0.2}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
-            我们是谁，
+            {t('about', 'heroTitle1')}
             <br />
             <span className="bg-gradient-to-r from-[#EC4899] to-[#a78bfa] bg-clip-text text-transparent">
-              怎么找我们
+              {t('about', 'heroTitle2')}
             </span>
           </motion.h1>
 
@@ -171,8 +173,7 @@ function HeroSection() {
             custom={0.35}
             className="text-lg sm:text-xl text-white/40 max-w-2xl"
           >
-            Orbiva 是香港主板上市集团旗下的数字健康科技品牌，
-            致力于通过 AI 和数字孪生技术，让每个人都能享受专业级健康管理服务。
+            {t('about', 'heroSubtitle')}
           </motion.p>
         </motion.div>
       </div>
@@ -201,6 +202,7 @@ function HeroSection() {
 function HighlightsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -211,9 +213,9 @@ function HighlightsSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Bento Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {companyHighlights.map((item, index) => (
+          {companyHighlightsConfig.map((item, index) => (
             <motion.div
-              key={item.title}
+              key={item.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -223,8 +225,8 @@ function HighlightsSection() {
               <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#EC4899] to-[#a78bfa] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <item.icon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-              <p className="text-sm text-white/40">{item.description}</p>
+              <h3 className="text-lg font-bold text-white mb-2">{t('about', item.titleKey)}</h3>
+              <p className="text-sm text-white/40">{t('about', item.descKey)}</p>
             </motion.div>
           ))}
         </div>
@@ -237,6 +239,7 @@ function HighlightsSection() {
 function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -253,14 +256,11 @@ function TimelineSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <Calendar className="w-4 h-4 text-[#7C3AED]" />
-            发展历程
+            {t('about', 'timelineTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            我们的
-            <span className="bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] bg-clip-text text-transparent">
-              成长之路
-            </span>
+            {t('about', 'timelineTitle')}
           </h2>
         </motion.div>
 
@@ -269,7 +269,7 @@ function TimelineSection() {
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-white/[0.1] md:-translate-x-1/2" />
 
           <div className="space-y-12">
-            {timeline.map((item, index) => (
+            {timelineConfig.map((item, index) => (
               <motion.div
                 key={item.year}
                 initial={{ opacity: 0, y: 40 }}
@@ -287,7 +287,7 @@ function TimelineSection() {
                   index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'
                 }`}>
                   <span className="text-[#7C3AED] font-bold text-3xl">{item.year}</span>
-                  <p className="text-white/50 mt-2">{item.event}</p>
+                  <p className="text-white/50 mt-2">{t('about', item.eventKey)}</p>
                 </div>
               </motion.div>
             ))}
@@ -302,6 +302,7 @@ function TimelineSection() {
 function WhitepaperSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -319,26 +320,22 @@ function WhitepaperSection() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
               <FileText className="w-4 h-4 text-[#06B6D4]" />
-              官方白皮书
+              {t('about', 'whitepaperTag')}
             </span>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              深入了解
-              <span className="bg-gradient-to-r from-[#06B6D4] to-[#7C3AED] bg-clip-text text-transparent">
-                Orbiva 生态
-              </span>
+              {t('about', 'whitepaperTitle')}
             </h2>
             
             <p className="text-white/40 mb-8 text-lg">
-              下载我们的白皮书，深入了解 Orbiva 的技术架构、商业模式、
-              生态价值逻辑以及未来发展规划。
+              {t('about', 'whitepaperDesc')}
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Button variant="primary" icon={<Download className="w-4 h-4" />}>
-                下载白皮书 (PDF)
+                {t('about', 'downloadPdf')}
               </Button>
-              <Button variant="secondary">在线阅读</Button>
+              <Button variant="secondary">{t('about', 'readOnline')}</Button>
             </div>
           </motion.div>
 
@@ -354,16 +351,16 @@ function WhitepaperSection() {
                   <FileText className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white">Orbiva 生态白皮书 2025</h3>
-                  <p className="text-sm text-white/40">v2.0 | 68 页 | 15.2 MB</p>
+                  <h3 className="font-bold text-white">{t('about', 'whitepaperName')}</h3>
+                  <p className="text-sm text-white/40">{t('about', 'whitepaperInfo')}</p>
                 </div>
               </div>
               
               <div className="space-y-3 text-sm text-white/50">
-                {['技术架构与核心算法详解', '数字孪生健康模型原理', '生态激励机制设计', '商业化路径与发展规划'].map((item) => (
-                  <div key={item} className="flex items-center gap-2">
+                {['whitepaperContent1', 'whitepaperContent2', 'whitepaperContent3', 'whitepaperContent4'].map((key) => (
+                  <div key={key} className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
-                    <span>{item}</span>
+                    <span>{t('about', key)}</span>
                   </div>
                 ))}
               </div>
@@ -379,6 +376,7 @@ function WhitepaperSection() {
 function NewsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -395,22 +393,19 @@ function NewsSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <Newspaper className="w-4 h-4 text-[#3b82f6]" />
-            新闻动态
+            {t('about', 'newsTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            最新
-            <span className="bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] bg-clip-text text-transparent">
-              公司资讯
-            </span>
+            {t('about', 'newsTitle')}
           </h2>
         </motion.div>
 
         {/* News Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {news.map((item, index) => (
+          {newsConfig.map((item, index) => (
             <motion.div
-              key={item.title}
+              key={item.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -422,14 +417,14 @@ function NewsSection() {
                   {item.date}
                 </span>
                 <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] text-xs">
-                  {item.category}
+                  {t('about', item.categoryKey)}
                 </span>
               </div>
               <h3 className="text-lg font-bold text-white group-hover:text-[#3b82f6] transition-colors">
-                {item.title}
+                {t('about', item.titleKey)}
               </h3>
               <div className="flex items-center text-[#3b82f6] text-sm font-medium mt-4">
-                <span>阅读全文</span>
+                <span>{t('about', 'readMore')}</span>
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
             </motion.div>
@@ -438,7 +433,7 @@ function NewsSection() {
 
         <div className="text-center">
           <Button variant="secondary" icon={<Newspaper className="w-4 h-4" />}>
-            查看更多新闻
+            {t('about', 'viewMoreNews')}
           </Button>
         </div>
       </div>
@@ -450,6 +445,7 @@ function NewsSection() {
 function ContactSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -466,22 +462,22 @@ function ContactSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <MapPin className="w-4 h-4 text-[#EC4899]" />
-            联系我们
+            {t('about', 'contactTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            全球
+            {t('about', 'contactTitle1')}
             <span className="bg-gradient-to-r from-[#EC4899] to-[#a78bfa] bg-clip-text text-transparent">
-              办公网络
+              {t('about', 'contactTitle2')}
             </span>
           </h2>
         </motion.div>
 
         {/* Offices Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {offices.map((office, index) => (
+          {officesConfig.map((office, index) => (
             <motion.div
-              key={office.city}
+              key={office.cityKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -491,9 +487,9 @@ function ContactSection() {
                 <div className="w-10 h-10 rounded-xl bg-[#EC4899]/10 flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-[#EC4899]" />
                 </div>
-                <h3 className="font-bold text-white">{office.city}</h3>
+                <h3 className="font-bold text-white">{t('about', office.cityKey)}</h3>
               </div>
-              <p className="text-sm text-white/40 mb-4">{office.address}</p>
+              <p className="text-sm text-white/40 mb-4">{t('about', office.addressKey)}</p>
               <div className="flex items-center gap-2 text-sm text-white/40">
                 <Phone className="w-4 h-4 text-[#EC4899]" />
                 <span>{office.phone}</span>
@@ -509,15 +505,15 @@ function ContactSection() {
           transition={{ delay: 0.5 }}
           className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] text-center max-w-2xl mx-auto"
         >
-          <h3 className="text-xl font-bold text-white mb-2">商务合作咨询</h3>
+          <h3 className="text-xl font-bold text-white mb-2">{t('about', 'businessInquiry')}</h3>
           <p className="text-white/40 mb-6">
-            如果您对我们的产品或合作机会感兴趣，欢迎联系我们的商务团队
+            {t('about', 'businessInquiryDesc')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="primary" icon={<Mail className="w-4 h-4" />} iconPosition="left">
-              发送邮件
+              {t('about', 'sendEmail')}
             </Button>
-            <Button variant="secondary">预约会议</Button>
+            <Button variant="secondary">{t('about', 'bookMeeting')}</Button>
           </div>
         </motion.div>
       </div>

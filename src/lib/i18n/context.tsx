@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { Locale, translations, getTranslation } from './translations';
 
 interface I18nContextType {
@@ -37,31 +37,26 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     setMounted(true);
   }, []);
 
-  const setLocale = (newLocale: Locale) => {
+  const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
     localStorage.setItem(LOCALE_STORAGE_KEY, newLocale);
     // 更新 HTML lang 属性
     document.documentElement.lang = newLocale === 'zh-TW' ? 'zh-TW' : newLocale === 'en' ? 'en' : 'zh-CN';
-  };
+  }, []);
 
+  // 当前使用的 locale（mounted 前使用默认值避免 hydration 问题）
+  const currentLocale = mounted ? locale : 'zh-CN';
+
+  // 翻译函数直接使用 currentLocale
   const t = <S extends keyof typeof translations>(
     section: S,
     key: keyof typeof translations[S]['zh-CN']
   ): string => {
-    return getTranslation(section, key, locale);
+    return getTranslation(section, key, currentLocale);
   };
 
-  // 避免服务端渲染时的 hydration 不匹配
-  if (!mounted) {
-    return (
-      <I18nContext.Provider value={{ locale: 'zh-CN', setLocale, t }}>
-        {children}
-      </I18nContext.Provider>
-    );
-  }
-
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t }}>
+    <I18nContext.Provider value={{ locale: currentLocale, setLocale, t }}>
       {children}
     </I18nContext.Provider>
   );

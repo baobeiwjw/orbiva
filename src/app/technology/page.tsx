@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Button from '@/components/ui/Button';
+import { useI18n } from '@/lib/i18n';
 import {
   Cpu,
   Shield,
@@ -83,62 +84,18 @@ function ScrollSectionWrapper({
 }
 
 // ========== 数据 ==========
-const techPillars = [
-  {
-    icon: Brain,
-    title: '数字寿命镜像',
-    description: '通过持续采集多维度健康数据，在云端构建您的"数字分身"',
-    details: ['多模态传感器数据融合', '深度学习健康预测模型', '个性化健康画像构建', '14-30天健康趋势预测'],
-    color: 'from-[#EC4899] to-[#a78bfa]',
-  },
-  {
-    icon: Shield,
-    title: '边缘计算隐私保护',
-    description: '核心敏感数据在本地设备处理，原始数据不出家门',
-    details: ['端侧 AI 推理引擎', '数据本地加密存储', '差分隐私技术应用', '零知识证明验证'],
-    color: 'from-[#06B6D4] to-[#7C3AED]',
-  },
-  {
-    icon: GraduationCap,
-    title: '学术合作背书',
-    description: '与新加坡南洋理工大学深度合作，AI 算法经过权威学术验证',
-    details: ['NTU AI 算法联合研发', '医学院临床验证支持', '安全实验室审计认证', '学术论文联合发表'],
-    color: 'from-[#3b82f6] to-[#06b6d4]',
-  },
-];
-
-const privacyFeatures = [
-  { icon: Laptop, title: '边缘计算', description: '敏感数据在本地设备处理，AI 推理不依赖云端' },
-  { icon: Lock, title: '端到端加密', description: 'AES-256 加密传输，传输过程中无法被窃取' },
-  { icon: Database, title: '数据脱敏', description: '上传云端的数据经过脱敏处理，无法关联个人' },
-  { icon: Eye, title: '透明可控', description: '用户完全掌控数据权限，随时可查看或删除' },
-];
-
 const certifications = [
-  { name: 'ISO 27001', description: '信息安全管理体系' },
-  { name: 'GDPR', description: '欧盟数据保护合规' },
-  { name: 'SOC 2', description: '服务组织控制报告' },
-  { name: 'HIPAA', description: '健康信息保护合规' },
-];
-
-const architectureLayers = [
-  { layer: '感知层', icon: Wifi, description: 'VivaBox 及 HomeCare 设备采集多维度健康数据', color: 'from-[#7C3AED] to-[#06B6D4]' },
-  { layer: '边缘计算层', icon: Cpu, description: '本地设备完成敏感数据处理和 AI 推理', color: 'from-[#06B6D4] to-[#06b6d4]' },
-  { layer: '传输层', icon: Lock, description: '脱敏数据通过端到端加密通道传输', color: 'from-[#06b6d4] to-[#EC4899]' },
-  { layer: '云端服务层', icon: Cloud, description: '聚合分析、模型训练、生态服务', color: 'from-[#EC4899] to-[#a78bfa]' },
-];
-
-const ntuHighlights = [
-  { icon: Brain, title: 'AI 算法研发', description: '联合开发健康预测深度学习模型，准确率达到 89%' },
-  { icon: Shield, title: '安全架构审计', description: 'NTU 网络安全实验室对系统架构进行全面安全评估' },
-  { icon: FileCheck, title: '临床验证', description: '与 NTU 医学院合作进行产品临床验证研究' },
-  { icon: Award, title: '学术成果', description: '联合发表多篇高质量学术论文，技术获得业界认可' },
+  { name: 'ISO 27001', descKey: 'cert1' },
+  { name: 'GDPR', descKey: 'cert2' },
+  { name: 'SOC 2', descKey: 'cert3' },
+  { name: 'HIPAA', descKey: 'cert4' },
 ];
 
 // ========== Hero 区块 ==========
 function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -173,7 +130,7 @@ function HeroSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/60 text-sm">
             <Cpu className="w-4 h-4 text-[#EC4899]" />
-            技术核心
+            {t('technology', 'heroTag')}
           </span>
         </motion.div>
 
@@ -184,9 +141,9 @@ function HeroSection() {
           custom={0.2}
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
-          我们为什么
+          {t('technology', 'heroTitle1')}
           <span className="block bg-gradient-to-r from-[#EC4899] to-[#a78bfa] bg-clip-text text-transparent">
-            更安全、更准
+            {t('technology', 'heroTitle2')}
           </span>
         </motion.h1>
 
@@ -197,8 +154,7 @@ function HeroSection() {
           custom={0.35}
           className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto"
         >
-          基于边缘计算的隐私保护架构，结合学术级 AI 算法，
-          让您安心享受精准的健康预测服务
+          {t('technology', 'heroSubtitle')}
         </motion.p>
       </div>
 
@@ -226,6 +182,31 @@ function HeroSection() {
 function TechPillarsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
+
+  const techPillars = [
+    {
+      icon: Brain,
+      titleKey: 'pillar1Title',
+      descKey: 'pillar1Desc',
+      details: ['pillar1Detail1', 'pillar1Detail2', 'pillar1Detail3', 'pillar1Detail4'],
+      color: 'from-[#EC4899] to-[#a78bfa]',
+    },
+    {
+      icon: Shield,
+      titleKey: 'pillar2Title',
+      descKey: 'pillar2Desc',
+      details: ['pillar2Detail1', 'pillar2Detail2', 'pillar2Detail3', 'pillar2Detail4'],
+      color: 'from-[#06B6D4] to-[#7C3AED]',
+    },
+    {
+      icon: GraduationCap,
+      titleKey: 'pillar3Title',
+      descKey: 'pillar3Desc',
+      details: ['pillar3Detail1', 'pillar3Detail2', 'pillar3Detail3', 'pillar3Detail4'],
+      color: 'from-[#3b82f6] to-[#06b6d4]',
+    },
+  ];
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -242,11 +223,11 @@ function TechPillarsSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <Sparkles className="w-4 h-4 text-[#EC4899]" />
-            核心技术
+            {t('technology', 'heroTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            三大技术支柱
+            {t('technology', 'archTitle')}
           </h2>
         </motion.div>
 
@@ -254,7 +235,7 @@ function TechPillarsSection() {
         <div className="grid lg:grid-cols-3 gap-6">
           {techPillars.map((pillar, index) => (
             <motion.div
-              key={pillar.title}
+              key={pillar.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
@@ -265,14 +246,14 @@ function TechPillarsSection() {
                 <pillar.icon className="w-8 h-8 text-white" />
               </div>
               
-              <h3 className="text-2xl font-bold text-white mb-3">{pillar.title}</h3>
-              <p className="text-white/40 mb-6">{pillar.description}</p>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('technology', pillar.titleKey)}</h3>
+              <p className="text-white/40 mb-6">{t('technology', pillar.descKey)}</p>
               
               <ul className="space-y-3">
-                {pillar.details.map((detail) => (
-                  <li key={detail} className="flex items-center gap-3 text-sm">
+                {pillar.details.map((detailKey) => (
+                  <li key={detailKey} className="flex items-center gap-3 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-[#7C3AED] flex-shrink-0" />
-                    <span className="text-white/60">{detail}</span>
+                    <span className="text-white/60">{t('technology', detailKey)}</span>
                   </li>
                 ))}
               </ul>
@@ -288,6 +269,14 @@ function TechPillarsSection() {
 function ArchitectureSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
+
+  const architectureLayers = [
+    { layerKey: 'arch1Title', icon: Wifi, descKey: 'arch1Desc', color: 'from-[#7C3AED] to-[#06B6D4]' },
+    { layerKey: 'arch2Title', icon: Cpu, descKey: 'arch2Desc', color: 'from-[#06B6D4] to-[#06b6d4]' },
+    { layerKey: 'arch3Title', icon: Lock, descKey: 'arch3Desc', color: 'from-[#06b6d4] to-[#EC4899]' },
+    { layerKey: 'arch4Title', icon: Cloud, descKey: 'arch4Desc', color: 'from-[#EC4899] to-[#a78bfa]' },
+  ];
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -304,25 +293,22 @@ function ArchitectureSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <Cpu className="w-4 h-4 text-[#06B6D4]" />
-            系统架构
+            {t('technology', 'archTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            分层
-            <span className="bg-gradient-to-r from-[#06B6D4] to-[#7C3AED] bg-clip-text text-transparent">
-              技术架构
-            </span>
+            {t('technology', 'archTitle')}
           </h2>
           
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            从数据采集到云端服务，每一层都经过精心设计，确保安全与性能的完美平衡
+            {t('technology', 'archDesc')}
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           {architectureLayers.map((layer, index) => (
             <motion.div
-              key={layer.layer}
+              key={layer.layerKey}
               initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
@@ -337,8 +323,8 @@ function ArchitectureSection() {
                   <layer.icon className="w-8 h-8 text-white" />
                 </div>
                 <div className="flex-1 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
-                  <h3 className="font-bold text-white text-lg mb-2">{layer.layer}</h3>
-                  <p className="text-white/50">{layer.description}</p>
+                  <h3 className="font-bold text-white text-lg mb-2">{t('technology', layer.layerKey)}</h3>
+                  <p className="text-white/50">{t('technology', layer.descKey)}</p>
                 </div>
               </div>
             </motion.div>
@@ -353,6 +339,14 @@ function ArchitectureSection() {
 function PrivacySection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
+
+  const privacyFeatures = [
+    { icon: Laptop, titleKey: 'privacy1Title', descKey: 'privacy1Desc' },
+    { icon: Lock, titleKey: 'privacy2Title', descKey: 'privacy2Desc' },
+    { icon: Database, titleKey: 'privacy3Title', descKey: 'privacy3Desc' },
+    { icon: Eye, titleKey: 'privacy4Title', descKey: 'privacy4Desc' },
+  ];
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -369,18 +363,15 @@ function PrivacySection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
             <Shield className="w-4 h-4 text-[#3b82f6]" />
-            隐私保护
+            {t('technology', 'privacyTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            绝对的
-            <span className="bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] bg-clip-text text-transparent">
-              数据安全
-            </span>
+            {t('technology', 'privacyTitle')}
           </h2>
           
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            您的健康数据是您的私人财产，我们采用多重技术手段确保数据安全
+            {t('technology', 'privacyDesc')}
           </p>
         </motion.div>
 
@@ -388,7 +379,7 @@ function PrivacySection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
           {privacyFeatures.map((feature, index) => (
             <motion.div
-              key={feature.title}
+              key={feature.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -398,8 +389,8 @@ function PrivacySection() {
               <div className="w-14 h-14 mx-auto rounded-2xl bg-[#3b82f6]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <feature.icon className="w-7 h-7 text-[#3b82f6]" />
               </div>
-              <h3 className="font-bold text-white mb-2">{feature.title}</h3>
-              <p className="text-sm text-white/40">{feature.description}</p>
+              <h3 className="font-bold text-white mb-2">{t('technology', feature.titleKey)}</h3>
+              <p className="text-sm text-white/40">{t('technology', feature.descKey)}</p>
             </motion.div>
           ))}
         </div>
@@ -411,14 +402,14 @@ function PrivacySection() {
           transition={{ delay: 0.5 }}
           className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
         >
-          <h3 className="text-xl font-bold text-white mb-6 text-center">安全认证</h3>
+          <h3 className="text-xl font-bold text-white mb-6 text-center">{t('technology', 'certTitle')}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {certifications.map((cert) => (
               <div key={cert.name} className="text-center">
                 <div className="w-16 h-16 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-3">
                   <span className="text-[#7C3AED] font-bold text-sm">{cert.name}</span>
                 </div>
-                <p className="text-xs text-white/40">{cert.description}</p>
+                <p className="text-xs text-white/40">{t('technology', cert.descKey)}</p>
               </div>
             ))}
           </div>
@@ -432,6 +423,14 @@ function PrivacySection() {
 function NTUSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
+
+  const ntuHighlights = [
+    { icon: Brain, titleKey: 'ntuFeature1', descKey: 'ntuFeature1Desc' },
+    { icon: Shield, titleKey: 'ntuFeature2', descKey: 'ntuFeature2Desc' },
+    { icon: FileCheck, titleKey: 'ntuFeature3', descKey: 'ntuFeature3Desc' },
+    { icon: Award, titleKey: 'ntuFeature4', descKey: 'ntuFeature4Desc' },
+  ];
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -449,25 +448,21 @@ function NTUSection() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
               <GraduationCap className="w-4 h-4 text-[#EC4899]" />
-              学术合作
+              {t('technology', 'ntuTag')}
             </span>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              新加坡南洋理工大学
-              <span className="block text-xl font-normal text-white/40 mt-2">
-                NTU 官方技术合作伙伴
-              </span>
+              {t('technology', 'ntuTitle')}
             </h2>
             
             <p className="text-white/40 mb-8 text-lg">
-              Orbiva 与新加坡南洋理工大学建立了深度战略合作关系，
-              在 AI 算法研发、安全架构审计、临床验证等多个领域展开紧密合作。
+              {t('technology', 'ntuDesc')}
             </p>
 
             <div className="space-y-4">
               {ntuHighlights.map((item, index) => (
                 <motion.div
-                  key={item.title}
+                  key={item.titleKey}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + index * 0.1 }}
@@ -477,8 +472,8 @@ function NTUSection() {
                     <item.icon className="w-5 h-5 text-[#EC4899]" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-white">{item.title}</h4>
-                    <p className="text-sm text-white/40">{item.description}</p>
+                    <h4 className="font-medium text-white">{t('technology', item.titleKey)}</h4>
+                    <p className="text-sm text-white/40">{t('technology', item.descKey)}</p>
                   </div>
                 </motion.div>
               ))}
@@ -492,7 +487,7 @@ function NTUSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-              <h3 className="text-lg font-bold text-white mb-6">联合学术成果</h3>
+              <h3 className="text-lg font-bold text-white mb-6">{t('technology', 'ntuPapersTitle')}</h3>
               
               <div className="space-y-4 mb-8">
                 {[
@@ -509,16 +504,16 @@ function NTUSection() {
 
               <div className="pt-6 border-t border-white/[0.05] space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm">合作起始</span>
-                  <span className="text-white font-medium">2022年</span>
+                  <span className="text-white/40 text-sm">{t('technology', 'ntuStartYear')}</span>
+                  <span className="text-white font-medium">2022</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm">联合发表论文</span>
-                  <span className="text-white font-medium">12+ 篇</span>
+                  <span className="text-white/40 text-sm">{t('technology', 'ntuPapers')}</span>
+                  <span className="text-white font-medium">12+</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm">合作项目</span>
-                  <span className="text-white font-medium">5+ 个</span>
+                  <span className="text-white/40 text-sm">{t('technology', 'ntuProjects')}</span>
+                  <span className="text-white font-medium">5+</span>
                 </div>
               </div>
             </div>
@@ -533,6 +528,7 @@ function NTUSection() {
 function CTASection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
@@ -556,23 +552,22 @@ function CTASection() {
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            技术实力，
+            {t('technology', 'ctaTitle1')}
             <span className="block bg-gradient-to-r from-[#EC4899] to-[#a78bfa] bg-clip-text text-transparent">
-              值得信赖
+              {t('technology', 'ctaTitle2')}
             </span>
           </h2>
 
           <p className="text-white/40 text-lg mb-10 max-w-2xl mx-auto">
-            我们相信技术是服务于人的，先进的算法和严格的隐私保护，
-            只为让您更安心地享受数字健康带来的便利。
+            {t('technology', 'ctaDesc')}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-              下载技术白皮书
+              {t('technology', 'downloadWhitepaper')}
             </Button>
             <Button variant="secondary" size="lg">
-              预约技术咨询
+              {t('common', 'contactUs')}
             </Button>
           </div>
         </motion.div>
