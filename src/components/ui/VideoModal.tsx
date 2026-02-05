@@ -71,7 +71,7 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+            transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] as [number, number, number, number] }}
             className="relative w-full max-w-5xl z-10"
             onClick={(e) => e.stopPropagation()}
           >

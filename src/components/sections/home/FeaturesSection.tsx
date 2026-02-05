@@ -109,7 +109,7 @@ export default function FeaturesSection() {
                 initial={{ opacity: 0, y: 28, rotate: rotation - 1 }}
                 whileInView={{ opacity: 1, y: 0, rotate: rotation }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.15, duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
+                transition={{ delay: index * 0.15, duration: 0.5, ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number] }}
               >
                 <Link href={feature.href} className="block h-full">
                   <Card

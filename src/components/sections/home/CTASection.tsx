@@ -40,7 +40,7 @@ export default function CTASection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
           animate={isInView ? { opacity: 1, scale: 1, rotate: 2 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number] }}
           className="relative w-24 h-24 mx-auto mb-8"
         >
           <motion.div

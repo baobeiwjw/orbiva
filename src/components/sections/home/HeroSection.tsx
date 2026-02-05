@@ -54,7 +54,7 @@ const fadeInUp = {
     transition: {
       duration: 0.7,
       delay,
-      ease: [0.22, 0.61, 0.36, 1],
+      ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number],
     },
   }),
 };
@@ -67,7 +67,7 @@ const scaleIn = {
     transition: {
       duration: 0.9,
       delay,
-      ease: [0.22, 0.61, 0.36, 1],
+      ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number],
     },
   }),
 };

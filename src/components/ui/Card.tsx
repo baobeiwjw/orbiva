@@ -9,6 +9,7 @@ interface CardProps {
   variant?: 'default' | 'glass' | 'gradient-border';
   hover?: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 export default function Card({
@@ -17,6 +18,7 @@ export default function Card({
   variant = 'default',
   hover = true,
   onClick,
+  style,
 }: CardProps) {
   const baseStyles = 'rounded-2xl p-6 transition-all duration-300';
 
@@ -38,6 +40,7 @@ export default function Card({
       transition={{ duration: 0.5 }}
       className={cn(baseStyles, variants[variant], hoverStyles, className)}
       onClick={onClick}
+      style={style}
     >
       {children}
     </motion.div>

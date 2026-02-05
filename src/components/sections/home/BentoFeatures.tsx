@@ -113,7 +113,7 @@ const itemVariants = {
     rotate: 0,
     transition: {
       duration: 0.55,
-      ease: [0.22, 0.61, 0.36, 1],
+      ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number] as [number, number, number, number],
     },
   },
 };
