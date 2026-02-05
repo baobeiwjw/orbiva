@@ -9,7 +9,7 @@ import { useI18n } from '@/lib/i18n';
 import { 
   ArrowRight, Play, Sparkles, Zap, Box, Cpu, Coins, Heart, Brain, Shield, Activity, Moon,
   User, Eye, Dumbbell, Coffee, Pizza, BedDouble, Pill, TrendingUp, TrendingDown, AlertTriangle,
-  CheckCircle, ChevronRight, Gift, Users, FlaskConical
+  CheckCircle, ChevronRight, Gift, Users, FlaskConical, LucideIcon
 } from 'lucide-react';
 import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
 
@@ -115,7 +115,7 @@ function BentoCard({ item, index }: { item: {
   title: string;
   subtitle: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   stats: string;
   color: string;
   size: string;
@@ -173,7 +173,7 @@ function BentoCard({ item, index }: { item: {
         <div className="flex items-start justify-between mb-4">
           {/* 草绿色手绘风格图标 */}
           <HandDrawnIcon 
-            icon={item.icon as React.ComponentType<{ className?: string }> & { displayName?: string }} 
+            icon={item.icon} 
             size={iconSize as 'sm' | 'md' | 'lg'} 
             variant="filled" 
             animate={true}
