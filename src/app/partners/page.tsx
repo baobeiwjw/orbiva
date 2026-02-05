@@ -19,7 +19,19 @@ import {
   BarChart3,
   Lightbulb,
   Sparkles,
+  Landmark,
+  Heart,
+  FileText,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  Clock,
+  Target,
+  Award,
+  Zap,
 } from 'lucide-react';
+import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
 
 // ========== 动画变体 ==========
 const fadeInUp = {
@@ -82,52 +94,121 @@ function ScrollSectionWrapper({
   );
 }
 
-// ========== 数据 ==========
+// ========== 数据 (使用翻译键) ==========
 const partnerTypesConfig = [
   {
     id: 'pharma',
     nameKey: 'typePharmaName',
     icon: FlaskConical,
     headlineKey: 'typePharmaHeadline',
-    descKey: 'typePharmaDesc',
-    benefitKeys: ['typePharmaB1', 'typePharmaB2', 'typePharmaB3', 'typePharmaB4'] as const,
-    stats: [{ valueKey: 'typePharmaS1V', labelKey: 'typePharmaS1L' }, { valueKey: 'typePharmaS2V', labelKey: 'typePharmaS2L' }, { valueKey: 'typePharmaS3V', labelKey: 'typePharmaS3L' }] as const,
-    color: 'from-[#EC4899] to-[#a78bfa]',
+    descriptionKey: 'typePharmaDesc',
+    benefitKeys: ['pharmaBenefit1', 'pharmaBenefit2', 'pharmaBenefit3', 'pharmaBenefit4'],
+    stats: [
+      { value: '50+', labelKey: 'pharmaStats1' },
+      { value: '200+', labelKey: 'pharmaStats2' },
+      { value: '3x', labelKey: 'pharmaStats3' },
+    ],
+    cases: [
+      { nameKey: 'pharmaCase1Name', resultKey: 'pharmaCase1Result' },
+      { nameKey: 'pharmaCase2Name', resultKey: 'pharmaCase2Result' },
+    ],
+    color: 'from-[#4ADE80] to-[#67E8F9]',
   },
   {
     id: 'insurance',
     nameKey: 'typeInsuranceName',
     icon: Shield,
     headlineKey: 'typeInsuranceHeadline',
-    descKey: 'typeInsuranceDesc',
-    benefitKeys: ['typeInsuranceB1', 'typeInsuranceB2', 'typeInsuranceB3', 'typeInsuranceB4'] as const,
-    stats: [{ valueKey: 'typeInsuranceS1V', labelKey: 'typeInsuranceS1L' }, { valueKey: 'typeInsuranceS2V', labelKey: 'typeInsuranceS2L' }, { valueKey: 'typeInsuranceS3V', labelKey: 'typeInsuranceS3L' }] as const,
-    color: 'from-[#06B6D4] to-[#7C3AED]',
+    descriptionKey: 'typeInsuranceDesc',
+    benefitKeys: ['insuranceBenefit1', 'insuranceBenefit2', 'insuranceBenefit3', 'insuranceBenefit4'],
+    stats: [
+      { value: '30%', labelKey: 'insuranceStats1' },
+      { value: '2x', labelKey: 'insuranceStats2' },
+      { value: '15+', labelKey: 'insuranceStats3' },
+    ],
+    cases: [
+      { nameKey: 'insuranceCase1Name', resultKey: 'insuranceCase1Result' },
+      { nameKey: 'insuranceCase2Name', resultKey: 'insuranceCase2Result' },
+    ],
+    color: 'from-[#06B6D4] to-[#22D3EE]',
   },
   {
     id: 'hardware',
     nameKey: 'typeHardwareName',
     icon: Cpu,
     headlineKey: 'typeHardwareHeadline',
-    descKey: 'typeHardwareDesc',
-    benefitKeys: ['typeHardwareB1', 'typeHardwareB2', 'typeHardwareB3', 'typeHardwareB4'] as const,
-    stats: [{ valueKey: 'typeHardwareS1V', labelKey: 'typeHardwareS1L' }, { valueKey: 'typeHardwareS2V', labelKey: 'typeHardwareS2L' }, { valueKey: 'typeHardwareS3V', labelKey: 'typeHardwareS3L' }] as const,
-    color: 'from-[#3b82f6] to-[#06b6d4]',
+    descriptionKey: 'typeHardwareDesc',
+    benefitKeys: ['hardwareBenefit1', 'hardwareBenefit2', 'hardwareBenefit3', 'hardwareBenefit4'],
+    stats: [
+      { value: '20+', labelKey: 'hardwareStats1' },
+      { value: '100万+', labelKey: 'hardwareStats2' },
+      { value: '7天', labelKey: 'hardwareStats3' },
+    ],
+    cases: [
+      { nameKey: 'hardwareCase1Name', resultKey: 'hardwareCase1Result' },
+      { nameKey: 'hardwareCase2Name', resultKey: 'hardwareCase2Result' },
+    ],
+    color: 'from-[#22D3EE] to-[#06b6d4]',
   },
-] as const;
-
-const successCasesConfig = [
-  { logo: '🏥', nameKey: 'case1Name', typeKey: 'case1Type', resultKey: 'case1Result' },
-  { logo: '🛡️', nameKey: 'case2Name', typeKey: 'case2Type', resultKey: 'case2Result' },
-  { logo: '⌚', nameKey: 'case3Name', typeKey: 'case3Type', resultKey: 'case3Result' },
-] as const;
+  {
+    id: 'government',
+    nameKey: 'typeGovernmentName',
+    icon: Landmark,
+    headlineKey: 'typeGovernmentHeadline',
+    descriptionKey: 'typeGovernmentDesc',
+    benefitKeys: ['governmentBenefit1', 'governmentBenefit2', 'governmentBenefit3', 'governmentBenefit4'],
+    stats: [
+      { value: '3个', labelKey: 'governmentStats1' },
+      { value: '50万+', labelKey: 'governmentStats2' },
+      { value: '2周', labelKey: 'governmentStats3' },
+    ],
+    cases: [
+      { nameKey: 'governmentCase1Name', resultKey: 'governmentCase1Result' },
+      { nameKey: 'governmentCase2Name', resultKey: 'governmentCase2Result' },
+    ],
+    color: 'from-[#f59e0b] to-[#ef4444]',
+  },
+];
 
 const cooperationProcessConfig = [
-  { step: 1, titleKey: 'process1Title', descKey: 'process1Desc' },
-  { step: 2, titleKey: 'process2Title', descKey: 'process2Desc' },
-  { step: 3, titleKey: 'process3Title', descKey: 'process3Desc' },
-  { step: 4, titleKey: 'process4Title', descKey: 'process4Desc' },
-] as const;
+  { 
+    step: 1, 
+    titleKey: 'process1Title', 
+    descKey: 'process1Desc',
+    icon: Phone,
+    durationKey: 'process1Duration',
+  },
+  { 
+    step: 2, 
+    titleKey: 'process2Title', 
+    descKey: 'process2Desc',
+    icon: FileText,
+    durationKey: 'process2Duration',
+  },
+  { 
+    step: 3, 
+    titleKey: 'process3Title', 
+    descKey: 'process3Desc',
+    icon: Cpu,
+    durationKey: 'process3Duration',
+  },
+  { 
+    step: 4, 
+    titleKey: 'process4Title', 
+    descKey: 'process4Desc',
+    icon: Zap,
+    durationKey: 'process4Duration',
+  },
+];
+
+const partnerLogos = [
+  { name: 'Novartis', category: 'pharma' },
+  { name: 'AIA', category: 'insurance' },
+  { name: 'Xiaomi', category: 'hardware' },
+  { name: 'Ping An', category: 'insurance' },
+  { name: 'Roche', category: 'pharma' },
+  { name: 'Omron', category: 'hardware' },
+];
 
 // ========== Hero 区块 ==========
 function HeroSection() {
@@ -152,11 +233,11 @@ function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#3b82f6]/[0.06] rounded-[50%]"
+          className="absolute w-[130vw] h-[60vh] border border-[#22D3EE]/[0.06] rounded-[50%]"
         />
       </div>
 
-      <div className="absolute top-1/4 left-1/3 w-[500px] h-[400px] bg-[#3b82f6]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute top-1/4 left-1/3 w-[500px] h-[400px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -167,8 +248,8 @@ function HeroSection() {
           className="mb-6"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/60 text-sm">
-            <Handshake className="w-4 h-4 text-[#3b82f6]" />
-            {t('partners', 'heroTag')}
+            <HandDrawnIcon icon={Handshake} size="sm" variant="outline" />
+            {t('partners.heroTag')}
           </span>
         </motion.div>
 
@@ -179,9 +260,9 @@ function HeroSection() {
           custom={0.2}
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
-          {t('partners', 'heroTitle1')}
-          <span className="block bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] bg-clip-text text-transparent">
-            {t('partners', 'heroTitle2')}
+          {t('partners.heroTitle1')}
+          <span className="block bg-gradient-to-r from-[#22D3EE] to-[#06b6d4] bg-clip-text text-transparent">
+            {t('partners.heroTitle2')}
           </span>
         </motion.h1>
 
@@ -190,10 +271,32 @@ function HeroSection() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           custom={0.35}
-          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto"
+          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-8"
         >
-          {t('partners', 'heroSubtitle')}
+          {t('partners.heroSubtitle')}
         </motion.p>
+
+        {/* 合作伙伴类型快捷入口 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5 }}
+          className="flex flex-wrap justify-center gap-3"
+        >
+          {partnerTypesConfig.map((type, index) => (
+            <motion.a
+              key={type.id}
+              href={`#${type.id}`}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.6 + index * 0.1 }}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm hover:border-white/[0.1] transition-colors"
+            >
+              <HandDrawnIcon icon={type.icon} size="sm" variant="outline" />
+              {t(`partners.${type.nameKey}`)}
+            </motion.a>
+          ))}
+        </motion.div>
       </div>
 
       {/* 滚动指示器 */}
@@ -208,7 +311,7 @@ function HeroSection() {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center gap-3"
         >
-          <span className="text-white/20 text-xs tracking-[0.3em] uppercase">Scroll</span>
+          <span className="text-white/20 text-xs tracking-[0.3em] uppercase">{t('common.scroll')}</span>
           <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
       </motion.div>
@@ -216,17 +319,19 @@ function HeroSection() {
   );
 }
 
-// ========== 合作伙伴类型 ==========
+// ========== 合作伙伴类型详情 ==========
 function PartnerTypesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [activePartner, setActivePartner] = useState('pharma');
   const { t } = useI18n();
 
+  const currentPartner = partnerTypesConfig.find(p => p.id === activePartner)!;
+
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#EC4899]/[0.02] rounded-full blur-[150px]" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -235,6 +340,7 @@ function PartnerTypesSection() {
           {partnerTypesConfig.map((type) => (
             <button
               key={type.id}
+              id={type.id}
               onClick={() => setActivePartner(type.id)}
               className={`flex items-center gap-3 px-6 py-4 rounded-xl font-medium transition-all ${
                 activePartner === type.id
@@ -242,106 +348,145 @@ function PartnerTypesSection() {
                   : 'bg-white/[0.02] text-white/60 border border-white/[0.05] hover:bg-white/[0.05]'
               }`}
             >
-              <type.icon className="w-5 h-5" />
-              {t('partners', type.nameKey)}
+              <HandDrawnIcon icon={type.icon} size="md" variant="filled" className="mr-2" />
+              {t(`partners.${type.nameKey}`)}
             </button>
           ))}
         </div>
 
         {/* Content */}
         <AnimatePresence mode="wait">
-          {partnerTypesConfig
-            .filter((type) => type.id === activePartner)
-            .map((type) => (
-              <motion.div
-                key={type.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-              >
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
-                  {/* Left */}
-                  <div>
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${type.color} flex items-center justify-center mb-6`}>
-                      <type.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-white mb-4">{t('partners', type.headlineKey)}</h2>
-                    <p className="text-white/40 mb-8">{t('partners', type.descKey)}</p>
+          <motion.div
+            key={activePartner}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+          >
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              {/* Left */}
+              <div>
+                <HandDrawnIcon icon={currentPartner.icon} size="xl" variant="filled" className="mb-6" />
+                <h2 className="text-3xl font-bold text-white mb-4">{t(`partners.${currentPartner.headlineKey}`)}</h2>
+                <p className="text-white/40 mb-8">{t(`partners.${currentPartner.descriptionKey}`)}</p>
 
-                    <div className="space-y-4 mb-8">
-                      {type.benefitKeys.map((benefitKey, index) => (
-                        <motion.div
-                          key={benefitKey}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="flex items-center gap-4"
-                        >
-                          <div className="w-8 h-8 rounded-lg bg-white/[0.05] flex items-center justify-center">
-                            <CheckCircle2 className="w-5 h-5 text-[#7C3AED]" />
-                          </div>
-                          <span className="text-white">{t('partners', benefitKey)}</span>
-                        </motion.div>
-                      ))}
-                    </div>
+                <div className="space-y-4 mb-8">
+                  {currentPartner.benefitKeys.map((benefitKey, index) => (
+                    <motion.div
+                      key={benefitKey}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center gap-4"
+                    >
+                      <HandDrawnIcon icon={CheckCircle2} size="sm" variant="filled" />
+                      <span className="text-white">{t(`partners.${benefitKey}`)}</span>
+                    </motion.div>
+                  ))}
+                </div>
 
-                    <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
-                      {t('partners', 'applyCooperation')}
-                    </Button>
-                  </div>
+                <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
+                  {t('partners.applyCooperation')}
+                </Button>
+              </div>
 
-                  {/* Right */}
-                  <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-                    <h3 className="text-lg font-bold text-white mb-6">{t('partners', 'cooperationResults')}</h3>
-                    <div className="grid grid-cols-3 gap-4 mb-8">
-                      {type.stats.map((stat) => (
-                        <div key={stat.labelKey} className="text-center">
-                          <div className="text-3xl font-bold text-[#7C3AED]">{t('partners', stat.valueKey)}</div>
-                          <div className="text-xs text-white/40 mt-1">{t('partners', stat.labelKey)}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="pt-6 border-t border-white/[0.05]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Lightbulb className="w-5 h-5 text-[#7C3AED]" />
-                        <span className="font-medium text-white">{t('partners', 'whyChooseOrbiva')}</span>
+              {/* Right */}
+              <div className="space-y-6">
+                {/* 统计数据 */}
+                <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
+                  <h3 className="text-lg font-bold text-white mb-6">{t('partners.cooperationResults')}</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    {currentPartner.stats.map((stat) => (
+                      <div key={stat.labelKey} className="text-center">
+                        <div className="text-3xl font-bold text-[#22D3EE]">{stat.value}</div>
+                        <div className="text-xs text-white/40 mt-1">{t(`partners.${stat.labelKey}`)}</div>
                       </div>
-                      <ul className="space-y-2 text-sm text-white/50">
-                        <li className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
-                          {t('partners', 'reason1')}
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
-                          {t('partners', 'reason2')}
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
-                          {t('partners', 'reason3')}
-                        </li>
-                      </ul>
-                    </div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            ))}
+
+                {/* 成功案例 */}
+                <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
+                  <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                    <HandDrawnIcon icon={Award} size="sm" variant="filled" />
+                    {t('partners.casesTag')}
+                  </h3>
+                  <div className="space-y-4">
+                    {currentPartner.cases.map((caseItem) => (
+                      <div key={caseItem.nameKey} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                        <div className="font-medium text-white mb-1">{t(`partners.${caseItem.nameKey}`)}</div>
+                        <div className="text-sm text-[#22D3EE]">{t(`partners.${caseItem.resultKey}`)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 为什么选择Orbiva */}
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/[0.05]">
+                  <div className="flex items-center gap-3 mb-4">
+                    <HandDrawnIcon icon={Lightbulb} size="sm" variant="outline" />
+                    <span className="font-medium text-white">{t('partners.whyChooseOrbiva')}</span>
+                  </div>
+                  <ul className="space-y-2 text-sm text-white/50">
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      {t('partners.reason1')}
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      {t('partners.reason2')}
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      {t('partners.reason3')}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>
   );
 }
 
-// ========== 成功案例 ==========
-function SuccessCasesSection() {
+// ========== 政府G2B专区 ==========
+function GovernmentSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const { t } = useI18n();
 
+  const g2bSolutionsConfig = [
+    {
+      titleKey: 'g2bSolution1Title',
+      descKey: 'g2bSolution1Desc',
+      featureKeys: ['g2bSolution1F1', 'g2bSolution1F2', 'g2bSolution1F3', 'g2bSolution1F4'],
+      icon: BarChart3,
+    },
+    {
+      titleKey: 'g2bSolution2Title',
+      descKey: 'g2bSolution2Desc',
+      featureKeys: ['g2bSolution2F1', 'g2bSolution2F2', 'g2bSolution2F3', 'g2bSolution2F4'],
+      icon: Shield,
+    },
+    {
+      titleKey: 'g2bSolution3Title',
+      descKey: 'g2bSolution3Desc',
+      featureKeys: ['g2bSolution3F1', 'g2bSolution3F2', 'g2bSolution3F3', 'g2bSolution3F4'],
+      icon: Heart,
+    },
+    {
+      titleKey: 'g2bSolution4Title',
+      descKey: 'g2bSolution4Desc',
+      featureKeys: ['g2bSolution4F1', 'g2bSolution4F2', 'g2bSolution4F3', 'g2bSolution4F4'],
+      icon: Users,
+    },
+  ];
+
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#f59e0b]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -352,45 +497,78 @@ function SuccessCasesSection() {
           className="text-center mb-16"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <TrendingUp className="w-4 h-4 text-[#06B6D4]" />
-            {t('partners', 'casesTag')}
+            <HandDrawnIcon icon={Landmark} size="sm" variant="outline" />
+            {t('partners.g2bTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('partners', 'casesTitle')}
+            {t('partners.g2bTitle1')}
+            <span className="bg-gradient-to-r from-[#f59e0b] to-[#ef4444] bg-clip-text text-transparent"> {t('partners.g2bTitle2')}</span>
           </h2>
+          
+          <p className="text-white/40 max-w-2xl mx-auto text-lg">
+            {t('partners.g2bSubtitle')}
+          </p>
         </motion.div>
 
-        {/* Cases Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {successCasesConfig.map((caseItem, index) => (
+        {/* 解决方案网格 */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {g2bSolutionsConfig.map((solution, index) => (
             <motion.div
-              key={caseItem.nameKey}
+              key={solution.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#06B6D4]/30 transition-all duration-300"
+              className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#f59e0b]/30 transition-all"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 rounded-xl bg-white/[0.03] flex items-center justify-center text-3xl">
-                  {caseItem.logo}
-                </div>
+              <div className="flex items-start gap-4 mb-4">
+                <HandDrawnIcon icon={solution.icon} size="lg" variant="filled" className="flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-white">{t('partners', caseItem.nameKey)}</h3>
-                  <span className="text-xs text-white/40">{t('partners', caseItem.typeKey)}</span>
+                  <h3 className="font-bold text-white mb-1">{t(`partners.${solution.titleKey}`)}</h3>
+                  <p className="text-sm text-white/40">{t(`partners.${solution.descKey}`)}</p>
                 </div>
               </div>
               
-              <div className="p-4 rounded-xl bg-[#06B6D4]/5 border border-[#06B6D4]/20">
-                <div className="flex items-center gap-2 text-[#06B6D4]">
-                  <TrendingUp className="w-4 h-4" />
-                  <span className="font-medium">{t('partners', caseItem.resultKey)}</span>
-                </div>
+              <div className="flex flex-wrap gap-2">
+                {solution.featureKeys.map((featureKey) => (
+                  <span
+                    key={featureKey}
+                    className="px-3 py-1 text-xs rounded-full bg-white/[0.03] text-white/60 border border-white/[0.05]"
+                  >
+                    {t(`partners.${featureKey}`)}
+                  </span>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* 政府项目成果 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5 }}
+          className="p-8 rounded-3xl bg-gradient-to-br from-[#f59e0b]/5 to-transparent border border-[#f59e0b]/20"
+        >
+          <h3 className="text-xl font-bold text-white text-center mb-8">{t('partners.g2bResultsTitle')}</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-[#f59e0b]">3</div>
+              <div className="text-white/60 mt-1">{t('partners.g2bResults1Label')}</div>
+              <div className="text-xs text-white/40 mt-2">{t('partners.g2bResults1Sub')}</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-[#f59e0b]">50万+</div>
+              <div className="text-white/60 mt-1">{t('partners.g2bResults2Label')}</div>
+              <div className="text-xs text-white/40 mt-2">{t('partners.g2bResults2Sub')}</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-[#f59e0b]">2周</div>
+              <div className="text-white/60 mt-1">{t('partners.g2bResults3Label')}</div>
+              <div className="text-xs text-white/40 mt-2">{t('partners.g2bResults3Sub')}</div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -405,7 +583,7 @@ function ProcessSection() {
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#EC4899]/[0.02] rounded-full blur-[150px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -416,12 +594,14 @@ function ProcessSection() {
           className="text-center mb-16"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <Sparkles className="w-4 h-4 text-[#EC4899]" />
-            {t('partners', 'processTag')}
+            <HandDrawnIcon icon={Target} size="sm" variant="outline" />
+            {t('partners.processTag')}
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('partners', 'processTitle')}
+            {t('partners.processTitle1')}
+            <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">{t('partners.processTitle2')}</span>
+            {t('partners.processTitle3')}
           </h2>
         </motion.div>
 
@@ -436,15 +616,20 @@ function ProcessSection() {
               className="relative"
             >
               {index < cooperationProcessConfig.length - 1 && (
-                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-[#EC4899] to-transparent -translate-x-1/2" />
+                <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#4ADE80] to-transparent -translate-x-1/2 z-0" />
               )}
 
               <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] text-center relative z-10">
-                <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#EC4899] to-[#a78bfa] flex items-center justify-center text-white font-bold text-lg mb-4">
+                <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#4ADE80] to-[#67E8F9] flex items-center justify-center text-white font-bold text-lg mb-4">
                   {item.step}
                 </div>
-                <h3 className="font-bold text-white mb-2">{t('partners', item.titleKey)}</h3>
-                <p className="text-sm text-white/40">{t('partners', item.descKey)}</p>
+                <HandDrawnIcon icon={item.icon} size="lg" variant="filled" className="mb-4 mx-auto" />
+                <h3 className="font-bold text-white mb-2">{t(`partners.${item.titleKey}`)}</h3>
+                <p className="text-sm text-white/40 mb-3">{t(`partners.${item.descKey}`)}</p>
+                <span className="inline-flex items-center gap-1 text-xs text-[#4ADE80]">
+                  <HandDrawnIcon icon={Clock} size="sm" variant="outline" />
+                  {t(`partners.${item.durationKey}`)}
+                </span>
               </div>
             </motion.div>
           ))}
@@ -463,7 +648,7 @@ function CTASection() {
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
       <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#3b82f6]/[0.03] to-transparent rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#22D3EE]/[0.03] to-transparent rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -473,46 +658,58 @@ function CTASection() {
           transition={{ duration: 0.8 }}
           className="p-12 rounded-3xl bg-white/[0.02] border border-white/[0.05] text-center"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#06b6d4] flex items-center justify-center"
-          >
-            <Briefcase className="w-10 h-10 text-white" />
-          </motion.div>
+            <HandDrawnIcon icon={Briefcase} size="xl" variant="filled" className="mx-auto mb-8" />
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            {t('partners', 'ctaTitle')}
+            {t('partners.ctaTitle')}
           </h2>
 
           <p className="text-white/40 text-lg mb-10 max-w-xl mx-auto">
-            {t('partners', 'ctaDesc')}
+            {t('partners.ctaDesc')}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-              {t('partners', 'contactBusiness')}
+            <Button variant="primary" size="lg" icon={<Mail className="w-5 h-5" />}>
+              {t('partners.contactBusiness')}
             </Button>
-            <Button variant="secondary" size="lg">
-              {t('partners', 'downloadBrochure')}
+            <Button variant="secondary" size="lg" icon={<Calendar className="w-5 h-5" />}>
+              {t('partners.bookMeeting')}
             </Button>
           </div>
 
           <div className="pt-8 border-t border-white/[0.05]">
             <div className="flex flex-wrap justify-center gap-8 text-sm text-white/40">
               <div className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-[#3b82f6]" />
-                <span>{t('partners', 'globalRegions')}</span>
+                <HandDrawnIcon icon={Globe} size="sm" variant="outline" />
+                <span>{t('partners.globalRegions')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-[#3b82f6]" />
-                <span>{t('partners', 'partnerCount')}</span>
+                <HandDrawnIcon icon={Building2} size="sm" variant="outline" />
+                <span>{t('partners.partnerCount')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-[#3b82f6]" />
-                <span>{t('partners', 'businessValue')}</span>
+                <HandDrawnIcon icon={BarChart3} size="sm" variant="outline" />
+                <span>{t('partners.businessValue')}</span>
               </div>
+            </div>
+          </div>
+
+          {/* 联系方式 */}
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+              <HandDrawnIcon icon={Mail} size="sm" variant="outline" className="mx-auto mb-2" />
+              <div className="text-sm text-white">bd@orbiva.io</div>
+              <div className="text-xs text-white/40">{t('partners.contactEmail')}</div>
+            </div>
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+              <HandDrawnIcon icon={Phone} size="sm" variant="outline" className="mx-auto mb-2" />
+              <div className="text-sm text-white">+65 6123 4567</div>
+              <div className="text-xs text-white/40">{t('partners.contactPhone')}</div>
+            </div>
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+              <HandDrawnIcon icon={MapPin} size="sm" variant="outline" className="mx-auto mb-2" />
+              <div className="text-sm text-white">{t('partners.officeLocations')}</div>
+              <div className="text-xs text-white/40">{t('partners.officeCount')}</div>
             </div>
           </div>
         </motion.div>
@@ -535,9 +732,9 @@ export default function PartnersPage() {
         <PartnerTypesSection />
       </ScrollSectionWrapper>
       
-      {/* Success Cases */}
+      {/* Government G2B */}
       <ScrollSectionWrapper>
-        <SuccessCasesSection />
+        <GovernmentSection />
       </ScrollSectionWrapper>
       
       {/* Process */}

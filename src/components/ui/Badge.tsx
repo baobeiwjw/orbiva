@@ -21,8 +21,8 @@ export default function Badge({
 
   const variants = {
     default: 'bg-background-tertiary text-foreground-muted border border-border',
-    accent: 'bg-accent/10 text-accent border border-accent/20',
-    success: 'bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20',
+    accent: 'bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20',
+    success: 'bg-[#A3E635]/10 text-[#A3E635] border border-[#A3E635]/20',
     outline: 'bg-transparent border border-border text-foreground-muted',
   };
 

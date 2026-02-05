@@ -17,7 +17,7 @@ export default function GradientText({
   animate = false,
 }: GradientTextProps) {
   const baseStyles =
-    'bg-gradient-to-r from-accent via-accent-secondary to-accent-tertiary bg-clip-text text-transparent';
+    'bg-gradient-to-r from-[#22D3EE] via-[#A3E635] to-[#4ADE80] bg-clip-text text-transparent';
 
   if (animate) {
     return (

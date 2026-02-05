@@ -34,7 +34,7 @@ export default function SectionTitle({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-block mb-4 text-sm font-medium tracking-widest text-accent uppercase"
+          className="inline-block mb-4 text-sm font-medium tracking-widest text-[#22D3EE] uppercase"
         >
           {label}
         </motion.span>

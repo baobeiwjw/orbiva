@@ -198,7 +198,7 @@ export default function FullPageScroll({ children, className = '' }: FullPageScr
             }}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentSection 
-                ? 'bg-[#7C3AED] scale-150' 
+                ? 'bg-[#22D3EE] scale-150' 
                 : 'bg-white/20 hover:bg-white/40'
             }`}
             aria-label={`Go to section ${index + 1}`}

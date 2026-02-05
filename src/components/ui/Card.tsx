@@ -27,7 +27,7 @@ export default function Card({
   };
 
   const hoverStyles = hover
-    ? 'hover:border-accent/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:-translate-y-1'
+    ? 'hover:border-[#22D3EE]/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] hover:-translate-y-1'
     : '';
 
   return (

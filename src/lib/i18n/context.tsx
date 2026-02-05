@@ -10,8 +10,8 @@ interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: <S extends keyof typeof translations>(
-    section: S,
-    key: TranslationKey<S> | string
+    sectionOrPath: S | string,
+    key?: TranslationKey<S> | string
   ) => string;
 }
 
@@ -50,12 +50,21 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // 当前使用的 locale（mounted 前使用默认值避免 hydration 问题）
   const currentLocale = mounted ? locale : 'zh-CN';
 
-  // 翻译函数直接使用 currentLocale，接受 string 类型的 key
+  // 翻译函数直接使用 currentLocale
+  // 支持两种调用方式：t('section', 'key') 或 t('section.key')
   const t = <S extends keyof typeof translations>(
-    section: S,
-    key: TranslationKey<S> | string
+    sectionOrPath: S | string,
+    key?: TranslationKey<S> | string
   ): string => {
-    return getTranslation(section, key as TranslationKey<S>, currentLocale);
+    // 如果只传了一个参数且包含点号，按 section.key 格式解析
+    if (key === undefined && typeof sectionOrPath === 'string' && sectionOrPath.includes('.')) {
+      const dotIndex = sectionOrPath.indexOf('.');
+      const section = sectionOrPath.substring(0, dotIndex) as keyof typeof translations;
+      const actualKey = sectionOrPath.substring(dotIndex + 1);
+      return getTranslation(section, actualKey as TranslationKey<typeof section>, currentLocale);
+    }
+    // 两个参数的正常调用方式
+    return getTranslation(sectionOrPath as S, (key || '') as TranslationKey<S>, currentLocale);
   };
 
   return (

@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
 import {
-  Sparkles,
   Twitter,
   Github,
   Linkedin,
@@ -12,6 +12,7 @@ import {
   Phone,
   ArrowRight,
 } from 'lucide-react';
+import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n';
 
@@ -59,44 +60,54 @@ export default function Footer() {
     },
   };
 
+  // 更自然口语化的文案
   const newsletterText = {
     'zh-CN': {
-      title: '订阅我们的最新动态',
-      subtitle: '获取产品更新、健康资讯和独家优惠',
-      placeholder: '输入您的邮箱地址',
+      title: '保持联系',
+      subtitle: '订阅后，你会收到产品更新和健康小贴士',
+      placeholder: '你的邮箱',
       subscribe: '订阅',
     },
     'zh-TW': {
-      title: '訂閱我們的最新動態',
-      subtitle: '獲取產品更新、健康資訊和獨家優惠',
-      placeholder: '輸入您的郵箱地址',
+      title: '保持聯繫',
+      subtitle: '訂閱後，你會收到產品更新和健康小貼士',
+      placeholder: '你的郵箱',
       subscribe: '訂閱',
     },
     'en': {
-      title: 'Subscribe to Our Newsletter',
-      subtitle: 'Get product updates, health news and exclusive offers',
-      placeholder: 'Enter your email address',
+      title: 'Stay in Touch',
+      subtitle: 'Get product updates and health tips',
+      placeholder: 'Your email',
       subscribe: 'Subscribe',
     },
   };
 
   const bottomText = {
-    'zh-CN': '香港主板上市公司旗下品牌 · 新加坡南洋理工大学技术合作伙伴',
-    'zh-TW': '香港主板上市公司旗下品牌 · 新加坡南洋理工大學技術合作夥伴',
-    'en': 'A brand under HKEX listed company · Technology partner of NTU Singapore',
+    'zh-CN': '港股上市公司旗下品牌 · NTU新加坡技术合作',
+    'zh-TW': '港股上市公司旗下品牌 · NTU新加坡技術合作',
+    'en': 'HKEX listed · NTU Singapore tech partner',
   };
 
   return (
     <footer className="relative bg-background-secondary border-t border-border">
-      {/* Newsletter Section */}
+      {/* Newsletter Section - 手绘风格 */}
       <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div 
+            className="flex flex-col lg:flex-row items-center justify-between gap-8"
+            style={{ transform: 'rotate(-0.1deg)' }}
+          >
             <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <h3 
+                className="text-2xl font-bold text-foreground mb-2"
+                style={{ transform: 'rotate(0.2deg)' }}
+              >
                 {newsletterText[locale].title}
               </h3>
-              <p className="text-foreground-muted">
+              <p 
+                className="text-foreground-muted"
+                style={{ transform: 'rotate(-0.1deg)' }}
+              >
                 {newsletterText[locale].subtitle}
               </p>
             </div>
@@ -104,11 +115,12 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder={newsletterText[locale].placeholder}
-                className="px-4 py-3 bg-background border border-border rounded-full text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-accent transition-colors w-full sm:w-80"
+                className="px-4 py-3 bg-background border border-border rounded-[20px_24px_22px_18px] text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-[#4ADE80] transition-colors w-full sm:w-80"
+                style={{ transform: 'rotate(0.3deg)' }}
               />
               <Button
                 variant="primary"
-                icon={<ArrowRight className="w-4 h-4" />}
+                icon={<ArrowRight className="w-4 h-4" style={{ transform: 'rotate(-2deg)' }} />}
               >
                 {newsletterText[locale].subscribe}
               </Button>
@@ -120,26 +132,43 @@ export default function Footer() {
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
-          {/* Brand Column */}
+          {/* Brand Column - Logo */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
+            <Link 
+              href="/" 
+              className="flex items-center gap-3 mb-6"
+              style={{ transform: 'rotate(-0.5deg)' }}
+            >
+              <motion.div 
+                className="relative w-14 h-14"
+                whileHover={{ rotate: 5, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Orbiva"
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
               <span className="text-xl font-bold text-foreground">Orbiva</span>
             </Link>
-            <p className="text-foreground-muted mb-6 max-w-sm">
+            <p 
+              className="text-foreground-muted mb-6 max-w-sm"
+              style={{ transform: 'rotate(0.1deg)' }}
+            >
               {t('footer', 'companyDesc')}
             </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social, i) => (
                 <motion.a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  className="w-10 h-10 rounded-lg bg-background-tertiary border border-border flex items-center justify-center text-foreground-muted hover:text-accent hover:border-accent transition-colors"
+                  whileHover={{ scale: 1.08, y: -2, rotate: 3 }}
+                  className="w-10 h-10 rounded-[40%_60%_55%_45%] bg-background-tertiary border border-dashed border-[#4ADE80]/30 flex items-center justify-center text-foreground-muted hover:text-[#4ADE80] hover:border-[#4ADE80]/60 transition-colors"
+                  style={{ transform: `rotate(${(i - 1) * 3}deg)` }}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -148,17 +177,17 @@ export default function Footer() {
           </div>
 
           {/* Link Columns */}
-          {Object.entries(footerLinks).map(([key, section]) => (
-            <div key={key}>
+          {Object.entries(footerLinks).map(([key, section], sectionIndex) => (
+            <div key={key} style={{ transform: `rotate(${(sectionIndex - 2) * 0.3}deg)` }}>
               <h4 className="font-semibold text-foreground mb-4">
                 {section.title}
               </h4>
               <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.href}>
+                {section.links.map((link, linkIndex) => (
+                  <li key={link.href} style={{ transform: `rotate(${(linkIndex - 1) * 0.5}deg)` }}>
                     <Link
                       href={link.href}
-                      className="text-foreground-muted hover:text-accent transition-colors text-sm"
+                      className="text-foreground-muted hover:text-[#4ADE80] transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -169,22 +198,25 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Contact Info */}
+        {/* Contact Info - 手绘风格图标 */}
         <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div 
+            className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            style={{ transform: 'rotate(-0.15deg)' }}
+          >
             <div className="flex flex-col sm:flex-row gap-6 text-sm text-foreground-muted">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-accent" />
-                <span>Hong Kong · Singapore · Shenzhen</span>
+              <div className="flex items-center gap-2" style={{ transform: 'rotate(0.5deg)' }}>
+                <HandDrawnIcon icon={MapPin} size="sm" variant="outline" animate={false} />
+                <span>香港 · 新加坡 · 深圳</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-accent" />
-                <a href="mailto:contact@orbiva.io" className="hover:text-accent transition-colors">
+              <div className="flex items-center gap-2" style={{ transform: 'rotate(-0.3deg)' }}>
+                <HandDrawnIcon icon={Mail} size="sm" variant="outline" animate={false} />
+                <a href="mailto:contact@orbiva.io" className="hover:text-[#4ADE80] transition-colors">
                   contact@orbiva.io
                 </a>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-accent" />
+              <div className="flex items-center gap-2" style={{ transform: 'rotate(0.4deg)' }}>
+                <HandDrawnIcon icon={Phone} size="sm" variant="outline" animate={false} />
                 <span>+852 1234 5678</span>
               </div>
             </div>
@@ -195,9 +227,12 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-foreground-subtle">
+          <div 
+            className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-foreground-subtle"
+            style={{ transform: 'rotate(-0.1deg)' }}
+          >
             <p>{t('footer', 'copyright')}</p>
-            <p>{bottomText[locale]}</p>
+            <p style={{ transform: 'rotate(0.2deg)' }}>{bottomText[locale]}</p>
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
                   className={cn(
                     'w-full flex items-center justify-between px-4 py-2 text-sm transition-colors',
                     locale === loc
-                      ? 'text-[#7C3AED] bg-[#7C3AED]/[0.05]'
+                      ? 'text-[#22D3EE] bg-[#22D3EE]/[0.05]'
                       : 'text-white/60 hover:text-white hover:bg-white/[0.03]'
                   )}
                 >
@@ -106,7 +106,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
                 className={cn(
                   'w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors',
                   locale === loc
-                    ? 'text-[#7C3AED] bg-[#7C3AED]/[0.05]'
+                    ? 'text-[#22D3EE] bg-[#22D3EE]/[0.05]'
                     : 'text-white/60 hover:text-white hover:bg-white/[0.03]'
                 )}
               >

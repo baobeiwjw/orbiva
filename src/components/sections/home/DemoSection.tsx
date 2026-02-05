@@ -49,9 +49,9 @@ const healthPredictions = [
     day: 21,
     type: '心率健康',
     icon: Heart,
-    color: 'text-[#7C3AED]',
-    bgColor: 'bg-[#7C3AED]/10',
-    borderColor: 'border-[#7C3AED]/20',
+    color: 'text-[#22D3EE]',
+    bgColor: 'bg-[#22D3EE]/10',
+    borderColor: 'border-[#22D3EE]/20',
     message: '心率变异性良好，继续保持当前运动习惯',
     score: 92,
   },
@@ -98,7 +98,7 @@ export default function DemoSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[#7C3AED]/[0.02] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[#22D3EE]/[0.02] rounded-full blur-[120px]" />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,7 +121,7 @@ export default function DemoSection() {
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             AI 预测您的
-            <span className="bg-gradient-to-r from-[#06B6D4] to-[#7C3AED] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#06B6D4] to-[#22D3EE] bg-clip-text text-transparent">
               未来健康
             </span>
           </h2>
@@ -144,9 +144,9 @@ export default function DemoSection() {
                   <h3 className="text-xl font-bold text-white">健康仪表盘</h3>
                   <p className="text-white/50 text-sm">实时生命体征监测</p>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20">
-                  <div className="w-2 h-2 rounded-full bg-[#7C3AED] animate-pulse" />
-                  <span className="text-[#7C3AED] text-xs font-medium">实时同步</span>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#22D3EE]/10 border border-[#22D3EE]/20">
+                  <div className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
+                  <span className="text-[#22D3EE] text-xs font-medium">实时同步</span>
                 </div>
               </div>
 
@@ -162,10 +162,10 @@ export default function DemoSection() {
                     <div className="flex items-center justify-between mb-2">
                       <metric.icon className="w-5 h-5 text-[#06B6D4]" />
                       {metric.trend === 'up' && (
-                        <TrendingUp className="w-4 h-4 text-[#7C3AED]" />
+                        <TrendingUp className="w-4 h-4 text-[#22D3EE]" />
                       )}
                       {metric.trend === 'down' && (
-                        <TrendingUp className="w-4 h-4 text-[#7C3AED] rotate-180" />
+                        <TrendingUp className="w-4 h-4 text-[#22D3EE] rotate-180" />
                       )}
                     </div>
                     <div className="text-2xl font-bold text-white">

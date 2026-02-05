@@ -13,13 +13,13 @@
   --background-tertiary: #161616;
   --background-card: #0F0F0F;
   
-  /* Accent Colors - Neon Purple/Blue */
-  --accent-primary: #7C3AED;
-  --accent-primary-light: #A78BFA;
-  --accent-primary-dark: #5B21B6;
-  --accent-secondary: #06B6D4;
-  --accent-tertiary: #EC4899;
-  --accent-success: #10B981;
+  /* Accent Colors - Cyan/Lime Gradient (参考产品图片) */
+  --accent-primary: #22D3EE;        /* 青色 - 主色 */
+  --accent-primary-light: #67E8F9; /* 浅青色 */
+  --accent-primary-dark: #06B6D4;  /* 深青色 */
+  --accent-secondary: #A3E635;     /* 黄绿色 - 辅色 */
+  --accent-tertiary: #4ADE80;      /* 绿色 - 过渡色 */
+  --accent-success: #22D3EE;
   --accent-warning: #F59E0B;
   
   /* Text Colors */
@@ -33,18 +33,18 @@
   --border-light: #2A2A2A;
   --border-accent: #3D3D3D;
   
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
-  --gradient-secondary: linear-gradient(135deg, #EC4899 0%, #7C3AED 100%);
-  --gradient-accent: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
-  --gradient-glow: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-  --gradient-mesh: radial-gradient(at 40% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-                   radial-gradient(at 80% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-                   radial-gradient(at 0% 50%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+  /* Gradients - Cyan to Lime */
+  --gradient-primary: linear-gradient(135deg, #22D3EE 0%, #A3E635 100%);
+  --gradient-secondary: linear-gradient(135deg, #4ADE80 0%, #22D3EE 100%);
+  --gradient-accent: linear-gradient(135deg, #06B6D4 0%, #4ADE80 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.15) 0%, transparent 70%);
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                   radial-gradient(at 80% 0%, rgba(163, 230, 53, 0.1) 0%, transparent 50%),
+                   radial-gradient(at 0% 50%, rgba(74, 222, 128, 0.08) 0%, transparent 50%);
   
   /* Shadows */
-  --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.2);
-  --shadow-glow-secondary: 0 0 40px rgba(6, 182, 212, 0.15);
+  --shadow-glow: 0 0 60px rgba(34, 211, 238, 0.2);
+  --shadow-glow-secondary: 0 0 40px rgba(163, 230, 53, 0.15);
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
   --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.7);
 }
@@ -93,13 +93,13 @@ body {
   -webkit-overflow-scrolling: touch;
   /* 添加微妙的网格图案 */
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 100% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 100% 50%, rgba(163, 230, 53, 0.05) 0%, transparent 40%);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(124, 58, 237, 0.3);
+  background: rgba(34, 211, 238, 0.3);
   color: var(--foreground);
 }
 
@@ -201,7 +201,7 @@ a {
 }
 
 .glow-hover:hover {
-  box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.3);
 }
 
 /* Glass Morphism */
@@ -229,8 +229,8 @@ a {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.2); }
-  50% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.4); }
+  0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.2); }
+  50% { box-shadow: 0 0 60px rgba(34, 211, 238, 0.4); }
 }
 
 @keyframes pulse-glow-cyan {
@@ -341,7 +341,7 @@ a {
 /* Ellipse Decoration - Modern Dark Style */
 .ellipse-decoration {
   position: absolute;
-  border: 1px solid rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.1);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -355,7 +355,7 @@ a {
 }
 
 .accent-orb-primary {
-  background: rgba(124, 58, 237, 0.3);
+  background: rgba(34, 211, 238, 0.3);
 }
 
 .accent-orb-secondary {
@@ -363,7 +363,7 @@ a {
 }
 
 .accent-orb-tertiary {
-  background: rgba(236, 72, 153, 0.2);
+  background: rgba(163, 230, 53, 0.2);
 }
 
 /* ========================================
@@ -385,7 +385,7 @@ a {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(124, 58, 237, 0.05) 0%,
+    rgba(34, 211, 238, 0.05) 0%,
     transparent 50%
   );
   opacity: 0;
@@ -394,9 +394,9 @@ a {
 
 .bento-card:hover {
   background: rgba(22, 22, 22, 0.8);
-  border-color: rgba(124, 58, 237, 0.2);
+  border-color: rgba(34, 211, 238, 0.2);
   transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 8px 32px rgba(34, 211, 238, 0.1);
 }
 
 .bento-card:hover::before {
@@ -445,7 +445,7 @@ button, .btn {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 8px 24px rgba(34, 211, 238, 0.3);
 }
 
 .btn-outline {
@@ -460,7 +460,7 @@ button, .btn {
 
 .btn-outline:hover {
   border-color: var(--accent-primary);
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(34, 211, 238, 0.1);
 }
 
 /* ========================================
@@ -482,9 +482,9 @@ button, .btn {
 .text-shimmer {
   background: linear-gradient(
     90deg,
-    #7C3AED 0%,
+    #22D3EE 0%,
     #06B6D4 50%,
-    #7C3AED 100%
+    #22D3EE 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -502,7 +502,7 @@ button, .btn {
    ======================================== */
 
 .icon-glow {
-  filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.5));
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.5));
 }
 
 .icon-container {
@@ -512,8 +512,8 @@ button, .btn {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.2);
 }
 
 /* ========================================
@@ -531,7 +531,7 @@ input, textarea {
 
 input:focus, textarea:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
 }
 
 input::placeholder, textarea::placeholder {
@@ -554,9 +554,9 @@ input::placeholder, textarea::placeholder {
 }
 
 .badge-primary {
-  background: rgba(124, 58, 237, 0.15);
+  background: rgba(34, 211, 238, 0.15);
   color: var(--accent-primary-light);
-  border: 1px solid rgba(124, 58, 237, 0.3);
+  border: 1px solid rgba(34, 211, 238, 0.3);
 }
 
 .badge-secondary {
@@ -566,9 +566,9 @@ input::placeholder, textarea::placeholder {
 }
 
 .badge-success {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(34, 211, 238, 0.15);
   color: var(--accent-success);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(34, 211, 238, 0.3);
 }
 
 /* ========================================
@@ -702,7 +702,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .tag:hover {
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(34, 211, 238, 0.1);
   border-color: var(--accent-primary);
   color: var(--foreground);
 }

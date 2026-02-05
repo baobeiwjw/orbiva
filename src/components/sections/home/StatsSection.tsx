@@ -35,7 +35,7 @@ export default function StatsSection() {
   return (
     <div ref={ref} className="relative py-20 min-h-[60vh] flex flex-col justify-center">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#06B6D4]/[0.03] via-transparent to-[#7C3AED]/[0.03]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#06B6D4]/[0.03] via-transparent to-[#22D3EE]/[0.03]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">

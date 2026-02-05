@@ -47,7 +47,7 @@ function Loader() {
             <defs>
               <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#06B6D4" />
-                <stop offset="100%" stopColor="#7C3AED" />
+                <stop offset="100%" stopColor="#22D3EE" />
               </linearGradient>
             </defs>
           </svg>

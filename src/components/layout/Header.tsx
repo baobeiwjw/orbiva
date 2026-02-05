@@ -3,15 +3,16 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useI18n } from '@/lib/i18n';
+import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
 import {
   Menu,
   X,
-  Sparkles,
   Box,
   Cpu,
   Leaf,
@@ -61,15 +62,24 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center"
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                transition={{ duration: 0.3 }}
+                className="relative w-12 h-12 flex-shrink-0"
               >
-                <Sparkles className="w-5 h-5 text-white" />
+                <Image
+                  src="/logo.png"
+                  alt="Orbiva"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </motion.div>
-              <span className="text-xl font-bold text-foreground group-hover:text-accent transition-colors">
+              <motion.span 
+                className="text-xl font-bold text-foreground tracking-wide"
+                whileHover={{ scale: 1.02 }}
+              >
                 Orbiva
-              </span>
+              </motion.span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -81,7 +91,7 @@ export default function Header() {
                   className={cn(
                     'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     pathname === item.href
-                      ? 'text-accent bg-accent/10'
+                      ? 'text-[#4ADE80] bg-[#4ADE80]/10'
                       : 'text-foreground-muted hover:text-foreground hover:bg-background-secondary'
                   )}
                 >
@@ -102,19 +112,21 @@ export default function Header() {
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - 手绘风格 */}
             <div className="flex items-center gap-2 lg:hidden">
               <LanguageSwitcher variant="compact" />
-              <button
+              <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg hover:bg-background-secondary transition-colors"
+                className="p-2 rounded-[40%_60%_55%_45%] border border-dashed border-[#4ADE80]/50 hover:bg-[#4ADE80]/10 transition-colors"
+                whileHover={{ scale: 1.05, rotate: 3 }}
+                style={{ transform: 'rotate(-2deg)' }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-foreground" />
+                  <X className="w-6 h-6 text-[#4ADE80]" />
                 ) : (
-                  <Menu className="w-6 h-6 text-foreground" />
+                  <Menu className="w-6 h-6 text-[#4ADE80]" />
                 )}
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -159,11 +171,19 @@ export default function Header() {
                       className={cn(
                         'flex items-center gap-4 px-4 py-4 rounded-xl text-lg font-medium transition-all',
                         pathname === item.href
-                          ? 'text-accent bg-accent/10'
+                          ? 'text-[#4ADE80] bg-[#4ADE80]/10'
                           : 'text-foreground-muted hover:text-foreground hover:bg-background-secondary'
                       )}
+                      style={{ transform: `rotate(${(index - 2) * 0.5}deg)` }}
                     >
-                      {item.icon && <item.icon className="w-5 h-5" />}
+                      {item.icon && (
+                        <HandDrawnIcon 
+                          icon={item.icon} 
+                          size="sm" 
+                          variant={pathname === item.href ? 'filled' : 'outline'} 
+                          animate={false}
+                        />
+                      )}
                       {item.name}
                     </Link>
                   </motion.div>

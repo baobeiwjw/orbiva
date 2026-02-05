@@ -102,7 +102,7 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoMo
             {/* 视频播放器 */}
             <div className="relative rounded-2xl overflow-hidden bg-black/50 border border-white/10 shadow-2xl">
               {/* 装饰性发光效果 */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#06B6D4]/20 via-[#7C3AED]/20 to-[#06B6D4]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#06B6D4]/20 via-[#22D3EE]/20 to-[#06B6D4]/20 rounded-2xl blur-xl opacity-50" />
               
               <div className="relative">
                 <video
