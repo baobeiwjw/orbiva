@@ -125,8 +125,7 @@ export default function FeaturesSection() {
 
                     {/* Logo 图标 */}
                     <div 
-                      className="relative w-14 h-14 mb-6 group-hover:scale-105 transition-transform duration-300"
-                      style={{ transform: 'rotate(2deg)' }}
+                      className="relative w-28 h-10 mb-6 group-hover:scale-105 transition-transform duration-300"
                     >
                       <Image
                         src="/logo.png"
@@ -237,7 +236,7 @@ export default function FeaturesSection() {
               variant="primary"
               icon={<ArrowRight className="w-4 h-4" style={{ transform: 'rotate(-3deg)' }} />}
             >
-              免费试用 30 天
+              立即购买
             </Button>
           </div>
         </motion.div>

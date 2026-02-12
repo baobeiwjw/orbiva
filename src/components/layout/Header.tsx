@@ -60,11 +60,11 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center group">
               <motion.div
-                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                className="relative w-12 h-12 flex-shrink-0"
+                className="relative w-28 h-10 flex-shrink-0"
               >
                 <Image
                   src="/logo.png"
@@ -74,12 +74,6 @@ export default function Header() {
                   priority
                 />
               </motion.div>
-              <motion.span 
-                className="text-xl font-bold text-foreground tracking-wide"
-                whileHover={{ scale: 1.02 }}
-              >
-                Orbiva
-              </motion.span>
             </Link>
 
             {/* Desktop Navigation */}

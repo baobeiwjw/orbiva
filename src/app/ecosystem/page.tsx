@@ -1281,9 +1281,9 @@ function CTASection() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-32 h-32 mx-auto mb-8 rounded-2xl overflow-hidden"
+            className="w-48 h-16 mx-auto mb-8"
           >
-            <Image src="/logo.png" alt="Orbiva Logo" width={128} height={128} className="w-full h-full object-cover" />
+            <Image src="/logo.png" alt="Orbiva Logo" width={384} height={128} className="w-full h-full object-contain" />
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">

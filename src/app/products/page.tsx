@@ -512,7 +512,7 @@ function DigitalTwinSection() {
     {
       id: 'pet',
       nameKey: 'twinPet',
-      icon: '🐱',
+      icon: 'placeholder',
       descKey: 'twinPetDesc',
       features: [
         { textKey: 'twinPetFeature1', icon: Heart },
@@ -525,7 +525,7 @@ function DigitalTwinSection() {
     {
       id: 'medical',
       nameKey: 'twinMedical',
-      icon: '📊',
+      icon: 'placeholder',
       descKey: 'twinMedicalDesc',
       features: [
         { textKey: 'twinMedicalFeature1', icon: Activity },
@@ -580,7 +580,7 @@ function DigitalTwinSection() {
                   : 'bg-white/[0.03] text-white/60 hover:bg-white/[0.05] border border-white/[0.05]'
               }`}
             >
-              <span className="text-xl">{mode.icon}</span>
+              <span className="inline-flex w-6 h-6 rounded border border-dashed border-white/20 bg-white/[0.03] items-center justify-center text-[10px] text-white/30">✕</span>
               {t(`products.${mode.nameKey}`)}
             </button>
           ))}
@@ -908,9 +908,9 @@ function CTASection() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-32 h-32 mx-auto mb-8 rounded-2xl overflow-hidden"
+            className="w-48 h-16 mx-auto mb-8"
           >
-            <img src="/logo.png" alt="Orbiva Logo" className="w-full h-full object-cover" />
+            <img src="/logo.png" alt="Orbiva Logo" className="w-full h-full object-contain" />
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">

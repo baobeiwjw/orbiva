@@ -9,11 +9,11 @@ interface ProductLogoProps {
 }
 
 const sizeMap = {
-  xs: 'w-8 h-8',
-  sm: 'w-10 h-10',
-  md: 'w-14 h-14',
-  lg: 'w-20 h-20',
-  xl: 'w-24 h-24',
+  xs: 'w-16 h-6',
+  sm: 'w-20 h-8',
+  md: 'w-28 h-10',
+  lg: 'w-40 h-14',
+  xl: 'w-48 h-16',
 };
 
 export default function ProductLogo({ size = 'md', className }: ProductLogoProps) {

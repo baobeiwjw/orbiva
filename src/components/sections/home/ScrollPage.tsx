@@ -18,7 +18,7 @@ function SceneFallback() {
             style={{ animationDuration: '2.5s', transform: 'rotate(-3deg)' }} 
           />
         </div>
-        <div className="relative w-16 h-16">
+        <div className="relative w-32 h-12">
           <motion.div
             animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}

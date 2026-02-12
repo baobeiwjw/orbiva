@@ -434,7 +434,7 @@ function HeroSection() {
                   style={{ borderRadius: '10px 14px 12px 8px' }}
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xl">🐱</span>
+                    <span className="inline-flex w-6 h-6 rounded border border-dashed border-white/15 bg-white/[0.03] items-center justify-center text-[10px] text-white/25">✕</span>
                     <div>
                       <p className="text-[#67E8F9] font-medium text-sm">{t('home.heroPetMode')}</p>
                       <p className="text-white/30 text-xs">{t('home.heroPetModeDesc')}</p>
@@ -539,13 +539,13 @@ function LifePreviewSection() {
   
   const getAvatarState = () => {
     if (scenario === 'risk') {
-      if (dayValue < 10) return { mood: '😊', desc: t('home.moodGood'), color: 'text-green-400' };
-      if (dayValue < 20) return { mood: '😐', desc: t('home.moodTired'), color: 'text-yellow-400' };
-      return { mood: '😫', desc: t('home.moodAdjust'), color: 'text-red-400' };
+      if (dayValue < 10) return { mood: 'placeholder', desc: t('home.moodGood'), color: 'text-green-400' };
+      if (dayValue < 20) return { mood: 'placeholder', desc: t('home.moodTired'), color: 'text-yellow-400' };
+      return { mood: 'placeholder', desc: t('home.moodAdjust'), color: 'text-red-400' };
     } else {
-      if (dayValue < 10) return { mood: '🙂', desc: t('home.moodStart'), color: 'text-cyan-400' };
-      if (dayValue < 20) return { mood: '😄', desc: t('home.moodProgress'), color: 'text-cyan-400' };
-      return { mood: '🤩', desc: t('home.moodGreat'), color: 'text-green-400' };
+      if (dayValue < 10) return { mood: 'placeholder', desc: t('home.moodStart'), color: 'text-cyan-400' };
+      if (dayValue < 20) return { mood: 'placeholder', desc: t('home.moodProgress'), color: 'text-cyan-400' };
+      return { mood: 'placeholder', desc: t('home.moodGreat'), color: 'text-green-400' };
     }
   };
   
@@ -602,7 +602,7 @@ function LifePreviewSection() {
                 : 'bg-white/[0.02] border border-white/[0.04] text-white/40 hover:text-white/60'
             }`}
           >
-            <span className="text-lg">🍕</span>
+            <span className="inline-flex w-5 h-5 rounded border border-dashed border-white/20 bg-white/[0.03] items-center justify-center text-[10px] text-white/30">✕</span>
             <span className="text-sm font-medium">{t('home.scenarioRisk')}</span>
           </button>
           <button
@@ -613,7 +613,7 @@ function LifePreviewSection() {
                 : 'bg-white/[0.02] border border-white/[0.04] text-white/40 hover:text-white/60'
             }`}
           >
-            <span className="text-lg">🏃</span>
+            <span className="inline-flex w-5 h-5 rounded border border-dashed border-white/20 bg-white/[0.03] items-center justify-center text-[10px] text-white/30">✕</span>
             <span className="text-sm font-medium">{t('home.scenarioImprove')}</span>
           </button>
         </div>
@@ -628,7 +628,7 @@ function LifePreviewSection() {
             className="space-y-3"
           >
             <p className="text-sm text-white/40 mb-3 flex items-center gap-2">
-              {scenario === 'risk' ? `😈 ${t('home.behaviorDoingNow')}` : `💪 ${t('home.behaviorHabits')}`}
+              {scenario === 'risk' ? t('home.behaviorDoingNow') : t('home.behaviorHabits')}
             </p>
             
             {scenario === 'risk' ? (
@@ -665,15 +665,18 @@ function LifePreviewSection() {
               <div className="absolute inset-6 rounded-2xl bg-white/[0.015] border border-white/[0.04] flex flex-col items-center justify-center"
                 style={{ borderRadius: '20px 24px 22px 18px' }}
               >
-                <motion.span 
+                <motion.div 
                   key={avatarState.mood}
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className="text-6xl mb-3"
+                  className="mb-3 flex flex-col items-center"
                 >
-                  {avatarState.mood}
-                </motion.span>
+                  <div className="w-16 h-16 rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center">
+                    <span className="text-2xl font-light text-white/30">✕</span>
+                  </div>
+                  <span className="text-[10px] text-white/30 mt-1">占位图</span>
+                </motion.div>
                 <span className={`font-medium text-base ${avatarState.color}`}>
                   {avatarState.desc}
                 </span>
@@ -702,7 +705,7 @@ function LifePreviewSection() {
             className="space-y-3"
           >
             <p className="text-sm text-white/40 mb-3 flex items-center gap-2">
-              📊 {t('home.bodyChangePrediction')}
+              {t('home.bodyChangePrediction')}
             </p>
             
             <MetricBar label={t('home.skinHealth')} value={metrics.skinHealth} icon={User} color={metrics.skinHealth > 60 ? 'green' : metrics.skinHealth > 40 ? 'yellow' : 'red'} />
@@ -1202,9 +1205,9 @@ function AIPredictionSection() {
                 {/* 简化的指标 */}
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { emoji: '❤️', value: '72', unit: 'bpm', labelKey: 'heartRateLabel' },
-                    { emoji: '😴', value: '7.5', unit: 'h', labelKey: 'sleepLabel2' },
-                    { emoji: '🏃', value: '6k', unitKey: 'stepsUnit', labelKey: 'exerciseLabel2' },
+                    { value: '72', unit: 'bpm', labelKey: 'heartRateLabel' },
+                    { value: '7.5', unit: 'h', labelKey: 'sleepLabel2' },
+                    { value: '6k', unitKey: 'stepsUnit', labelKey: 'exerciseLabel2' },
                   ].map((stat, i) => (
                     <motion.div
                       key={i}
@@ -1213,7 +1216,7 @@ function AIPredictionSection() {
                       transition={{ delay: 0.5 + i * 0.1 }}
                       className="text-center"
                     >
-                      <span className="text-2xl block mb-1">{stat.emoji}</span>
+                      <span className="inline-flex w-8 h-8 rounded border border-dashed border-white/15 bg-white/[0.03] items-center justify-center text-xs text-white/25 mb-1">✕</span>
                       <div className="text-white font-medium text-lg">
                         {stat.value}<span className="text-xs text-white/30 ml-0.5">{stat.unitKey ? t(`home.${stat.unitKey}`) : stat.unit}</span>
                       </div>
@@ -1257,8 +1260,8 @@ function CTASection() {
         >
           {/* Logo图标 */}
           <div className="mb-6 flex justify-center">
-            <div className="w-32 h-32 rounded-2xl overflow-hidden">
-              <Image src="/logo.png" alt="Orbiva" width={128} height={128} className="w-full h-full object-cover" />
+            <div className="w-48 h-16">
+              <Image src="/logo.png" alt="Orbiva" width={384} height={128} className="w-full h-full object-contain" />
             </div>
           </div>
 

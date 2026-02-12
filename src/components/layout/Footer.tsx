@@ -140,7 +140,7 @@ export default function Footer() {
               style={{ transform: 'rotate(-0.5deg)' }}
             >
               <motion.div 
-                className="relative w-14 h-14"
+                className="relative w-28 h-10"
                 whileHover={{ rotate: 5, scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
@@ -151,7 +151,6 @@ export default function Footer() {
                   className="object-contain"
                 />
               </motion.div>
-              <span className="text-xl font-bold text-foreground">Orbiva</span>
             </Link>
             <p 
               className="text-foreground-muted mb-6 max-w-sm"

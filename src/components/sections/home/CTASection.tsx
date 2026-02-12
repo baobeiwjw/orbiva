@@ -41,7 +41,7 @@ export default function CTASection() {
           initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
           animate={isInView ? { opacity: 1, scale: 1, rotate: 2 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number] }}
-          className="relative w-24 h-24 mx-auto mb-8"
+          className="relative w-48 h-16 mx-auto mb-8"
         >
           <motion.div
             animate={{ rotate: [2, -2, 2] }}
@@ -99,7 +99,7 @@ export default function CTASection() {
             size="lg"
             icon={<ArrowRight className="w-5 h-5" style={{ transform: 'rotate(-2deg)' }} />}
           >
-            免费开始体验
+            立即购买
           </Button>
           <Button variant="outline" size="lg">
             预约看演示
