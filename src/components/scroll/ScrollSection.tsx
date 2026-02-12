@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, ReactNode } from 'react';
+import { useRef, useState, useEffect, ReactNode } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ScrollSectionProps {
@@ -23,9 +23,14 @@ export default function ScrollSection({
   isLast = false 
 }: ScrollSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: mounted ? sectionRef : undefined,
     offset: ['start end', 'end start'],
   });
   

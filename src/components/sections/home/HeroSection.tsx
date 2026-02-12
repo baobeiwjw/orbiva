@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, lazy, Suspense, useState } from 'react';
+import { useRef, lazy, Suspense, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
@@ -35,6 +35,7 @@ function SceneFallback() {
               src="/logo.png"
               alt="Loading"
               fill
+              sizes="128px"
               className="object-contain"
             />
           </motion.div>
@@ -75,9 +76,14 @@ const scaleIn = {
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: mounted ? containerRef : undefined,
     offset: ['start start', 'end start'],
   });
 

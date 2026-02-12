@@ -131,6 +131,7 @@ export default function FeaturesSection() {
                         src="/logo.png"
                         alt="Orbiva"
                         fill
+                        sizes="112px"
                         className="object-contain"
                       />
                     </div>

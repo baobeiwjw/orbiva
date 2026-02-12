@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, lazy, Suspense, ReactNode } from 'react';
+import { useRef, lazy, Suspense, ReactNode, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import Image from 'next/image';
 
@@ -28,6 +28,7 @@ function SceneFallback() {
               src="/logo.png"
               alt="Loading"
               fill
+              sizes="128px"
               className="object-contain"
             />
           </motion.div>
@@ -105,9 +106,14 @@ interface ScrollPageProps {
 export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const totalSections = sections.length + 1;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: mounted ? containerRef : undefined,
     offset: ['start start', 'end end'],
   });
 

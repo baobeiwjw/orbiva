@@ -44,10 +44,11 @@ export default function RootLayout({
     <html lang="zh-CN" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        suppressHydrationWarning
       >
         <I18nProvider>
           <Header />
-          <main className="min-h-screen">{children}</main>
+          <main className="relative min-h-screen">{children}</main>
           <Footer />
         </I18nProvider>
       </body>

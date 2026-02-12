@@ -23,6 +23,7 @@ export default function ProductLogo({ size = 'md', className }: ProductLogoProps
         src="/logo.png"
         alt="Orbiva Logo"
         fill
+        sizes="192px"
         className="object-contain"
       />
     </div>

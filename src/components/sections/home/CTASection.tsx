@@ -52,6 +52,7 @@ export default function CTASection() {
               src="/logo.png"
               alt="Orbiva"
               fill
+              sizes="192px"
               className="object-contain"
             />
           </motion.div>

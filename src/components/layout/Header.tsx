@@ -70,6 +70,7 @@ export default function Header() {
                   src="/logo.png"
                   alt="Orbiva"
                   fill
+                  sizes="112px"
                   className="object-contain"
                   priority
                 />

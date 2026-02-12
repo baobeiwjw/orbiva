@@ -34,9 +34,14 @@ interface ScrollProviderProps {
 export function ScrollProvider({ children, totalSections }: ScrollProviderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: mounted ? containerRef : undefined,
     offset: ['start start', 'end end'],
   });
 

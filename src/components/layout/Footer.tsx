@@ -148,6 +148,7 @@ export default function Footer() {
                   src="/logo.png"
                   alt="Orbiva"
                   fill
+                  sizes="112px"
                   className="object-contain"
                 />
               </motion.div>
