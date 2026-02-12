@@ -353,12 +353,10 @@ function VivaBoxSection() {
                   <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                    className="w-32 h-32 mx-auto rounded-2xl bg-gradient-to-br from-[#22D3EE] to-[#06B6D4] flex items-center justify-center mb-6 relative"
+                    className="w-32 h-32 mx-auto rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.03] flex flex-col items-center justify-center mb-6"
                   >
-                    <Sparkles className="w-16 h-16 text-white" />
-                    <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white">
-                      {activeFace}
-                    </div>
+                    <span className="text-4xl font-light text-white/30">✕</span>
+                    <span className="text-[10px] text-white/30 mt-1">占位图</span>
                   </motion.div>
                   <h3 className="text-3xl font-bold text-white">VivaBox</h3>
                   <p className="text-white/40 mt-2">{t(`products.${currentFaceConfig.descKey}`)}</p>
@@ -605,9 +603,12 @@ function DigitalTwinSection() {
                     <motion.div
                       animate={{ y: [0, -10, 0], scale: [1, 1.05, 1] }}
                       transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                      className="text-8xl mb-6"
+                      className="mb-6 flex flex-col items-center"
                     >
-                      {mode.icon}
+                      <div className="w-28 h-28 rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center">
+                        <span className="text-5xl font-light text-white/30">✕</span>
+                      </div>
+                      <span className="text-xs text-white/30 mt-2">占位图</span>
                     </motion.div>
                     <p className="text-white/40 text-sm">{t(`products.${mode.previewKey}`)}</p>
                   </div>
@@ -843,9 +844,12 @@ function AppSection() {
                       <motion.div
                         animate={{ scale: [1, 1.1, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        className="text-6xl"
+                        className="flex flex-col items-center"
                       >
-                        🐱
+                        <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center">
+                          <span className="text-3xl font-light text-white/30">✕</span>
+                        </div>
+                        <span className="text-[10px] text-white/30 mt-1">占位图</span>
                       </motion.div>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
