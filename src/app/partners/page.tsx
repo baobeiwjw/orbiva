@@ -48,34 +48,34 @@ const fadeInUp = {
 };
 
 // ========== 滚动区块包装组件 ==========
-function ScrollSectionWrapper({ 
-  children, 
-  className = '', 
-  isLast = false 
-}: { 
-  children: React.ReactNode; 
-  className?: string; 
+function ScrollSectionWrapper({
+  children,
+  className = '',
+  isLast = false
+}: {
+  children: React.ReactNode;
+  className?: string;
   isLast?: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
-  
+
   const opacity = useTransform(
-    scrollYProgress, 
-    [0, 0.2, 0.35, 0.65, 0.8, 1], 
+    scrollYProgress,
+    [0, 0.2, 0.35, 0.65, 0.8, 1],
     [0, 0.5, 1, 1, isLast ? 1 : 0.5, isLast ? 1 : 0]
   );
-  
+
   const y = useTransform(
-    scrollYProgress, 
-    [0, 0.2, 0.35, 0.65, 0.8, 1], 
+    scrollYProgress,
+    [0, 0.2, 0.35, 0.65, 0.8, 1],
     [100, 40, 0, 0, isLast ? 0 : -40, isLast ? 0 : -100]
   );
-  
+
   const scale = useTransform(
     scrollYProgress,
     [0, 0.2, 0.35, 0.65, 0.8, 1],
@@ -84,7 +84,7 @@ function ScrollSectionWrapper({
 
   return (
     <section ref={sectionRef} className={`relative min-h-screen overflow-hidden scroll-section ${className}`}>
-      <motion.div 
+      <motion.div
         style={{ opacity, y, scale }}
         className="relative z-10 w-full h-full origin-center will-change-transform"
       >
@@ -171,30 +171,30 @@ const partnerTypesConfig = [
 ];
 
 const cooperationProcessConfig = [
-  { 
-    step: 1, 
-    titleKey: 'process1Title', 
+  {
+    step: 1,
+    titleKey: 'process1Title',
     descKey: 'process1Desc',
     icon: Phone,
     durationKey: 'process1Duration',
   },
-  { 
-    step: 2, 
-    titleKey: 'process2Title', 
+  {
+    step: 2,
+    titleKey: 'process2Title',
     descKey: 'process2Desc',
     icon: FileText,
     durationKey: 'process2Duration',
   },
-  { 
-    step: 3, 
-    titleKey: 'process3Title', 
+  {
+    step: 3,
+    titleKey: 'process3Title',
     descKey: 'process3Desc',
     icon: Cpu,
     durationKey: 'process3Duration',
   },
-  { 
-    step: 4, 
-    titleKey: 'process4Title', 
+  {
+    step: 4,
+    titleKey: 'process4Title',
     descKey: 'process4Desc',
     icon: Zap,
     durationKey: 'process4Duration',
@@ -219,17 +219,17 @@ function HeroSection() {
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 bg-[#050505]" />
-      
+
       {/* 椭圆装饰 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.3 }}
           className="absolute w-[160vw] h-[80vh] border border-white/[0.04] rounded-[50%]"
           style={{ transform: 'rotate(-5deg)' }}
         />
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
@@ -500,12 +500,12 @@ function GovernmentSection() {
             <HandDrawnIcon icon={Landmark} size="sm" variant="outline" />
             {t('partners.g2bTag')}
           </span>
-          
+
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('partners.g2bTitle1')}
             <span className="bg-gradient-to-r from-[#f59e0b] to-[#ef4444] bg-clip-text text-transparent"> {t('partners.g2bTitle2')}</span>
           </h2>
-          
+
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
             {t('partners.g2bSubtitle')}
           </p>
@@ -528,7 +528,7 @@ function GovernmentSection() {
                   <p className="text-sm text-white/40">{t(`partners.${solution.descKey}`)}</p>
                 </div>
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
                 {solution.featureKeys.map((featureKey) => (
                   <span
@@ -597,7 +597,7 @@ function ProcessSection() {
             <HandDrawnIcon icon={Target} size="sm" variant="outline" />
             {t('partners.processTag')}
           </span>
-          
+
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('partners.processTitle1')}
             <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">{t('partners.processTitle2')}</span>
@@ -668,14 +668,14 @@ function CTASection() {
             {t('partners.ctaDesc')}
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <Button variant="primary" size="lg" icon={<Mail className="w-5 h-5" />}>
-              {t('partners.contactBusiness')}
-            </Button>
-            <Button variant="secondary" size="lg" icon={<Calendar className="w-5 h-5" />}>
-              {t('partners.bookMeeting')}
-            </Button>
-          </div>
+          {/*<div className="flex flex-wrap justify-center gap-4 mb-10">*/}
+          {/*  <Button variant="primary" size="lg" icon={<Mail className="w-5 h-5" />}>*/}
+          {/*    {t('partners.contactBusiness')}*/}
+          {/*  </Button>*/}
+          {/*  <Button variant="secondary" size="lg" icon={<Calendar className="w-5 h-5" />}>*/}
+          {/*    {t('partners.bookMeeting')}*/}
+          {/*  </Button>*/}
+          {/*</div>*/}
 
           <div className="pt-8 border-t border-white/[0.05]">
             <div className="flex flex-wrap justify-center gap-8 text-sm text-white/40">
@@ -723,25 +723,25 @@ export default function PartnersPage() {
   return (
     <main className="relative bg-[#050505]">
       <div className="fixed inset-0 bg-[#050505] -z-10" />
-      
+
       {/* Hero */}
       <HeroSection />
-      
+
       {/* Partner Types */}
       <ScrollSectionWrapper>
         <PartnerTypesSection />
       </ScrollSectionWrapper>
-      
+
       {/* Government G2B */}
       <ScrollSectionWrapper>
         <GovernmentSection />
       </ScrollSectionWrapper>
-      
+
       {/* Process */}
       <ScrollSectionWrapper>
         <ProcessSection />
       </ScrollSectionWrapper>
-      
+
       {/* CTA */}
       <ScrollSectionWrapper isLast>
         <CTASection />

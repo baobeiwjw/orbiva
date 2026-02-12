@@ -25,7 +25,7 @@ function SceneFallback() {
             style={{ animationDuration: '2.5s', transform: 'rotate(-5deg)' }} 
           />
         </div>
-        <div className="relative w-16 h-16">
+        <div className="relative w-32 h-12">
           <motion.div
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -213,7 +213,7 @@ export default function HeroSection() {
                 size="lg"
                 icon={<ArrowRight className="w-5 h-5" />}
               >
-                免费体验
+                立即购买
               </Button>
               <Button
                 variant="secondary"

@@ -12,7 +12,7 @@ export const translations = {
   common: {
     'zh-CN': {
       login: '登录',
-      getStarted: '开始体验',
+      getStarted: '立即购买',
       learnMore: '了解更多',
       buyNow: '立即购买',
       contactUs: '联系我们',
@@ -26,7 +26,7 @@ export const translations = {
     },
     'zh-TW': {
       login: '登入',
-      getStarted: '開始體驗',
+      getStarted: '立即購買',
       learnMore: '了解更多',
       buyNow: '立即購買',
       contactUs: '聯繫我們',
@@ -40,7 +40,7 @@ export const translations = {
     },
     'en': {
       login: 'Login',
-      getStarted: 'Get Started',
+      getStarted: 'Buy Now',
       learnMore: 'Learn More',
       buyNow: 'Buy Now',
       contactUs: 'Contact Us',
@@ -94,7 +94,7 @@ export const translations = {
       heroFeature2: 'AI健康预测',
       heroFeature3: '实时数据同步',
       watchDemo: '观看演示',
-      tryNow: '立即体验',
+      tryNow: '立即购买',
       healthPrediction: '健康预测准确率',
       predictionCycle: '健康预测周期',
 
@@ -157,12 +157,12 @@ export const translations = {
       aiHRV: '心率变异性预测',
       aiSleep: '睡眠质量预测',
       aiStress: '压力水平预测',
-      startPrediction: '开始健康预测',
+      startPrediction: '立即购买',
 
       // CTA
       ctaTitle1: '开启您的',
       ctaTitle2: '数字健康新时代',
-      ctaSubtitle: '加入全球 100,000+ 用户，让 AI 成为您的私人健康顾问。VivaBox 套装限时优惠，立即体验智能健康生活。',
+      ctaSubtitle: '加入全球 100,000+ 用户，让 AI 成为您的私人健康顾问。VivaBox 套装限时优惠，立即购买开启智能健康生活。',
       bookDemo: '预约产品演示',
       priceFrom: '起',
       returnPolicy: '30天无忧退换',
@@ -175,7 +175,7 @@ export const translations = {
       heroDescNew1: '每天花3秒，拍张食物照片。',
       heroDescNew2: 'Orbiva 会告诉你30天后身体可能的变化——',
       heroDescNew3: '好的坏的，都提前知道。',
-      heroCTA1: '免费体验 14 天',
+      heroCTA1: '立即购买',
       heroCTA2: '看看怎么用',
       heroProof1: '新加坡医疗团队研发',
       heroProof2: '3年临床数据验证',
@@ -288,7 +288,7 @@ export const translations = {
       aiHeartPrediction: '心率异常预警',
       aiSleepPrediction: '睡眠质量评估',
       aiStressPrediction: '压力指数分析',
-      startHealthPrediction: '开始健康预测',
+      startHealthPrediction: '立即购买',
       aiPredictionNote: '* 预测准确率基于内测用户数据统计',
       overallHealthScore: '综合健康评分',
       heartRateLabel: '心率',
@@ -299,9 +299,9 @@ export const translations = {
 
       // CTA 新版
       ctaTitleNew: '想试试吗？',
-      ctaDescNew1: '14天免费体验，不满意随时退。',
+      ctaDescNew1: '限时优惠，立即购买享受智能健康生活。',
       ctaDescNew2: '反正也不用绑卡。',
-      ctaFreeTrial: '免费试用',
+      ctaFreeTrial: '立即购买',
       ctaBookOffline: '预约线下体验 →',
       ctaPrice: '¥1,299',
       ctaPriceStart: '起',
@@ -318,7 +318,7 @@ export const translations = {
       heroFeature2: 'AI健康預測',
       heroFeature3: '即時數據同步',
       watchDemo: '觀看演示',
-      tryNow: '立即體驗',
+      tryNow: '立即購買',
       healthPrediction: '健康預測準確率',
       predictionCycle: '健康預測週期',
 
@@ -381,12 +381,12 @@ export const translations = {
       aiHRV: '心率變異性預測',
       aiSleep: '睡眠品質預測',
       aiStress: '壓力水平預測',
-      startPrediction: '開始健康預測',
+      startPrediction: '立即購買',
 
       // CTA
       ctaTitle1: '開啟您的',
       ctaTitle2: '數位健康新時代',
-      ctaSubtitle: '加入全球 100,000+ 用戶，讓 AI 成為您的私人健康顧問。VivaBox 套裝限時優惠，立即體驗智能健康生活。',
+      ctaSubtitle: '加入全球 100,000+ 用戶，讓 AI 成為您的私人健康顧問。VivaBox 套裝限時優惠，立即購買開啟智能健康生活。',
       bookDemo: '預約產品演示',
       priceFrom: '起',
       returnPolicy: '30天無憂退換',
@@ -399,7 +399,7 @@ export const translations = {
       heroDescNew1: '每天花3秒，拍張食物照片。',
       heroDescNew2: 'Orbiva 會告訴你30天後身體可能的變化——',
       heroDescNew3: '好的壞的，都提前知道。',
-      heroCTA1: '免費體驗 14 天',
+      heroCTA1: '立即購買',
       heroCTA2: '看看怎麼用',
       heroProof1: '新加坡醫療團隊研發',
       heroProof2: '3年臨床數據驗證',
@@ -512,7 +512,7 @@ export const translations = {
       aiHeartPrediction: '心率異常預警',
       aiSleepPrediction: '睡眠質量評估',
       aiStressPrediction: '壓力指數分析',
-      startHealthPrediction: '開始健康預測',
+      startHealthPrediction: '立即購買',
       aiPredictionNote: '* 預測準確率基於內測用戶數據統計',
       overallHealthScore: '綜合健康評分',
       heartRateLabel: '心率',
@@ -523,9 +523,9 @@ export const translations = {
 
       // CTA 新版
       ctaTitleNew: '想試試嗎？',
-      ctaDescNew1: '14天免費體驗，不滿意隨時退。',
+      ctaDescNew1: '限時優惠，立即購買享受智能健康生活。',
       ctaDescNew2: '反正也不用綁卡。',
-      ctaFreeTrial: '免費試用',
+      ctaFreeTrial: '立即購買',
       ctaBookOffline: '預約線下體驗 →',
       ctaPrice: '¥1,299',
       ctaPriceStart: '起',
@@ -542,7 +542,7 @@ export const translations = {
       heroFeature2: 'AI Health Prediction',
       heroFeature3: 'Real-time Sync',
       watchDemo: 'Watch Demo',
-      tryNow: 'Try Now',
+      tryNow: 'Buy Now',
       healthPrediction: 'Health Prediction Accuracy',
       predictionCycle: 'Prediction Cycle',
 
@@ -605,7 +605,7 @@ export const translations = {
       aiHRV: 'HRV Prediction',
       aiSleep: 'Sleep Quality Prediction',
       aiStress: 'Stress Level Prediction',
-      startPrediction: 'Start Health Prediction',
+      startPrediction: 'Buy Now',
 
       // CTA
       ctaTitle1: 'Begin Your',
@@ -623,7 +623,7 @@ export const translations = {
       heroDescNew1: 'Spend 3 seconds daily, snap a photo of your food.',
       heroDescNew2: 'Orbiva tells you what might change in your body in 30 days—',
       heroDescNew3: 'Good or bad, know it ahead of time.',
-      heroCTA1: 'Free 14-Day Trial',
+      heroCTA1: 'Buy Now',
       heroCTA2: 'See How It Works',
       heroProof1: 'Singapore Medical Team R&D',
       heroProof2: '3 Years Clinical Data Validation',
@@ -736,7 +736,7 @@ export const translations = {
       aiHeartPrediction: 'Heart Rate Anomaly Alert',
       aiSleepPrediction: 'Sleep Quality Assessment',
       aiStressPrediction: 'Stress Index Analysis',
-      startHealthPrediction: 'Start Health Prediction',
+      startHealthPrediction: 'Buy Now',
       aiPredictionNote: '* Prediction accuracy based on beta user data statistics',
       overallHealthScore: 'Overall Health Score',
       heartRateLabel: 'Heart Rate',
@@ -747,9 +747,9 @@ export const translations = {
 
       // CTA New
       ctaTitleNew: 'Want to Try?',
-      ctaDescNew1: '14-day free trial, return anytime if not satisfied.',
+      ctaDescNew1: 'Limited offer, buy now and enjoy smart health living.',
       ctaDescNew2: 'No credit card required.',
-      ctaFreeTrial: 'Free Trial',
+      ctaFreeTrial: 'Buy Now',
       ctaBookOffline: 'Book Offline Experience →',
       ctaPrice: '$179',
       ctaPriceStart: 'from',
