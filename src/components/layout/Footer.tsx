@@ -115,7 +115,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder={newsletterText[locale].placeholder}
-                className="px-4 py-3 bg-background border border-border rounded-[20px_24px_22px_18px] text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-[#4ADE80] transition-colors w-full sm:w-80"
+                className="px-4 py-3 bg-background border border-border rounded-[20px_24px_22px_18px] text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-[#00F5A0] transition-colors w-full sm:w-80"
                 style={{ transform: 'rotate(0.3deg)' }}
               />
               <Button
@@ -140,15 +140,15 @@ export default function Footer() {
               style={{ transform: 'rotate(-0.5deg)' }}
             >
               <motion.div 
-                className="relative w-28 h-10"
+                className="relative w-32 h-11"
                 whileHover={{ rotate: 5, scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <Image
-                  src="/logo.png"
+                  src="/blace-logo.png"
                   alt="Orbiva"
                   fill
-                  sizes="112px"
+                  sizes="128px"
                   className="object-contain"
                 />
               </motion.div>
@@ -167,7 +167,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.08, y: -2, rotate: 3 }}
-                  className="w-10 h-10 rounded-[40%_60%_55%_45%] bg-background-tertiary border border-dashed border-[#4ADE80]/30 flex items-center justify-center text-foreground-muted hover:text-[#4ADE80] hover:border-[#4ADE80]/60 transition-colors"
+                  className="w-10 h-10 rounded-[40%_60%_55%_45%] bg-background-tertiary border border-dashed border-[#00F5A0]/30 flex items-center justify-center text-foreground-muted hover:text-[#00F5A0] hover:border-[#00F5A0]/60 transition-colors"
                   style={{ transform: `rotate(${(i - 1) * 3}deg)` }}
                 >
                   <social.icon className="w-5 h-5" />
@@ -187,7 +187,7 @@ export default function Footer() {
                   <li key={link.href} style={{ transform: `rotate(${(linkIndex - 1) * 0.5}deg)` }}>
                     <Link
                       href={link.href}
-                      className="text-foreground-muted hover:text-[#4ADE80] transition-colors text-sm"
+                      className="text-foreground-muted hover:text-[#00F5A0] transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -211,7 +211,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2" style={{ transform: 'rotate(-0.3deg)' }}>
                 <HandDrawnIcon icon={Mail} size="sm" variant="outline" animate={false} />
-                <a href="mailto:contact@orbiva.io" className="hover:text-[#4ADE80] transition-colors">
+                <a href="mailto:contact@orbiva.io" className="hover:text-[#00F5A0] transition-colors">
                   contact@orbiva.io
                 </a>
               </div>

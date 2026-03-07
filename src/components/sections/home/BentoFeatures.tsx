@@ -25,7 +25,7 @@ const bentoItems = [
     description: '比银行卡还小，揣兜里就走。它会默默记录你的身体状态，不打扰你的生活。',
     icon: Box,
     stats: '8种传感器',
-    color: 'from-[#4ADE80] to-[#4ADE80]/50',
+    color: 'from-[#00F5A0] to-[#00F5A0]/50',
     size: 'large',
     features: ['语音聊天', '超轻便', '一周一充'],
   },
@@ -36,7 +36,7 @@ const bentoItems = [
     description: '你的健康数据会形成一个"数字版的你"，帮你看清身体的变化趋势。',
     icon: Cpu,
     stats: '89% 准确',
-    color: 'from-[#86EFAC] to-[#86EFAC]/50',
+    color: 'from-[#33F7B4] to-[#33F7B4]/50',
     size: 'medium',
     features: ['30天预测', '趋势分析'],
   },
@@ -47,7 +47,7 @@ const bentoItems = [
     description: '完成健康小目标就能获得奖励，你的数据你做主。',
     icon: Coins,
     stats: '2.8亿+',
-    color: 'from-[#4ADE80] to-[#86EFAC]/50',
+    color: 'from-[#00F5A0] to-[#33F7B4]/50',
     size: 'medium',
     features: ['任务奖励', '权益商城'],
   },
@@ -58,7 +58,7 @@ const bentoItems = [
     description: '随时了解心跳情况',
     icon: Heart,
     stats: '±2bpm',
-    color: 'from-[#4ADE80] to-[#4ADE80]/50',
+    color: 'from-[#00F5A0] to-[#00F5A0]/50',
     size: 'small',
   },
   {
@@ -68,7 +68,7 @@ const bentoItems = [
     description: '追踪你的睡眠质量',
     icon: Moon,
     stats: '全周期',
-    color: 'from-[#86EFAC] to-[#86EFAC]/50',
+    color: 'from-[#33F7B4] to-[#33F7B4]/50',
     size: 'small',
   },
   {
@@ -78,7 +78,7 @@ const bentoItems = [
     description: '给你靠谱的健康建议',
     icon: Brain,
     stats: '每天更新',
-    color: 'from-[#4ADE80] to-[#4ADE80]/50',
+    color: 'from-[#00F5A0] to-[#00F5A0]/50',
     size: 'small',
   },
   {
@@ -88,7 +88,7 @@ const bentoItems = [
     description: '你的数据，你说了算',
     icon: Shield,
     stats: 'GDPR',
-    color: 'from-[#86EFAC] to-[#86EFAC]/50',
+    color: 'from-[#33F7B4] to-[#33F7B4]/50',
     size: 'small',
   },
 ];
@@ -148,7 +148,7 @@ function BentoCard({ item, index }: { item: typeof bentoItems[0]; index: number 
         group relative overflow-hidden ${borderRadius}
         bg-white/[0.02] backdrop-blur-sm
         border border-white/[0.05]
-        hover:border-[#4ADE80]/20
+        hover:border-[#00F5A0]/20
         transition-all duration-400
         ${sizeClasses[item.size as keyof typeof sizeClasses]}
         ${item.size === 'large' ? 'p-8' : item.size === 'medium' ? 'p-6' : 'p-5'}
@@ -207,7 +207,7 @@ function BentoCard({ item, index }: { item: typeof bentoItems[0]; index: number 
           <h3 
             className={`
               font-bold text-white mt-1 mb-2
-              group-hover:text-[#86EFAC] transition-colors duration-300
+              group-hover:text-[#33F7B4] transition-colors duration-300
               ${item.size === 'large' ? 'text-2xl' : item.size === 'medium' ? 'text-xl' : 'text-lg'}
             `}
             style={{ transform: 'rotate(-0.2deg)' }}
@@ -277,11 +277,11 @@ export default function BentoFeatures() {
       {/* 背景装饰 - 不规则形状 */}
       <div className="absolute inset-0">
         <div 
-          className="absolute top-[5%] left-[20%] w-[480px] h-[440px] bg-[#4ADE80]/[0.018] rounded-[45%_55%_50%_50%] blur-[140px]" 
+          className="absolute top-[5%] left-[20%] w-[480px] h-[440px] bg-[#00F5A0]/[0.018] rounded-[45%_55%_50%_50%] blur-[140px]" 
           style={{ transform: 'rotate(-8deg)' }}
         />
         <div 
-          className="absolute bottom-[10%] right-[22%] w-[380px] h-[350px] bg-[#86EFAC]/[0.015] rounded-[55%_45%_52%_48%] blur-[120px]"
+          className="absolute bottom-[10%] right-[22%] w-[380px] h-[350px] bg-[#33F7B4]/[0.015] rounded-[55%_45%_52%_48%] blur-[120px]"
           style={{ transform: 'rotate(6deg)' }}
         />
       </div>
@@ -311,7 +311,7 @@ export default function BentoFeatures() {
             style={{ transform: 'rotate(0.15deg)' }}
           >
             一站式
-            <span className="bg-gradient-to-r from-[#4ADE80] to-[#86EFAC] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33F7B4] bg-clip-text text-transparent">
               健康管理
             </span>
           </h2>

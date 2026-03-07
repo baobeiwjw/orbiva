@@ -26,7 +26,7 @@ const features = [
       '比银行卡还小的健康伴侣，揣兜里就能用。它会默默记录你的身体数据，一周充一次电就够了。',
     icon: Box,
     href: '/products',
-    color: 'from-[#4ADE80] to-[#86EFAC]',
+    color: 'from-[#00F5A0] to-[#33F7B4]',
     stats: [
       { label: '传感器', value: '8+' },
       { label: '续航', value: '7天' },
@@ -42,7 +42,7 @@ const features = [
       '你的健康数据会形成一个"数字版的你"，帮你看清身体变化，提前发现问题。',
     icon: Cpu,
     href: '/products#digital-twin',
-    color: 'from-[#86EFAC] to-[#4ADE80]',
+    color: 'from-[#33F7B4] to-[#00F5A0]',
     stats: [
       { label: '预测', value: '30天' },
       { label: '准确率', value: '89%' },
@@ -58,7 +58,7 @@ const features = [
       '完成健康小目标就能获得奖励，你的数据你做主，分享脱敏数据还能帮助医学研究。',
     icon: Coins,
     href: '/ecosystem',
-    color: 'from-[#4ADE80] to-[#86EFAC]',
+    color: 'from-[#00F5A0] to-[#33F7B4]',
     stats: [
       { label: '日奖励', value: '100+' },
       { label: '合作方', value: '50+' },
@@ -76,7 +76,7 @@ export default function FeaturesSection() {
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 25% 25%, rgba(74, 222, 128, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 25% 25%, rgba(0, 245, 160, 0.03) 0%, transparent 50%),
             radial-gradient(circle at 75% 75%, rgba(134, 239, 172, 0.02) 0%, transparent 50%)
           `,
         }}
@@ -114,7 +114,7 @@ export default function FeaturesSection() {
                 <Link href={feature.href} className="block h-full">
                   <Card
                     variant="default"
-                    className={`h-full group relative overflow-hidden hover:border-[#4ADE80]/30 ${borderRadii[index]}`}
+                    className={`h-full group relative overflow-hidden hover:border-[#00F5A0]/30 ${borderRadii[index]}`}
                     style={{ transform: `rotate(${rotation}deg)` }}
                   >
                     {/* Gradient Glow - 不规则形状 */}
@@ -125,13 +125,13 @@ export default function FeaturesSection() {
 
                     {/* Logo 图标 */}
                     <div 
-                      className="relative w-28 h-10 mb-6 group-hover:scale-105 transition-transform duration-300"
+                      className="relative w-32 h-11 mb-6 group-hover:scale-105 transition-transform duration-300"
                     >
                       <Image
-                        src="/logo.png"
+                        src="/blace-logo.png"
                         alt="Orbiva"
                         fill
-                        sizes="112px"
+                        sizes="128px"
                         className="object-contain"
                       />
                     </div>
@@ -139,13 +139,13 @@ export default function FeaturesSection() {
                     {/* Content */}
                     <div className="relative">
                       <span 
-                        className="text-sm text-[#4ADE80] font-medium"
+                        className="text-sm text-[#00F5A0] font-medium"
                         style={{ transform: 'rotate(-0.5deg)', display: 'inline-block' }}
                       >
                         {feature.subtitle}
                       </span>
                       <h3 
-                        className="text-2xl font-bold text-foreground mt-1 mb-3 group-hover:text-[#86EFAC] transition-colors duration-300"
+                        className="text-2xl font-bold text-foreground mt-1 mb-3 group-hover:text-[#33F7B4] transition-colors duration-300"
                         style={{ transform: 'rotate(0.2deg)' }}
                       >
                         {feature.title}
@@ -190,7 +190,7 @@ export default function FeaturesSection() {
 
                       {/* CTA */}
                       <div 
-                        className="flex items-center text-[#4ADE80] font-medium group-hover:gap-3 transition-all"
+                        className="flex items-center text-[#00F5A0] font-medium group-hover:gap-3 transition-all"
                         style={{ transform: 'rotate(-0.3deg)' }}
                       >
                         <span>了解更多</span>
@@ -237,7 +237,7 @@ export default function FeaturesSection() {
               variant="primary"
               icon={<ArrowRight className="w-4 h-4" style={{ transform: 'rotate(-3deg)' }} />}
             >
-              立即购买
+              立即体验
             </Button>
           </div>
         </motion.div>

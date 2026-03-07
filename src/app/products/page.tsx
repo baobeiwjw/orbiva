@@ -159,7 +159,7 @@ const homecareProductsConfig = [
     icon: Sofa, 
     descKey: 'productCushionDesc',
     featureKeys: ['productCushionF1', 'productCushionF2', 'productCushionF3', 'productCushionF4'],
-    color: 'from-[#06B6D4] to-[#22D3EE]',
+    color: 'from-[#1A6BFF] to-[#00D4FF]',
     specs: { sensorsKey: 'specSensors', batteryKey: 'specBattery6mo', syncKey: 'specRealtime' },
   },
   { 
@@ -168,7 +168,7 @@ const homecareProductsConfig = [
     icon: Monitor, 
     descKey: 'productMirrorDesc',
     featureKeys: ['productMirrorF1', 'productMirrorF2', 'productMirrorF3', 'productMirrorF4'],
-    color: 'from-[#4ADE80] to-[#67E8F9]',
+    color: 'from-[#00F5A0] to-[#33DFFF]',
     specs: { resolutionKey: 'specResolution4K', aiKey: 'specRealtime', privacyKey: 'specLocalProcess' },
   },
   { 
@@ -177,7 +177,7 @@ const homecareProductsConfig = [
     icon: Bed, 
     descKey: 'productSleepDesc',
     featureKeys: ['productSleepF1', 'productSleepF2', 'productSleepF3', 'productSleepF4'],
-    color: 'from-[#22D3EE] to-[#22D3EE]',
+    color: 'from-[#00D4FF] to-[#00D4FF]',
     specs: { accuracyKey: 'specAccuracy95', placementKey: 'specUnderMattress', batteryKey: 'specRechargeable' },
   },
   { 
@@ -186,7 +186,7 @@ const homecareProductsConfig = [
     icon: Dumbbell, 
     descKey: 'productLactateDesc',
     featureKeys: ['productLactateF1', 'productLactateF2', 'productLactateF3', 'productLactateF4'],
-    color: 'from-[#22D3EE] to-[#06B6D4]',
+    color: 'from-[#00D4FF] to-[#1A6BFF]',
     specs: { methodKey: 'specNirMethod', accuracyKey: 'specLactateAccuracy', responseKey: 'specRealtime' },
   },
   { 
@@ -195,7 +195,7 @@ const homecareProductsConfig = [
     icon: Droplet, 
     descKey: 'productHydrationDesc',
     featureKeys: ['productHydrationF1', 'productHydrationF2', 'productHydrationF3', 'productHydrationF4'],
-    color: 'from-[#06B6D4] to-[#22D3EE]',
+    color: 'from-[#1A6BFF] to-[#00D4FF]',
     specs: { capacityKey: 'specUniversalCup', batteryKey: 'specBattery3mo', waterprofKey: 'specIP67' },
   },
   { 
@@ -204,7 +204,7 @@ const homecareProductsConfig = [
     icon: Activity, 
     descKey: 'productScaleDesc',
     featureKeys: ['productScaleF1', 'productScaleF2', 'productScaleF3', 'productScaleF4'],
-    color: 'from-[#4ADE80] to-[#f43f5e]',
+    color: 'from-[#00F5A0] to-[#f43f5e]',
     specs: { electrodesKey: 'specElectrodes8', metricsKey: 'specMetrics15', usersKey: 'specUnlimited' },
   },
 ];
@@ -218,7 +218,7 @@ function HeroSection() {
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* 背景 */}
-      <div className="absolute inset-0 bg-[#050505]" />
+      <div className="absolute inset-0 bg-[#060618]" />
       
       {/* 椭圆装饰 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -233,11 +233,11 @@ function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#22D3EE]/[0.05] rounded-[50%]"
+          className="absolute w-[130vw] h-[60vh] border border-[#00D4FF]/[0.05] rounded-[50%]"
         />
       </div>
 
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -261,7 +261,7 @@ function HeroSection() {
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           {t('products.heroTitle1')}
-          <span className="block bg-gradient-to-r from-[#22D3EE] to-[#06B6D4] bg-clip-text text-transparent">
+          <span className="block bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">
             {t('products.heroTitle2')}
           </span>
         </motion.h1>
@@ -284,15 +284,15 @@ function HeroSection() {
           className="flex flex-wrap justify-center gap-4"
         >
           <div className="px-6 py-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-            <span className="text-[#22D3EE] font-bold">VivaBox</span>
+            <span className="text-[#00D4FF] font-bold">VivaBox</span>
             <span className="text-white/40 ml-2">{t('products.vivaboxTag')}</span>
           </div>
           <div className="px-6 py-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-            <span className="text-[#06B6D4] font-bold">{t('products.homecareCount')}</span>
+            <span className="text-[#1A6BFF] font-bold">{t('products.homecareCount')}</span>
             <span className="text-white/40 ml-2">{t('products.homecareProducts')}</span>
           </div>
           <div className="px-6 py-3 rounded-xl bg-white/[0.03] border border-white/[0.05]">
-            <span className="text-[#4ADE80] font-bold">{t('products.twinTag')}</span>
+            <span className="text-[#00F5A0] font-bold">{t('products.twinTag')}</span>
             <span className="text-white/40 ml-2">{t('products.aiCompanion')}</span>
           </div>
         </motion.div>
@@ -329,8 +329,8 @@ function VivaBoxSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -344,7 +344,7 @@ function VivaBoxSection() {
           >
             {/* 3D设备展示区 */}
             <div className="relative aspect-square max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#22D3EE]/20 to-[#06B6D4]/10 rounded-3xl blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#00D4FF]/20 to-[#1A6BFF]/10 rounded-3xl blur-3xl" />
               
               <motion.div
                 animate={{ 
@@ -374,7 +374,7 @@ function VivaBoxSection() {
                   onClick={() => setActiveFace('A')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     activeFace === 'A'
-                      ? 'bg-[#22D3EE] text-white'
+                      ? 'bg-[#00D4FF] text-white'
                       : 'bg-white/[0.05] text-white/60 hover:bg-white/[0.1]'
                   }`}
                 >
@@ -384,7 +384,7 @@ function VivaBoxSection() {
                   onClick={() => setActiveFace('B')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     activeFace === 'B'
-                      ? 'bg-[#06B6D4] text-white'
+                      ? 'bg-[#1A6BFF] text-white'
                       : 'bg-white/[0.05] text-white/60 hover:bg-white/[0.1]'
                   }`}
                 >
@@ -398,7 +398,7 @@ function VivaBoxSection() {
                 transition={{ duration: 3, repeat: Infinity }}
                 className="absolute -top-4 -right-4 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.05] text-sm"
               >
-                <span className="text-[#22D3EE] font-medium">{t('products.specSize')}</span>
+                <span className="text-[#00D4FF] font-medium">{t('products.specSize')}</span>
               </motion.div>
 
               <motion.div
@@ -406,7 +406,7 @@ function VivaBoxSection() {
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute -bottom-4 -left-4 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.05] text-sm"
               >
-                <span className="text-[#06B6D4] font-medium">{t('products.specWeight')}</span>
+                <span className="text-[#1A6BFF] font-medium">{t('products.specWeight')}</span>
               </motion.div>
             </div>
 
@@ -446,7 +446,7 @@ function VivaBoxSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22D3EE]/10 text-[#22D3EE] text-sm font-medium mb-4">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D4FF]/10 text-[#00D4FF] text-sm font-medium mb-4">
               {t('products.vivaboxTag')}
             </span>
             
@@ -544,8 +544,8 @@ function DigitalTwinSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -563,7 +563,7 @@ function DigitalTwinSection() {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('products.twinTitle')}
-            <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
               {t('products.twinTitle2')}
             </span>
           </h2>
@@ -581,7 +581,7 @@ function DigitalTwinSection() {
               onClick={() => setActiveTwinMode(mode.id)}
               className={`flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTwinMode === mode.id
-                  ? 'bg-[#4ADE80] text-white'
+                  ? 'bg-[#00F5A0] text-white'
                   : 'bg-white/[0.03] text-white/60 hover:bg-white/[0.05] border border-white/[0.05]'
               }`}
             >
@@ -653,8 +653,8 @@ function HomeCareSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -672,7 +672,7 @@ function HomeCareSection() {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('products.homecareTitle')}
-            <span className="bg-gradient-to-r from-[#06B6D4] to-[#22D3EE] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">
               {t('products.homecareTitle2')}
             </span>
           </h2>
@@ -694,14 +694,14 @@ function HomeCareSection() {
               onClick={() => setActiveProduct(activeProduct === product.id ? null : product.id)}
               className={`group p-6 rounded-3xl bg-white/[0.02] border transition-all duration-300 cursor-pointer ${
                 activeProduct === product.id
-                  ? 'border-[#06B6D4]/50 bg-white/[0.04]'
-                  : 'border-white/[0.05] hover:border-[#06B6D4]/30'
+                  ? 'border-[#1A6BFF]/50 bg-white/[0.04]'
+                  : 'border-white/[0.05] hover:border-[#1A6BFF]/30'
               }`}
             >
               <div className="flex items-center gap-4 mb-4">
                 <HandDrawnIcon icon={product.icon} size="lg" variant="filled" />
                 <div>
-                  <h3 className="font-bold text-white text-lg group-hover:text-[#06B6D4] transition-colors">
+                  <h3 className="font-bold text-white text-lg group-hover:text-[#1A6BFF] transition-colors">
                     {t(`products.${product.nameKey}`)}
                   </h3>
                   <p className="text-xs text-white/40">{t(`products.${product.descKey}`)}</p>
@@ -733,7 +733,7 @@ function HomeCareSection() {
                       <div className="grid grid-cols-3 gap-2">
                         {Object.entries(product.specs).map(([key, valueKey]) => (
                           <div key={key} className="text-center">
-                            <div className="text-sm font-medium text-[#06B6D4]">{t(`products.${valueKey}`)}</div>
+                            <div className="text-sm font-medium text-[#1A6BFF]">{t(`products.${valueKey}`)}</div>
                             <div className="text-xs text-white/40">{t(`products.spec${key.charAt(0).toUpperCase() + key.slice(1)}Label`)}</div>
                           </div>
                         ))}
@@ -780,8 +780,8 @@ function AppSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -838,12 +838,12 @@ function AppSection() {
           >
             <div className="relative max-w-xs mx-auto">
               <div className="relative rounded-[3rem] bg-white/[0.02] border-4 border-white/[0.05] p-4 aspect-[9/19]">
-                <div className="w-full h-full rounded-[2.5rem] bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full rounded-[2.5rem] bg-[#0A0A1A] flex items-center justify-center overflow-hidden">
                   {/* 模拟App界面 */}
                   <div className="w-full h-full p-4 flex flex-col">
                     <div className="text-center mb-4">
                       <div className="text-xs text-white/40">{t('products.todayHealthScore')}</div>
-                      <div className="text-4xl font-bold text-[#22D3EE]">87</div>
+                      <div className="text-4xl font-bold text-[#00D4FF]">87</div>
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                       <motion.div
@@ -899,8 +899,8 @@ function CTASection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#22D3EE]/[0.03] to-transparent rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00D4FF]/[0.03] to-transparent rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -913,14 +913,14 @@ function CTASection() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-48 h-16 mx-auto mb-8"
+            className="w-52 h-[72px] mx-auto mb-8"
           >
-            <img src="/logo.png" alt="Orbiva Logo" className="w-full h-full object-contain" />
+            <img src="/blace-logo.png" alt="Orbiva Logo" className="w-full h-full object-contain" />
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             {t('products.ctaTitle1')}
-            <span className="block bg-gradient-to-r from-[#22D3EE] to-[#06B6D4] bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">
               {t('products.ctaTitle2')}
             </span>
           </h2>
@@ -946,8 +946,8 @@ function CTASection() {
 // ========== 主页面 ==========
 export default function ProductsPage() {
   return (
-    <main className="relative bg-[#050505]">
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+    <main className="relative bg-[#060618]">
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
       
       {/* Hero */}
       <HeroSection />

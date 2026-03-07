@@ -117,7 +117,7 @@ const techPillarsData = [
     descKey: 'edgeAIDesc',
     detailKeys: ['edgeAIDetail1', 'edgeAIDetail2', 'edgeAIDetail3', 'edgeAIDetail4'],
     detailIcons: [Zap, Server, Wifi, Layers],
-    color: 'from-[#4ADE80] to-[#67E8F9]',
+    color: 'from-[#00F5A0] to-[#33DFFF]',
     stats: [
       { value: '<50ms', labelKey: 'statLatency' },
       { value: '95%+', labelKey: 'statAccuracy' },
@@ -132,7 +132,7 @@ const techPillarsData = [
     descKey: 'explainableAIDesc',
     detailKeys: ['explainableAIDetail1', 'explainableAIDetail2', 'explainableAIDetail3', 'explainableAIDetail4'],
     detailIcons: [Eye, GitBranch, BarChart3, FileText],
-    color: 'from-[#06B6D4] to-[#22D3EE]',
+    color: 'from-[#1A6BFF] to-[#00D4FF]',
     stats: [
       { value: '100%', labelKey: 'statTransparency' },
       { value: '+40%', labelKey: 'statTrust' },
@@ -147,7 +147,7 @@ const techPillarsData = [
     descKey: 'privacyArchDesc',
     detailKeys: ['privacyArchDetail1', 'privacyArchDetail2', 'privacyArchDetail3', 'privacyArchDetail4'],
     detailIcons: [Lock, Database, Users, Shield],
-    color: 'from-[#22D3EE] to-[#06b6d4]',
+    color: 'from-[#00D4FF] to-[#1A6BFF]',
     stats: [
       { value: 'AES-256', labelKey: 'statEncryption' },
       { value: '4', labelKey: 'statCertCount' },
@@ -211,7 +211,7 @@ function HeroSection() {
 
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-[#050505]" />
+      <div className="absolute inset-0 bg-[#060618]" />
       
       {/* 椭圆装饰 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -226,11 +226,11 @@ function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#4ADE80]/[0.06] rounded-[50%]"
+          className="absolute w-[130vw] h-[60vh] border border-[#00F5A0]/[0.06] rounded-[50%]"
         />
       </div>
 
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -254,7 +254,7 @@ function HeroSection() {
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           {t('technology.heroTitle1New')}
-          <span className="block bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">
+          <span className="block bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
             {t('technology.heroTitle2New')}
           </span>
         </motion.h1>
@@ -321,8 +321,8 @@ function TechPillarsSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -338,7 +338,7 @@ function TechPillarsSection() {
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('technology.techPillarsTitle1')}<span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">{t('technology.techPillarsTitle2')}</span>
+            {t('technology.techPillarsTitle1')}<span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('technology.techPillarsTitle2')}</span>
           </h2>
         </motion.div>
 
@@ -400,7 +400,7 @@ function TechPillarsSection() {
                 <div className="grid grid-cols-3 gap-4">
                   {currentPillar.stats.map((stat) => (
                     <div key={stat.labelKey} className="text-center">
-                      <div className="text-2xl font-bold text-[#22D3EE]">{stat.value}</div>
+                      <div className="text-2xl font-bold text-[#00D4FF]">{stat.value}</div>
                       <div className="text-xs text-white/40 mt-1">{t(`technology.${stat.labelKey}`)}</div>
                     </div>
                   ))}
@@ -414,15 +414,15 @@ function TechPillarsSection() {
                   {activePillar === 'edge-ai' && (
                     <>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#4ADE80]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00F5A0]" />
                         <span className="text-sm text-white/60">{t('technology.edgeFlow1')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#22D3EE]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
                         <span className="text-sm text-white/60">{t('technology.edgeFlow2')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#06B6D4]" />
+                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
                         <span className="text-sm text-white/60">{t('technology.edgeFlow3')}</span>
                       </div>
                     </>
@@ -430,15 +430,15 @@ function TechPillarsSection() {
                   {activePillar === 'explainable-ai' && (
                     <>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#06B6D4]" />
+                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
                         <span className="text-sm text-white/60">{t('technology.explainableFlow1')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#22D3EE]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
                         <span className="text-sm text-white/60">{t('technology.explainableFlow2')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#4ADE80]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00F5A0]" />
                         <span className="text-sm text-white/60">{t('technology.explainableFlow3')}</span>
                       </div>
                     </>
@@ -446,15 +446,15 @@ function TechPillarsSection() {
                   {activePillar === 'privacy' && (
                     <>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#22D3EE]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
                         <span className="text-sm text-white/60">{t('technology.privacyFlow1')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#06B6D4]" />
+                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
                         <span className="text-sm text-white/60">{t('technology.privacyFlow2')}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#22D3EE]" />
+                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
                         <span className="text-sm text-white/60">{t('technology.privacyFlow3')}</span>
                       </div>
                     </>
@@ -477,8 +477,8 @@ function ExplainableAISection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -495,7 +495,7 @@ function ExplainableAISection() {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('technology.explainableTitle1')}
-            <span className="bg-gradient-to-r from-[#06B6D4] to-[#22D3EE] bg-clip-text text-transparent">{t('technology.explainableTitle2')}</span>
+            <span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">{t('technology.explainableTitle2')}</span>
           </h2>
           
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
@@ -511,7 +511,7 @@ function ExplainableAISection() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#06B6D4]/30 transition-all"
+              className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#1A6BFF]/30 transition-all"
             >
               <div className="flex items-start gap-4 mb-4">
                 <HandDrawnIcon icon={feature.icon} size="lg" variant="filled" className="flex-shrink-0" />
@@ -579,8 +579,8 @@ function PrivacySection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -597,7 +597,7 @@ function PrivacySection() {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('technology.privacyTitle1')}
-            <span className="bg-gradient-to-r from-[#22D3EE] to-[#06B6D4] bg-clip-text text-transparent">{t('technology.privacyTitle2')}</span>
+            <span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">{t('technology.privacyTitle2')}</span>
           </h2>
           
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
@@ -614,7 +614,7 @@ function PrivacySection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="group p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#22D3EE]/30 transition-all duration-300 text-center"
+              className="group p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00D4FF]/30 transition-all duration-300 text-center"
             >
               <HandDrawnIcon icon={feature.icon} size="lg" variant="filled" className="mb-4 mx-auto group-hover:scale-110 transition-transform duration-300" />
               <h3 className="font-bold text-white mb-2">{t(`technology.${feature.titleKey}`)}</h3>
@@ -634,7 +634,7 @@ function PrivacySection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {certifications.map((cert) => (
               <div key={cert.nameKey} className="text-center group">
-                <div className="w-16 h-16 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-3 group-hover:border-[#22D3EE]/30 transition-colors">
+                <div className="w-16 h-16 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-3 group-hover:border-[#00D4FF]/30 transition-colors">
                   <HandDrawnIcon icon={cert.icon} size="md" variant="filled" />
                 </div>
                 <div className="text-sm font-medium text-white">{t(`technology.${cert.nameKey}`)}</div>
@@ -656,8 +656,8 @@ function NTUSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -687,15 +687,15 @@ function NTUSection() {
             {/* 合作数据 */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#4ADE80]">{ntuCollaboration.startYear}</div>
+                <div className="text-2xl font-bold text-[#00F5A0]">{ntuCollaboration.startYear}</div>
                 <div className="text-xs text-white/40">{t('technology.collabSince')}</div>
               </div>
               <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#22D3EE]">{ntuCollaboration.papers}+</div>
+                <div className="text-2xl font-bold text-[#00D4FF]">{ntuCollaboration.papers}+</div>
                 <div className="text-xs text-white/40">{t('technology.ntuPapersCount')}</div>
               </div>
               <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#06B6D4]">{ntuCollaboration.patents}+</div>
+                <div className="text-2xl font-bold text-[#1A6BFF]">{ntuCollaboration.patents}+</div>
                 <div className="text-xs text-white/40">{t('technology.ntuPatentsCount')}</div>
               </div>
             </div>
@@ -710,7 +710,7 @@ function NTUSection() {
                       <div className="text-sm text-white">{researcher.name}</div>
                       <div className="text-xs text-white/40">{t(`technology.${researcher.roleKey}`)}</div>
                     </div>
-                    <span className="px-2 py-1 text-xs rounded-full bg-[#4ADE80]/10 text-[#4ADE80]">
+                    <span className="px-2 py-1 text-xs rounded-full bg-[#00F5A0]/10 text-[#00F5A0]">
                       {t(`technology.${researcher.focusKey}`)}
                     </span>
                   </div>
@@ -738,13 +738,13 @@ function NTUSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-[#4ADE80]/30 transition-colors cursor-pointer group"
+                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00F5A0]/30 transition-colors cursor-pointer group"
                   >
-                    <h4 className="font-medium text-white text-sm mb-2 group-hover:text-[#4ADE80] transition-colors">
+                    <h4 className="font-medium text-white text-sm mb-2 group-hover:text-[#00F5A0] transition-colors">
                       {paper.title}
                     </h4>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#4ADE80]">{paper.venue}, {paper.year}</span>
+                      <span className="text-[#00F5A0]">{paper.venue}, {paper.year}</span>
                       <span className="text-white/40">{'impactKey' in paper ? t(`technology.${paper.impactKey}`) : paper.impact}</span>
                     </div>
                   </motion.div>
@@ -770,8 +770,8 @@ function CTASection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#4ADE80]/[0.03] to-transparent rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00F5A0]/[0.03] to-transparent rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -784,14 +784,14 @@ function CTASection() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-48 h-16 mx-auto mb-8"
+            className="w-52 h-[72px] mx-auto mb-8"
           >
-            <Image src="/logo.png" alt="Orbiva Logo" width={384} height={128} className="w-full h-full object-contain" />
+            <Image src="/blace-logo.png" alt="Orbiva Logo" width={494} height={173} className="w-full h-full object-contain" />
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             {t('technology.ctaTitle1')}
-            <span className="block bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
               {t('technology.ctaTitle2')}
             </span>
           </h2>
@@ -817,8 +817,8 @@ function CTASection() {
 // ========== 主页面 ==========
 export default function TechnologyPage() {
   return (
-    <main className="relative bg-[#050505]">
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+    <main className="relative bg-[#060618]">
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
       
       {/* Hero */}
       <HeroSection />

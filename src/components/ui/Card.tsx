@@ -29,7 +29,7 @@ export default function Card({
   };
 
   const hoverStyles = hover
-    ? 'hover:border-[#22D3EE]/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] hover:-translate-y-1'
+    ? 'hover:border-[#00D4FF]/50 hover:shadow-[0_0_30px_rgba(0,212,255,0.15)] hover:-translate-y-1'
     : '';
 
   return (

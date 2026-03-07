@@ -88,7 +88,7 @@ export default function ScrollSection({
   return (
     <section 
       ref={sectionRef} 
-      className={`relative overflow-hidden bg-[#050505] ${className}`}
+      className={`relative overflow-hidden bg-[#060618] ${className}`}
     >
       <motion.div 
         style={{ opacity, y, scale }}
@@ -111,9 +111,9 @@ interface PageWrapperProps {
 
 export function PageWrapper({ children, className = '' }: PageWrapperProps) {
   return (
-    <main className={`relative bg-[#050505] ${className}`}>
+    <main className={`relative bg-[#060618] ${className}`}>
       {/* 全局背景 */}
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
       {children}
     </main>
   );

@@ -58,19 +58,19 @@ export default function HandDrawnIcon({
 
   const variantStyles = {
     default: `
-      border-2 border-dashed border-[#4ADE80]
+      border-2 border-dashed border-[#00F5A0]
       bg-transparent
-      hover:border-[#86EFAC] hover:bg-[#4ADE80]/5
+      hover:border-[#33F7B4] hover:bg-[#00F5A0]/5
     `,
     filled: `
-      border-2 border-[#4ADE80]/30
-      bg-[#4ADE80]/10
-      hover:bg-[#4ADE80]/20
+      border-2 border-[#00F5A0]/30
+      bg-[#00F5A0]/10
+      hover:bg-[#00F5A0]/20
     `,
     outline: `
-      border border-[#4ADE80]/50
+      border border-[#00F5A0]/50
       bg-transparent
-      hover:border-[#86EFAC]
+      hover:border-[#33F7B4]
     `,
   };
 
@@ -89,7 +89,7 @@ export default function HandDrawnIcon({
     >
       {/* 图标 */}
       <Icon 
-        className={`${config.icon} text-[#4ADE80]`}
+        className={`${config.icon} text-[#00F5A0]`}
         strokeWidth={1.5}
         style={{ transform: `rotate(${-randomRotation}deg)` }} // 反向旋转使图标正
       />
@@ -110,7 +110,7 @@ export function InlineHandDrawnIcon({
   return (
     <span className={`inline-flex items-center justify-center ${className}`}>
       <Icon 
-        className="w-5 h-5 text-[#4ADE80]"
+        className="w-5 h-5 text-[#00F5A0]"
         strokeWidth={1.5}
         style={{ transform: 'rotate(-2deg)' }}
       />

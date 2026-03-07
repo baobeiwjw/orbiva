@@ -21,7 +21,7 @@ function SceneFallback() {
         {/* 脉冲环 - 不规则形状 */}
         <div className="absolute inset-0 -m-8">
           <div 
-            className="w-32 h-32 rounded-[45%_55%_50%_50%] border border-[#4ADE80]/20 animate-ping" 
+            className="w-32 h-32 rounded-[45%_55%_50%_50%] border border-[#00F5A0]/20 animate-ping" 
             style={{ animationDuration: '2.5s', transform: 'rotate(-5deg)' }} 
           />
         </div>
@@ -32,7 +32,7 @@ function SceneFallback() {
             className="w-full h-full"
           >
             <Image
-              src="/logo.png"
+              src="/blace-logo.png"
               alt="Loading"
               fill
               sizes="128px"
@@ -101,10 +101,10 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#060618]"
     >
       {/* 背景渐变 - 更不规则 */}
-      <div className="absolute inset-0 bg-gradient-radial from-[#0a0a0a] via-[#050505] to-black" />
+      <div className="absolute inset-0 bg-gradient-radial from-[#0A0A1A] via-[#060618] to-black" />
       
       {/* 网格背景 - 不规则间距感 */}
       <div 
@@ -132,7 +132,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.8, delay: 0.7, ease: 'easeOut' }}
-          className="absolute w-[128vw] h-[62vh] border border-[#4ADE80]/[0.04] rounded-[52%_48%_55%_45%]"
+          className="absolute w-[128vw] h-[62vh] border border-[#00F5A0]/[0.04] rounded-[52%_48%_55%_45%]"
           style={{ transform: 'rotate(-2deg) translateY(3%)' }}
         />
         <motion.div 
@@ -146,11 +146,11 @@ export default function HeroSection() {
       
       {/* 环境光效果 - 不规则形状和位置 */}
       <div 
-        className="absolute top-[-5%] left-[18%] w-[580px] h-[520px] bg-[#4ADE80]/[0.025] rounded-[45%_55%_50%_50%] blur-[140px]" 
+        className="absolute top-[-5%] left-[18%] w-[580px] h-[520px] bg-[#00F5A0]/[0.025] rounded-[45%_55%_50%_50%] blur-[140px]" 
         style={{ transform: 'rotate(-8deg)' }}
       />
       <div 
-        className="absolute bottom-[-8%] right-[20%] w-[480px] h-[420px] bg-[#86EFAC]/[0.018] rounded-[55%_45%_48%_52%] blur-[130px]"
+        className="absolute bottom-[-8%] right-[20%] w-[480px] h-[420px] bg-[#33F7B4]/[0.018] rounded-[55%_45%_48%_52%] blur-[130px]"
         style={{ transform: 'rotate(5deg)' }}
       />
 
@@ -219,7 +219,7 @@ export default function HeroSection() {
                 size="lg"
                 icon={<ArrowRight className="w-5 h-5" />}
               >
-                立即购买
+                立即体验
               </Button>
               <Button
                 variant="secondary"
@@ -270,7 +270,7 @@ export default function HeroSection() {
             >
               {/* 发光效果 - 不规则 */}
               <div 
-                className="absolute inset-0 bg-gradient-to-br from-[#4ADE80]/12 to-[#86EFAC]/8 rounded-[45%_55%_50%_50%] blur-[75px] opacity-60" 
+                className="absolute inset-0 bg-gradient-to-br from-[#00F5A0]/12 to-[#33F7B4]/8 rounded-[45%_55%_50%_50%] blur-[75px] opacity-60" 
                 style={{ transform: 'rotate(-5deg)' }}
               />
               
@@ -304,7 +304,7 @@ export default function HeroSection() {
                   <div className="flex items-center gap-3">
                     <HandDrawnIcon icon={Zap} size="md" variant="filled" animate={false} />
                     <div>
-                      <p className="text-[#86EFAC] font-semibold text-lg">89%</p>
+                      <p className="text-[#33F7B4] font-semibold text-lg">89%</p>
                       <p className="text-white/45 text-xs">预测准确率</p>
                     </div>
                   </div>
@@ -324,7 +324,7 @@ export default function HeroSection() {
                   <div className="flex items-center gap-3">
                     <HandDrawnIcon icon={Sparkles} size="md" variant="filled" animate={false} />
                     <div>
-                      <p className="text-[#4ADE80] font-semibold text-lg">14天</p>
+                      <p className="text-[#00F5A0] font-semibold text-lg">14天</p>
                       <p className="text-white/45 text-xs">预测周期</p>
                     </div>
                   </div>
@@ -351,7 +351,7 @@ export default function HeroSection() {
           <span className="text-white/25 text-xs tracking-widest" style={{ letterSpacing: '0.2em' }}>
             向下滑动
           </span>
-          <div className="w-px h-8 bg-gradient-to-b from-[#4ADE80]/30 to-transparent" />
+          <div className="w-px h-8 bg-gradient-to-b from-[#00F5A0]/30 to-transparent" />
         </motion.div>
       </motion.div>
 

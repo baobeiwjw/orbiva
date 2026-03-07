@@ -52,7 +52,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="absolute right-0 top-full mt-2 py-2 w-36 rounded-xl bg-[#0a0a0a] border border-white/[0.08] shadow-xl z-50"
+              className="absolute right-0 top-full mt-2 py-2 w-36 rounded-xl bg-[#0A0A1A] border border-white/[0.08] shadow-xl z-50"
             >
               {locales.map((loc) => (
                 <button
@@ -61,7 +61,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
                   className={cn(
                     'w-full flex items-center justify-between px-4 py-2 text-sm transition-colors',
                     locale === loc
-                      ? 'text-[#22D3EE] bg-[#22D3EE]/[0.05]'
+                      ? 'text-[#00D4FF] bg-[#00D4FF]/[0.05]'
                       : 'text-white/60 hover:text-white hover:bg-white/[0.03]'
                   )}
                 >
@@ -97,7 +97,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-2 py-2 w-44 rounded-xl bg-[#0a0a0a] border border-white/[0.08] shadow-xl backdrop-blur-xl z-50"
+            className="absolute right-0 top-full mt-2 py-2 w-44 rounded-xl bg-[#0A0A1A] border border-white/[0.08] shadow-xl backdrop-blur-xl z-50"
           >
             {locales.map((loc) => (
               <button
@@ -106,7 +106,7 @@ export default function LanguageSwitcher({ className, variant = 'default' }: Lan
                 className={cn(
                   'w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors',
                   locale === loc
-                    ? 'text-[#22D3EE] bg-[#22D3EE]/[0.05]'
+                    ? 'text-[#00D4FF] bg-[#00D4FF]/[0.05]'
                     : 'text-white/60 hover:text-white hover:bg-white/[0.03]'
                 )}
               >

@@ -12,9 +12,9 @@ export const translations = {
   common: {
     'zh-CN': {
       login: '登录',
-      getStarted: '立即购买',
+      getStarted: '立即体验',
       learnMore: '了解更多',
-      buyNow: '立即购买',
+      buyNow: '立即体验',
       contactUs: '联系我们',
       viewMore: '查看更多',
       scroll: 'Scroll',
@@ -26,9 +26,9 @@ export const translations = {
     },
     'zh-TW': {
       login: '登入',
-      getStarted: '立即購買',
+      getStarted: '立即體驗',
       learnMore: '了解更多',
-      buyNow: '立即購買',
+      buyNow: '立即體驗',
       contactUs: '聯繫我們',
       viewMore: '查看更多',
       scroll: 'Scroll',
@@ -40,9 +40,9 @@ export const translations = {
     },
     'en': {
       login: 'Login',
-      getStarted: 'Buy Now',
+      getStarted: 'Try Now',
       learnMore: 'Learn More',
-      buyNow: 'Buy Now',
+      buyNow: 'Try Now',
       contactUs: 'Contact Us',
       viewMore: 'View More',
       scroll: 'Scroll',
@@ -94,7 +94,7 @@ export const translations = {
       heroFeature2: 'AI健康预测',
       heroFeature3: '实时数据同步',
       watchDemo: '观看演示',
-      tryNow: '立即购买',
+      tryNow: '立即体验',
       healthPrediction: '健康预测准确率',
       predictionCycle: '健康预测周期',
 
@@ -157,15 +157,22 @@ export const translations = {
       aiHRV: '心率变异性预测',
       aiSleep: '睡眠质量预测',
       aiStress: '压力水平预测',
-      startPrediction: '立即购买',
+      startPrediction: '立即体验',
 
       // CTA
       ctaTitle1: '开启您的',
       ctaTitle2: '数字健康新时代',
-      ctaSubtitle: '加入全球 100,000+ 用户，让 AI 成为您的私人健康顾问。VivaBox 套装限时优惠，立即购买开启智能健康生活。',
+      ctaSubtitle: '加入全球 100,000+ 用户，让 AI 成为您的私人健康顾问。VivaBox 套装限时优惠，立即体验开启智能健康生活。',
       bookDemo: '预约产品演示',
       priceFrom: '起',
       returnPolicy: '30天无忧退换',
+
+      // Orb 首屏
+      orbHeroTitle1: '预见未来',
+      orbHeroTitle2: '从此刻开始',
+      orbHeroSubtitle: 'AI 驱动的数字孪生健康平台',
+      orbHeroCTA: '探索 Orbiva',
+      orbHeroScroll: '向下滚动',
 
       // 新版 Hero - 去AI味
       heroTagNew: '南洋理工 · 新加坡科研团队',
@@ -175,7 +182,7 @@ export const translations = {
       heroDescNew1: '每天花3秒，拍张食物照片。',
       heroDescNew2: 'Orbiva 会告诉你30天后身体可能的变化——',
       heroDescNew3: '好的坏的，都提前知道。',
-      heroCTA1: '立即购买',
+      heroCTA1: '立即体验',
       heroCTA2: '看看怎么用',
       heroProof1: '新加坡医疗团队研发',
       heroProof2: '3年临床数据验证',
@@ -288,7 +295,7 @@ export const translations = {
       aiHeartPrediction: '心率异常预警',
       aiSleepPrediction: '睡眠质量评估',
       aiStressPrediction: '压力指数分析',
-      startHealthPrediction: '立即购买',
+      startHealthPrediction: '立即体验',
       aiPredictionNote: '* 预测准确率基于内测用户数据统计',
       overallHealthScore: '综合健康评分',
       heartRateLabel: '心率',
@@ -299,9 +306,9 @@ export const translations = {
 
       // CTA 新版
       ctaTitleNew: '想试试吗？',
-      ctaDescNew1: '限时优惠，立即购买享受智能健康生活。',
+      ctaDescNew1: '限时优惠，立即体验享受智能健康生活。',
       ctaDescNew2: '反正也不用绑卡。',
-      ctaFreeTrial: '立即购买',
+      ctaFreeTrial: '立即体验',
       ctaBookOffline: '预约线下体验 →',
       ctaPrice: '¥1,299',
       ctaPriceStart: '起',
@@ -318,7 +325,7 @@ export const translations = {
       heroFeature2: 'AI健康預測',
       heroFeature3: '即時數據同步',
       watchDemo: '觀看演示',
-      tryNow: '立即購買',
+      tryNow: '立即體驗',
       healthPrediction: '健康預測準確率',
       predictionCycle: '健康預測週期',
 
@@ -381,15 +388,22 @@ export const translations = {
       aiHRV: '心率變異性預測',
       aiSleep: '睡眠品質預測',
       aiStress: '壓力水平預測',
-      startPrediction: '立即購買',
+      startPrediction: '立即體驗',
 
       // CTA
       ctaTitle1: '開啟您的',
       ctaTitle2: '數位健康新時代',
-      ctaSubtitle: '加入全球 100,000+ 用戶，讓 AI 成為您的私人健康顧問。VivaBox 套裝限時優惠，立即購買開啟智能健康生活。',
+      ctaSubtitle: '加入全球 100,000+ 用戶，讓 AI 成為您的私人健康顧問。VivaBox 套裝限時優惠，立即體驗開啟智能健康生活。',
       bookDemo: '預約產品演示',
       priceFrom: '起',
       returnPolicy: '30天無憂退換',
+
+      // Orb 首屏
+      orbHeroTitle1: '預見未來',
+      orbHeroTitle2: '從此刻開始',
+      orbHeroSubtitle: 'AI 驅動的數位孿生健康平台',
+      orbHeroCTA: '探索 Orbiva',
+      orbHeroScroll: '向下滾動',
 
       // 新版 Hero - 去AI味
       heroTagNew: '南洋理工 · 新加坡科研團隊',
@@ -399,7 +413,7 @@ export const translations = {
       heroDescNew1: '每天花3秒，拍張食物照片。',
       heroDescNew2: 'Orbiva 會告訴你30天後身體可能的變化——',
       heroDescNew3: '好的壞的，都提前知道。',
-      heroCTA1: '立即購買',
+      heroCTA1: '立即體驗',
       heroCTA2: '看看怎麼用',
       heroProof1: '新加坡醫療團隊研發',
       heroProof2: '3年臨床數據驗證',
@@ -512,7 +526,7 @@ export const translations = {
       aiHeartPrediction: '心率異常預警',
       aiSleepPrediction: '睡眠質量評估',
       aiStressPrediction: '壓力指數分析',
-      startHealthPrediction: '立即購買',
+      startHealthPrediction: '立即體驗',
       aiPredictionNote: '* 預測準確率基於內測用戶數據統計',
       overallHealthScore: '綜合健康評分',
       heartRateLabel: '心率',
@@ -523,9 +537,9 @@ export const translations = {
 
       // CTA 新版
       ctaTitleNew: '想試試嗎？',
-      ctaDescNew1: '限時優惠，立即購買享受智能健康生活。',
+      ctaDescNew1: '限時優惠，立即體驗享受智能健康生活。',
       ctaDescNew2: '反正也不用綁卡。',
-      ctaFreeTrial: '立即購買',
+      ctaFreeTrial: '立即體驗',
       ctaBookOffline: '預約線下體驗 →',
       ctaPrice: '¥1,299',
       ctaPriceStart: '起',
@@ -542,7 +556,7 @@ export const translations = {
       heroFeature2: 'AI Health Prediction',
       heroFeature3: 'Real-time Sync',
       watchDemo: 'Watch Demo',
-      tryNow: 'Buy Now',
+      tryNow: 'Try Now',
       healthPrediction: 'Health Prediction Accuracy',
       predictionCycle: 'Prediction Cycle',
 
@@ -605,7 +619,7 @@ export const translations = {
       aiHRV: 'HRV Prediction',
       aiSleep: 'Sleep Quality Prediction',
       aiStress: 'Stress Level Prediction',
-      startPrediction: 'Buy Now',
+      startPrediction: 'Try Now',
 
       // CTA
       ctaTitle1: 'Begin Your',
@@ -615,6 +629,13 @@ export const translations = {
       priceFrom: 'From',
       returnPolicy: '30-Day Returns',
 
+      // Orb Hero
+      orbHeroTitle1: 'Foresee the Future',
+      orbHeroTitle2: 'Starting Now',
+      orbHeroSubtitle: 'AI-Powered Digital Twin Health Platform',
+      orbHeroCTA: 'Explore Orbiva',
+      orbHeroScroll: 'Scroll Down',
+
       // New Hero - De-AI style
       heroTagNew: 'NTU · Singapore Research Team',
       heroTitle1New: 'Your Pocket',
@@ -623,7 +644,7 @@ export const translations = {
       heroDescNew1: 'Spend 3 seconds daily, snap a photo of your food.',
       heroDescNew2: 'Orbiva tells you what might change in your body in 30 days—',
       heroDescNew3: 'Good or bad, know it ahead of time.',
-      heroCTA1: 'Buy Now',
+      heroCTA1: 'Try Now',
       heroCTA2: 'See How It Works',
       heroProof1: 'Singapore Medical Team R&D',
       heroProof2: '3 Years Clinical Data Validation',
@@ -736,7 +757,7 @@ export const translations = {
       aiHeartPrediction: 'Heart Rate Anomaly Alert',
       aiSleepPrediction: 'Sleep Quality Assessment',
       aiStressPrediction: 'Stress Index Analysis',
-      startHealthPrediction: 'Buy Now',
+      startHealthPrediction: 'Try Now',
       aiPredictionNote: '* Prediction accuracy based on beta user data statistics',
       overallHealthScore: 'Overall Health Score',
       heartRateLabel: 'Heart Rate',
@@ -747,9 +768,9 @@ export const translations = {
 
       // CTA New
       ctaTitleNew: 'Want to Try?',
-      ctaDescNew1: 'Limited offer, buy now and enjoy smart health living.',
+      ctaDescNew1: 'Limited offer, try now and enjoy smart health living.',
       ctaDescNew2: 'No credit card required.',
-      ctaFreeTrial: 'Buy Now',
+      ctaFreeTrial: 'Try Now',
       ctaBookOffline: 'Book Offline Experience →',
       ctaPrice: '$179',
       ctaPriceStart: 'from',
@@ -770,7 +791,7 @@ export const translations = {
       vivaboxTitle: 'VivaBox',
       vivaboxSubtitle: 'AI驱动的数字孪生健康生态',
       vivaboxDesc: '比银行卡还小的 AI 健康伴侣，集成多种传感器，实现 24/7 健康监测与情感交互。',
-      vivaboxBuy: '立即购买 ¥1,299',
+      vivaboxBuy: '立即体验 ¥1,299',
       vivaboxSpecs: '了解详细规格',
       vivaboxSmall: '比银行卡还小',
       vivaboxWeight: '仅重 28g',
@@ -942,9 +963,9 @@ export const translations = {
       // CTA
       ctaTitle1: '开启你的',
       ctaTitle2: '健康新纪元',
-      ctaDesc: 'VivaBox + HomeCare 全家桶套装现已开放预订，享受早鸟优惠价',
+      ctaDesc: 'VivaBox + HomeCare 全家桶套装现已开放体验，享受早鸟优惠价',
       bookDemo: '预约产品演示',
-      preOrder: '立即预订',
+      preOrder: '立即体验',
       
       // AI Companion
       aiCompanion: 'AI陪伴',
@@ -959,7 +980,7 @@ export const translations = {
       vivaboxTitle: 'VivaBox',
       vivaboxSubtitle: 'AI驅動的數位孿生健康生態',
       vivaboxDesc: '比銀行卡還小的 AI 健康夥伴，集成多種傳感器，實現 24/7 健康監測與情感互動。',
-      vivaboxBuy: '立即購買 ¥1,299',
+      vivaboxBuy: '立即體驗 ¥1,299',
       vivaboxSpecs: '了解詳細規格',
       vivaboxSmall: '比銀行卡還小',
       vivaboxWeight: '僅重 28g',
@@ -1128,9 +1149,9 @@ export const translations = {
       
       ctaTitle1: '開啟你的',
       ctaTitle2: '健康新紀元',
-      ctaDesc: 'VivaBox + HomeCare 全家桶套裝現已開放預訂，享受早鳥優惠價',
+      ctaDesc: 'VivaBox + HomeCare 全家桶套裝現已開放體驗，享受早鳥優惠價',
       bookDemo: '預約產品演示',
-      preOrder: '立即預訂',
+      preOrder: '立即體驗',
       
       aiCompanion: 'AI陪伴',
     },
@@ -1144,7 +1165,7 @@ export const translations = {
       vivaboxTitle: 'VivaBox',
       vivaboxSubtitle: 'AI-Powered Digital Twin Health Ecosystem',
       vivaboxDesc: 'An AI health companion smaller than a credit card, integrating multiple sensors for 24/7 health monitoring and emotional interaction.',
-      vivaboxBuy: 'Buy Now $179',
+      vivaboxBuy: 'Try Now $179',
       vivaboxSpecs: 'View Specifications',
       vivaboxSmall: 'Smaller than a card',
       vivaboxWeight: 'Only 28g',
@@ -1313,9 +1334,9 @@ export const translations = {
       
       ctaTitle1: 'Begin Your',
       ctaTitle2: 'Health New Era',
-      ctaDesc: 'VivaBox + HomeCare complete bundle now open for pre-order, enjoy early bird pricing',
+      ctaDesc: 'VivaBox + HomeCare complete bundle now available to try, enjoy early bird pricing',
       bookDemo: 'Book Demo',
-      preOrder: 'Pre-order Now',
+      preOrder: 'Try Now',
       
       aiCompanion: 'AI Companion',
     },

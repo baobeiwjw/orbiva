@@ -19,7 +19,7 @@ export default function GradientText({
   style,
 }: GradientTextProps) {
   const baseStyles =
-    'bg-gradient-to-r from-[#22D3EE] via-[#A3E635] to-[#4ADE80] bg-clip-text text-transparent';
+    'bg-gradient-to-r from-[#00D4FF] via-[#00F5A0] to-[#00F5A0] bg-clip-text text-transparent';
 
   if (animate) {
     return (

@@ -117,7 +117,7 @@ const partnerTypesConfig = [
       { nameKey: 'pharmaCase1Name', resultKey: 'pharmaCase1Result' },
       { nameKey: 'pharmaCase2Name', resultKey: 'pharmaCase2Result' },
     ],
-    color: 'from-[#4ADE80] to-[#67E8F9]',
+    color: 'from-[#00F5A0] to-[#33DFFF]',
   },
   {
     id: 'insurance',
@@ -135,7 +135,7 @@ const partnerTypesConfig = [
       { nameKey: 'insuranceCase1Name', resultKey: 'insuranceCase1Result' },
       { nameKey: 'insuranceCase2Name', resultKey: 'insuranceCase2Result' },
     ],
-    color: 'from-[#06B6D4] to-[#22D3EE]',
+    color: 'from-[#1A6BFF] to-[#00D4FF]',
   },
   {
     id: 'hardware',
@@ -153,7 +153,7 @@ const partnerTypesConfig = [
       { nameKey: 'hardwareCase1Name', resultKey: 'hardwareCase1Result' },
       { nameKey: 'hardwareCase2Name', resultKey: 'hardwareCase2Result' },
     ],
-    color: 'from-[#22D3EE] to-[#06b6d4]',
+    color: 'from-[#00D4FF] to-[#1A6BFF]',
   },
   {
     id: 'government',
@@ -223,7 +223,7 @@ function HeroSection() {
 
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-[#050505]" />
+      <div className="absolute inset-0 bg-[#060618]" />
 
       {/* 椭圆装饰 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -238,11 +238,11 @@ function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#22D3EE]/[0.06] rounded-[50%]"
+          className="absolute w-[130vw] h-[60vh] border border-[#00D4FF]/[0.06] rounded-[50%]"
         />
       </div>
 
-      <div className="absolute top-1/4 left-1/3 w-[500px] h-[400px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute top-1/4 left-1/3 w-[500px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -266,7 +266,7 @@ function HeroSection() {
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
         >
           {t('partners.heroTitle1')}
-          <span className="block bg-gradient-to-r from-[#22D3EE] to-[#06b6d4] bg-clip-text text-transparent">
+          <span className="block bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">
             {t('partners.heroTitle2')}
           </span>
         </motion.h1>
@@ -335,8 +335,8 @@ function PartnerTypesSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -402,7 +402,7 @@ function PartnerTypesSection() {
                   <div className="grid grid-cols-3 gap-4">
                     {currentPartner.stats.map((stat) => (
                       <div key={stat.labelKey} className="text-center">
-                        <div className="text-3xl font-bold text-[#22D3EE]">{stat.value}</div>
+                        <div className="text-3xl font-bold text-[#00D4FF]">{stat.value}</div>
                         <div className="text-xs text-white/40 mt-1">{t(`partners.${stat.labelKey}`)}</div>
                       </div>
                     ))}
@@ -419,7 +419,7 @@ function PartnerTypesSection() {
                     {currentPartner.cases.map((caseItem) => (
                       <div key={caseItem.nameKey} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
                         <div className="font-medium text-white mb-1">{t(`partners.${caseItem.nameKey}`)}</div>
-                        <div className="text-sm text-[#22D3EE]">{t(`partners.${caseItem.resultKey}`)}</div>
+                        <div className="text-sm text-[#00D4FF]">{t(`partners.${caseItem.resultKey}`)}</div>
                       </div>
                     ))}
                   </div>
@@ -433,15 +433,15 @@ function PartnerTypesSection() {
                   </div>
                   <ul className="space-y-2 text-sm text-white/50">
                     <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]" />
                       {t('partners.reason1')}
                     </li>
                     <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]" />
                       {t('partners.reason2')}
                     </li>
                     <li className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]" />
                       {t('partners.reason3')}
                     </li>
                   </ul>
@@ -490,7 +490,7 @@ function GovernmentSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#f59e0b]/[0.02] rounded-full blur-[150px]" />
       </div>
 
@@ -587,8 +587,8 @@ function ProcessSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -605,7 +605,7 @@ function ProcessSection() {
 
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('partners.processTitle1')}
-            <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">{t('partners.processTitle2')}</span>
+            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('partners.processTitle2')}</span>
             {t('partners.processTitle3')}
           </h2>
         </motion.div>
@@ -621,17 +621,17 @@ function ProcessSection() {
               className="relative"
             >
               {index < cooperationProcessConfig.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#4ADE80] to-transparent -translate-x-1/2 z-0" />
+                <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#00F5A0] to-transparent -translate-x-1/2 z-0" />
               )}
 
               <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] text-center relative z-10">
-                <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#4ADE80] to-[#67E8F9] flex items-center justify-center text-white font-bold text-lg mb-4">
+                <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#00F5A0] to-[#33DFFF] flex items-center justify-center text-white font-bold text-lg mb-4">
                   {item.step}
                 </div>
                 <HandDrawnIcon icon={item.icon} size="lg" variant="filled" className="mb-4 mx-auto" />
                 <h3 className="font-bold text-white mb-2">{t(`partners.${item.titleKey}`)}</h3>
                 <p className="text-sm text-white/40 mb-3">{t(`partners.${item.descKey}`)}</p>
-                <span className="inline-flex items-center gap-1 text-xs text-[#4ADE80]">
+                <span className="inline-flex items-center gap-1 text-xs text-[#00F5A0]">
                   <HandDrawnIcon icon={Clock} size="sm" variant="outline" />
                   {t(`partners.${item.durationKey}`)}
                 </span>
@@ -652,8 +652,8 @@ function CTASection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#22D3EE]/[0.03] to-transparent rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00D4FF]/[0.03] to-transparent rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -726,8 +726,8 @@ function CTASection() {
 // ========== 主页面 ==========
 export default function PartnersPage() {
   return (
-    <main className="relative bg-[#050505]">
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+    <main className="relative bg-[#060618]">
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
 
       {/* Hero */}
       <HeroSection />

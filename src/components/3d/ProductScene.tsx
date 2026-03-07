@@ -46,8 +46,8 @@ function Loader() {
             />
             <defs>
               <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#06B6D4" />
-                <stop offset="100%" stopColor="#22D3EE" />
+                <stop offset="0%" stopColor="#1A6BFF" />
+                <stop offset="100%" stopColor="#00D4FF" />
               </linearGradient>
             </defs>
           </svg>
@@ -301,7 +301,7 @@ export default function ProductScene({
           <p className="text-white/50 text-sm">加载失败</p>
           <button 
             onClick={() => setHasError(false)}
-            className="mt-2 text-[#06B6D4] text-sm hover:underline"
+            className="mt-2 text-[#1A6BFF] text-sm hover:underline"
           >
             重试
           </button>
@@ -322,7 +322,7 @@ export default function ProductScene({
           />
           {/* 内椭圆 */}
           <div 
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[75%] border border-[#06B6D4]/[0.08] rounded-[50%]"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[75%] border border-[#1A6BFF]/[0.08] rounded-[50%]"
             style={{ animation: 'pulse-subtle 10s ease-in-out infinite reverse' }}
           />
         </div>

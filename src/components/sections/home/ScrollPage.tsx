@@ -14,7 +14,7 @@ function SceneFallback() {
       <div className="relative">
         <div className="absolute inset-0 -m-8">
           <div 
-            className="w-32 h-32 rounded-[45%_55%_50%_50%] border border-[#4ADE80]/20 animate-ping" 
+            className="w-32 h-32 rounded-[45%_55%_50%_50%] border border-[#00F5A0]/20 animate-ping" 
             style={{ animationDuration: '2.5s', transform: 'rotate(-3deg)' }} 
           />
         </div>
@@ -25,7 +25,7 @@ function SceneFallback() {
             className="w-full h-full"
           >
             <Image
-              src="/logo.png"
+              src="/blace-logo.png"
               alt="Loading"
               fill
               sizes="128px"
@@ -145,7 +145,7 @@ export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
   return (
     <div
       ref={containerRef}
-      className="relative bg-[#050505]"
+      className="relative bg-[#060618]"
       style={{ height: `${totalSections * 100}vh` }}
     >
       {/* 固定视口 */}
@@ -153,7 +153,7 @@ export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
         {/* 背景层 */}
         <div className="absolute inset-0">
           {/* 背景渐变 */}
-          <div className="absolute inset-0 bg-gradient-radial from-[#0a0a0a] via-[#050505] to-black" />
+          <div className="absolute inset-0 bg-gradient-radial from-[#0A0A1A] via-[#060618] to-black" />
           
           {/* 网格背景 - 不规则 */}
           <div 
@@ -181,18 +181,18 @@ export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.8, delay: 0.7 }}
-              className="absolute w-[128vw] h-[62vh] border border-[#4ADE80]/[0.04] rounded-[52%_48%_55%_45%]"
+              className="absolute w-[128vw] h-[62vh] border border-[#00F5A0]/[0.04] rounded-[52%_48%_55%_45%]"
               style={{ transform: 'rotate(-2deg) translateY(3%)' }}
             />
           </div>
           
           {/* 环境光 - 不规则形状 */}
           <div 
-            className="absolute top-[-5%] left-[18%] w-[580px] h-[520px] bg-[#4ADE80]/[0.025] rounded-[45%_55%_50%_50%] blur-[140px]" 
+            className="absolute top-[-5%] left-[18%] w-[580px] h-[520px] bg-[#00F5A0]/[0.025] rounded-[45%_55%_50%_50%] blur-[140px]" 
             style={{ transform: 'rotate(-8deg)' }}
           />
           <div 
-            className="absolute bottom-[-8%] right-[20%] w-[480px] h-[420px] bg-[#86EFAC]/[0.018] rounded-[55%_45%_48%_52%] blur-[130px]"
+            className="absolute bottom-[-8%] right-[20%] w-[480px] h-[420px] bg-[#33F7B4]/[0.018] rounded-[55%_45%_48%_52%] blur-[130px]"
             style={{ transform: 'rotate(5deg)' }}
           />
         </div>
@@ -203,7 +203,7 @@ export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
           className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[350px] h-[350px] lg:w-[450px] lg:h-[450px] z-20"
         >
           <div 
-            className="absolute inset-0 bg-gradient-to-br from-[#4ADE80]/12 to-[#86EFAC]/8 rounded-[45%_55%_50%_50%] blur-[75px] opacity-55"
+            className="absolute inset-0 bg-gradient-to-br from-[#00F5A0]/12 to-[#33F7B4]/8 rounded-[45%_55%_50%_50%] blur-[75px] opacity-55"
             style={{ transform: 'rotate(-5deg)' }}
           />
           <Suspense fallback={<SceneFallback />}>
@@ -265,7 +265,7 @@ export default function ScrollPage({ heroContent, sections }: ScrollPageProps) {
                   background: useTransform(
                     scrollYProgress,
                     [sectionStart, sectionStart + 0.05, sectionEnd - 0.05, sectionEnd],
-                    ['transparent', '#4ADE80', '#4ADE80', 'transparent']
+                    ['transparent', '#00F5A0', '#00F5A0', 'transparent']
                   ),
                 }}
               />

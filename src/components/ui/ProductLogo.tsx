@@ -20,7 +20,7 @@ export default function ProductLogo({ size = 'md', className }: ProductLogoProps
   return (
     <div className={cn('relative', sizeMap[size], className)}>
       <Image
-        src="/logo.png"
+        src="/blace-logo.png"
         alt="Orbiva Logo"
         fill
         sizes="192px"

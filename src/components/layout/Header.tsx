@@ -64,13 +64,13 @@ export default function Header() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                className="relative w-28 h-10 flex-shrink-0"
+                className="relative w-32 h-11 flex-shrink-0"
               >
                 <Image
-                  src="/logo.png"
+                  src="/blace-logo.png"
                   alt="Orbiva"
                   fill
-                  sizes="112px"
+                  sizes="128px"
                   className="object-contain"
                   priority
                 />
@@ -86,7 +86,7 @@ export default function Header() {
                   className={cn(
                     'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     pathname === item.href
-                      ? 'text-[#4ADE80] bg-[#4ADE80]/10'
+                      ? 'text-[#00F5A0] bg-[#00F5A0]/10'
                       : 'text-foreground-muted hover:text-foreground hover:bg-background-secondary'
                   )}
                 >
@@ -112,14 +112,14 @@ export default function Header() {
               <LanguageSwitcher variant="compact" />
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-[40%_60%_55%_45%] border border-dashed border-[#4ADE80]/50 hover:bg-[#4ADE80]/10 transition-colors"
+                className="p-2 rounded-[40%_60%_55%_45%] border border-dashed border-[#00F5A0]/50 hover:bg-[#00F5A0]/10 transition-colors"
                 whileHover={{ scale: 1.05, rotate: 3 }}
                 style={{ transform: 'rotate(-2deg)' }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-[#4ADE80]" />
+                  <X className="w-6 h-6 text-[#00F5A0]" />
                 ) : (
-                  <Menu className="w-6 h-6 text-[#4ADE80]" />
+                  <Menu className="w-6 h-6 text-[#00F5A0]" />
                 )}
               </motion.button>
             </div>
@@ -166,7 +166,7 @@ export default function Header() {
                       className={cn(
                         'flex items-center gap-4 px-4 py-4 rounded-xl text-lg font-medium transition-all',
                         pathname === item.href
-                          ? 'text-[#4ADE80] bg-[#4ADE80]/10'
+                          ? 'text-[#00F5A0] bg-[#00F5A0]/10'
                           : 'text-foreground-muted hover:text-foreground hover:bg-background-secondary'
                       )}
                       style={{ transform: `rotate(${(index - 2) * 0.5}deg)` }}

@@ -16,7 +16,7 @@ export default function CTASection() {
       {/* Background - 不规则形状 */}
       <div className="absolute inset-0">
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[520px] bg-[#4ADE80]/[0.04] rounded-[45%_55%_50%_50%] blur-[140px]" 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[520px] bg-[#00F5A0]/[0.04] rounded-[45%_55%_50%_50%] blur-[140px]" 
           style={{ transform: 'translate(-50%, -50%) rotate(-5deg)' }}
         />
       </div>
@@ -29,7 +29,7 @@ export default function CTASection() {
           rotate: [0, 5, 0],
         }}
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[340px] bg-[#86EFAC]/8 rounded-[52%_48%_55%_45%] blur-[100px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[340px] bg-[#33F7B4]/8 rounded-[52%_48%_55%_45%] blur-[100px]"
       />
 
       <div 
@@ -41,7 +41,7 @@ export default function CTASection() {
           initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
           animate={isInView ? { opacity: 1, scale: 1, rotate: 2 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] as [number, number, number, number] }}
-          className="relative w-48 h-16 mx-auto mb-8"
+          className="relative w-52 h-[72px] mx-auto mb-8"
         >
           <motion.div
             animate={{ rotate: [2, -2, 2] }}
@@ -49,10 +49,10 @@ export default function CTASection() {
             className="w-full h-full"
           >
             <Image
-              src="/logo.png"
+              src="/blace-logo.png"
               alt="Orbiva"
               fill
-              sizes="192px"
+              sizes="208px"
               className="object-contain"
             />
           </motion.div>
@@ -68,7 +68,7 @@ export default function CTASection() {
         >
           准备好了吗？
           <span 
-            className="block mt-3 bg-gradient-to-r from-[#4ADE80] via-[#86EFAC] to-[#4ADE80] bg-clip-text text-transparent"
+            className="block mt-3 bg-gradient-to-r from-[#00F5A0] via-[#33F7B4] to-[#00F5A0] bg-clip-text text-transparent"
             style={{ transform: 'rotate(-0.2deg)' }}
           >
             开始关注你的健康
@@ -100,7 +100,7 @@ export default function CTASection() {
             size="lg"
             icon={<ArrowRight className="w-5 h-5" style={{ transform: 'rotate(-2deg)' }} />}
           >
-            立即购买
+            立即体验
           </Button>
           <Button variant="outline" size="lg">
             预约看演示

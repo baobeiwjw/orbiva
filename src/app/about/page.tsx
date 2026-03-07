@@ -226,7 +226,7 @@ function HeroSection() {
 
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-[#050505]" />
+      <div className="absolute inset-0 bg-[#060618]" />
       
       {/* 椭圆装饰 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -241,11 +241,11 @@ function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#4ADE80]/[0.06] rounded-[50%]"
+          className="absolute w-[130vw] h-[60vh] border border-[#00F5A0]/[0.06] rounded-[50%]"
         />
       </div>
 
-      <div className="absolute top-1/4 right-1/4 w-[500px] h-[400px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute top-1/4 right-1/4 w-[500px] h-[400px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -269,7 +269,7 @@ function HeroSection() {
           >
             {t('about.heroTitle1')}
             <br />
-            <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
               {t('about.heroTitle2')}
             </span>
           </motion.h1>
@@ -299,7 +299,7 @@ function HeroSection() {
                 transition={{ delay: 0.6 + index * 0.1 }}
                 className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-center"
               >
-                <div className="text-2xl font-bold text-[#4ADE80]">{'valueKey' in item ? t(`about.${item.valueKey}`) : item.value}</div>
+                <div className="text-2xl font-bold text-[#00F5A0]">{'valueKey' in item ? t(`about.${item.valueKey}`) : item.value}</div>
                 <div className="text-xs text-white/40">{t(`about.${item.labelKey}`)}</div>
               </motion.div>
             ))}
@@ -336,8 +336,8 @@ function HeritageSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#4ADE80]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -353,7 +353,7 @@ function HeritageSection() {
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('about.heritageTitle1')}<span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">{t('about.heritageTitle2')}</span>
+            {t('about.heritageTitle1')}<span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('about.heritageTitle2')}</span>
           </h2>
           
           <p className="text-white/40 max-w-2xl text-lg">
@@ -366,7 +366,7 @@ function HeritageSection() {
           {/* 时间轴线 */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-white/[0.05] rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#4ADE80] to-[#22D3EE]"
+              className="h-full bg-gradient-to-r from-[#00F5A0] to-[#00D4FF]"
               initial={{ width: '0%' }}
               animate={{ width: isInView ? '100%' : '0%' }}
               transition={{ duration: 2, delay: 0.5 }}
@@ -388,11 +388,11 @@ function HeritageSection() {
               >
                 <div className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
                   activeYear === item.year
-                    ? 'bg-[#4ADE80] border-[#4ADE80] scale-125'
-                    : 'bg-transparent border-white/30 group-hover:border-[#4ADE80]'
+                    ? 'bg-[#00F5A0] border-[#00F5A0] scale-125'
+                    : 'bg-transparent border-white/30 group-hover:border-[#00F5A0]'
                 }`} />
                 <span className={`mt-2 text-sm font-medium transition-colors ${
-                  activeYear === item.year ? 'text-[#4ADE80]' : 'text-white/40 group-hover:text-white/60'
+                  activeYear === item.year ? 'text-[#00F5A0]' : 'text-white/40 group-hover:text-white/60'
                 }`}>
                   {item.year}
                 </span>
@@ -416,7 +416,7 @@ function HeritageSection() {
                     <div className="flex items-center gap-4 mb-6">
                       <HandDrawnIcon icon={item.icon} size="xl" variant="filled" />
                       <div>
-                        <span className="text-3xl font-bold text-[#4ADE80]">{item.year}</span>
+                        <span className="text-3xl font-bold text-[#00F5A0]">{item.year}</span>
                         <div className="text-white/40 text-sm">{t('about.timelineTag')}</div>
                       </div>
                     </div>
@@ -424,21 +424,21 @@ function HeritageSection() {
                     <p className="text-white/50">{t(`about.${item.milestoneKey}`)}</p>
                   </div>
                   
-                  <div className="p-8 rounded-3xl bg-gradient-to-br from-[#4ADE80]/5 to-[#22D3EE]/5 border border-white/[0.05]">
+                  <div className="p-8 rounded-3xl bg-gradient-to-br from-[#00F5A0]/5 to-[#00D4FF]/5 border border-white/[0.05]">
                     <h4 className="text-lg font-bold text-white mb-4">{t('about.coreAchievements')}</h4>
                     <div className="space-y-4">
                       {item.year === '1992' && (
                         <>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement1992_1')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement1992_2')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement1992_3')}</span>
                           </div>
                         </>
@@ -446,15 +446,15 @@ function HeritageSection() {
                       {item.year === '2024' && (
                         <>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement2024_1')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement2024_2')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievement2024_3')}</span>
                           </div>
                         </>
@@ -462,15 +462,15 @@ function HeritageSection() {
                       {item.year !== '1992' && item.year !== '2024' && (
                         <>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievementDefault1')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievementDefault2')}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#4ADE80]" />
+                            <div className="w-2 h-2 rounded-full bg-[#00F5A0]" />
                             <span className="text-white/60">{t('about.achievementDefault3')}</span>
                           </div>
                         </>
@@ -494,8 +494,8 @@ function ResourcesSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -511,7 +511,7 @@ function ResourcesSection() {
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('about.resourcesTitle1')}<span className="bg-gradient-to-r from-[#06B6D4] to-[#22D3EE] bg-clip-text text-transparent">Orbiva</span>
+            {t('about.resourcesTitle1')}<span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">Orbiva</span>
           </h2>
           
           <p className="text-white/40 max-w-2xl mx-auto text-lg">
@@ -528,17 +528,17 @@ function ResourcesSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#06B6D4]/30 transition-all duration-300"
+              className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#1A6BFF]/30 transition-all duration-300"
             >
               {/* 头部 */}
               <div className="flex items-start justify-between mb-6">
                 <HandDrawnIcon icon={resource.icon} size="lg" variant="filled" />
-                <span className="px-3 py-1 rounded-full bg-[#06B6D4]/10 text-[#06B6D4] text-xs font-medium">
+                <span className="px-3 py-1 rounded-full bg-[#1A6BFF]/10 text-[#1A6BFF] text-xs font-medium">
                   {resource.version}
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#06B6D4] transition-colors">
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#1A6BFF] transition-colors">
                 {t(`about.${resource.titleKey}`)}
               </h3>
               
@@ -550,7 +550,7 @@ function ResourcesSection() {
               <div className="space-y-2 mb-6">
                 {resource.highlightKeys.map((highlightKey) => (
                   <div key={highlightKey} className="flex items-center gap-2 text-sm text-white/50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#1A6BFF]" />
                     <span>{t(`about.${highlightKey}`)}</span>
                   </div>
                 ))}
@@ -585,7 +585,7 @@ function ResourcesSection() {
           className="mt-12 text-center"
         >
           <div className="inline-flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
-            <ExternalLink className="w-5 h-5 text-[#06B6D4]" />
+            <ExternalLink className="w-5 h-5 text-[#1A6BFF]" />
             <span className="text-white/60">{t('about.onlineReadingNote')}</span>
             <Button variant="ghost" size="sm">
               {t('about.onlineDocCenter')}
@@ -605,8 +605,8 @@ function NewsSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#22D3EE]/[0.02] rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -622,7 +622,7 @@ function NewsSection() {
           </span>
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('about.newsTitle1')}<span className="bg-gradient-to-r from-[#22D3EE] to-[#06B6D4] bg-clip-text text-transparent">{t('about.newsTitle2')}</span>
+            {t('about.newsTitle1')}<span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">{t('about.newsTitle2')}</span>
           </h2>
         </motion.div>
 
@@ -635,10 +635,10 @@ function NewsSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="group p-8 rounded-3xl bg-gradient-to-br from-[#22D3EE]/5 to-[#06B6D4]/5 border border-[#22D3EE]/20 hover:border-[#22D3EE]/40 transition-all duration-300 cursor-pointer"
+              className="group p-8 rounded-3xl bg-gradient-to-br from-[#00D4FF]/5 to-[#1A6BFF]/5 border border-[#00D4FF]/20 hover:border-[#00D4FF]/40 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 rounded-full bg-[#22D3EE]/20 text-[#22D3EE] text-xs font-medium flex items-center gap-1">
+                <span className="px-3 py-1 rounded-full bg-[#00D4FF]/20 text-[#00D4FF] text-xs font-medium flex items-center gap-1">
                   <HandDrawnIcon icon={Sparkles} size="sm" variant="outline" />
                   {t('about.highlight')}
                 </span>
@@ -646,11 +646,11 @@ function NewsSection() {
                   {item.date}
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-white group-hover:text-[#22D3EE] transition-colors mb-3">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#00D4FF] transition-colors mb-3">
                 {t(`about.${item.titleKey}`)}
               </h3>
               <p className="text-white/50 text-sm mb-4">{t(`about.${item.summaryKey}`)}</p>
-              <div className="flex items-center text-[#22D3EE] text-sm font-medium">
+              <div className="flex items-center text-[#00D4FF] text-sm font-medium">
                 <span>{t('about.readMore')}</span>
                 <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -667,14 +667,14 @@ function NewsSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="group p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#22D3EE]/30 transition-all duration-300 cursor-pointer"
+              className="group p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00D4FF]/30 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 rounded-full bg-white/[0.03] text-white/50 text-xs">
                   {item.date}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-white group-hover:text-[#22D3EE] transition-colors">
+              <h3 className="text-lg font-bold text-white group-hover:text-[#00D4FF] transition-colors">
                 {t(`about.${item.titleKey}`)}
               </h3>
               <p className="text-white/40 text-sm mt-2">{t(`about.${item.summaryKey}`)}</p>
@@ -701,8 +701,8 @@ function ContactSection() {
 
   return (
     <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#4ADE80]/[0.03] to-transparent rounded-full blur-[150px]" />
+      <div className="absolute inset-0 bg-[#060618]">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00F5A0]/[0.03] to-transparent rounded-full blur-[150px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -719,7 +719,7 @@ function ContactSection() {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             {t('about.contactTitle1')}
-            <span className="bg-gradient-to-r from-[#4ADE80] to-[#67E8F9] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
               {t('about.contactTitle2')}
             </span>
           </h2>
@@ -739,7 +739,7 @@ function ContactSection() {
               onClick={() => setActiveOffice(index)}
               className={`p-6 rounded-3xl cursor-pointer transition-all duration-300 ${
                 activeOffice === index
-                  ? 'bg-gradient-to-br from-[#4ADE80]/10 to-[#22D3EE]/10 border border-[#4ADE80]/30'
+                  ? 'bg-gradient-to-br from-[#00F5A0]/10 to-[#00D4FF]/10 border border-[#00F5A0]/30'
                   : 'bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1]'
               }`}
             >
@@ -753,7 +753,7 @@ function ContactSection() {
                 </div>
                 <span className={`px-3 py-1 rounded-full text-xs ${
                   activeOffice === index
-                    ? 'bg-[#4ADE80]/20 text-[#4ADE80]'
+                    ? 'bg-[#00F5A0]/20 text-[#00F5A0]'
                     : 'bg-white/[0.05] text-white/40'
                 }`}>
                   {t(`about.${office.roleKey}`)}
@@ -814,8 +814,8 @@ function ContactSection() {
 // ========== 主页面 ==========
 export default function AboutPage() {
   return (
-    <main className="relative bg-[#050505]">
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+    <main className="relative bg-[#060618]">
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
       
       {/* Hero */}
       <HeroSection />

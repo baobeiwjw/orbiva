@@ -182,7 +182,7 @@ export default function FullPageScroll({ children, className = '' }: FullPageScr
   return (
     <div 
       ref={containerRef}
-      className={`fixed inset-0 overflow-hidden bg-[#050505] ${className}`}
+      className={`fixed inset-0 overflow-hidden bg-[#060618] ${className}`}
     >
       {/* 导航指示器 */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
@@ -198,7 +198,7 @@ export default function FullPageScroll({ children, className = '' }: FullPageScr
             }}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentSection 
-                ? 'bg-[#22D3EE] scale-150' 
+                ? 'bg-[#00D4FF] scale-150' 
                 : 'bg-white/20 hover:bg-white/40'
             }`}
             aria-label={`Go to section ${index + 1}`}

@@ -12,6 +12,7 @@ import {
   CheckCircle, ChevronRight, Gift, Users, FlaskConical, LucideIcon
 } from 'lucide-react';
 import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
+import Orb from '@/components/backgrounds/Orb';
 
 // 懒加载组件
 const ProductScene = lazy(() => import('@/components/3d/ProductScene'));
@@ -22,14 +23,14 @@ function SceneFallback() {
     <div className="w-full h-full flex items-center justify-center">
       <div className="relative">
         <div className="absolute inset-0 -m-8">
-          <div className="w-32 h-32 rounded-full border border-[#22D3EE]/20 animate-ping" style={{ animationDuration: '2s' }} />
+          <div className="w-32 h-32 rounded-full border border-[#00D4FF]/20 animate-ping" style={{ animationDuration: '2s' }} />
         </div>
-        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[#22D3EE]/20 to-[#06B6D4]/20 backdrop-blur flex items-center justify-center">
+        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00D4FF]/20 to-[#1A6BFF]/20 backdrop-blur flex items-center justify-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           >
-            <Sparkles className="w-6 h-6 text-[#22D3EE]" />
+            <Sparkles className="w-6 h-6 text-[#00D4FF]" />
           </motion.div>
         </div>
       </div>
@@ -155,7 +156,7 @@ function BentoCard({ item, index }: { item: {
       {/* 背景光效 - 改为草绿色 */}
       <div 
         className="absolute -top-24 -right-24 w-48 h-48 
-          bg-gradient-to-br from-[#4ADE80] to-[#4ADE80]/30
+          bg-gradient-to-br from-[#00F5A0] to-[#00F5A0]/30
           rounded-full blur-3xl opacity-0 
           group-hover:opacity-15 
           transition-opacity duration-700"
@@ -185,7 +186,7 @@ function BentoCard({ item, index }: { item: {
           />
           
           <div className="text-right">
-            <span className="text-sm font-semibold text-[#4ADE80]">
+            <span className="text-sm font-semibold text-[#00F5A0]">
               {item.stats}
             </span>
           </div>
@@ -215,7 +216,7 @@ function BentoCard({ item, index }: { item: {
             {item.features.map((feature) => (
               <span
                 key={feature}
-                className="px-3 py-1 text-xs rounded-[12px_16px_14px_10px] bg-[#4ADE80]/5 text-[#4ADE80]/80 border border-dashed border-[#4ADE80]/20"
+                className="px-3 py-1 text-xs rounded-[12px_16px_14px_10px] bg-[#00F5A0]/5 text-[#00F5A0]/80 border border-dashed border-[#00F5A0]/20"
               >
                 {feature}
               </span>
@@ -228,11 +229,113 @@ function BentoCard({ item, index }: { item: {
           whileHover={{ scaleX: 1 }}
           transition={{ duration: 0.4 }}
           className="absolute bottom-0 left-0 right-0 h-[2px]
-            bg-gradient-to-r from-[#4ADE80] to-[#86EFAC]
+            bg-gradient-to-r from-[#00F5A0] to-[#33F7B4]
             origin-left"
         />
       </div>
     </motion.div>
+  );
+}
+
+// ========== Orb 首屏 ==========
+function OrbHeroSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const { t } = useI18n();
+
+  return (
+    <div ref={ref} className="relative h-screen w-full overflow-hidden">
+      {/* Orb 背景 */}
+      <div className="absolute inset-0">
+        <Orb
+          hue={64}
+          hoverIntensity={0.3}
+          rotateOnHover={false}
+          backgroundColor="#060010"
+        />
+      </div>
+
+      {/* 内容层 */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-8"
+        >
+          <Image
+            src="/blace-logo.png"
+            alt="Orbiva"
+            width={280}
+            height={98}
+            className="w-52 sm:w-60 lg:w-72 h-auto object-contain"
+            priority
+          />
+        </motion.div>
+
+        {/* 主标题 */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center mb-4"
+        >
+          <span className="block text-4xl sm:text-5xl lg:text-7xl font-bold text-white/90 tracking-tight">
+            {t('home.orbHeroTitle1')}
+          </span>
+          <span className="block text-4xl sm:text-5xl lg:text-7xl font-bold text-white/60 tracking-tight mt-1">
+            {t('home.orbHeroTitle2')}
+          </span>
+        </motion.h1>
+
+        {/* 副标题 */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-white/30 text-base sm:text-lg lg:text-xl text-center max-w-lg mb-10 tracking-wide"
+        >
+          {t('home.orbHeroSubtitle')}
+        </motion.p>
+
+        {/* CTA 按钮 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            {t('home.orbHeroCTA')}
+          </Button>
+        </motion.div>
+      </div>
+
+      {/* 滚动指示 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center gap-3"
+        >
+          <span className="text-white/20 text-xs tracking-widest uppercase">
+            {t('home.orbHeroScroll')}
+          </span>
+          <div className="w-5 h-8 rounded-full border border-white/15 flex items-start justify-center p-1.5">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-1.5 rounded-full bg-white/30"
+            />
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -249,7 +352,7 @@ function HeroSection() {
   return (
     <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 纯黑背景 + 微噪点纹理增加质感 */}
-      <div className="absolute inset-0 bg-[#050505]" />
+      <div className="absolute inset-0 bg-[#060618]" />
       <div 
         className="absolute inset-0 opacity-[0.015]"
         style={{
@@ -266,7 +369,7 @@ function HeroSection() {
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute -top-20 -left-32 w-[500px] h-[400px]"
           style={{
-            background: 'radial-gradient(ellipse at 30% 40%, rgba(34, 211, 238, 0.03) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse at 30% 40%, rgba(0, 212, 255, 0.03) 0%, transparent 70%)',
             borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
             transform: 'rotate(-12deg)',
           }}
@@ -278,7 +381,7 @@ function HeroSection() {
           transition={{ duration: 2.5, delay: 0.8 }}
           className="absolute -bottom-10 -right-20 w-[450px] h-[350px]"
           style={{
-            background: 'radial-gradient(ellipse at 60% 50%, rgba(74, 222, 128, 0.025) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at 60% 50%, rgba(0, 245, 160, 0.025) 0%, transparent 65%)',
             borderRadius: '30% 70% 70% 30% / 30% 52% 48% 70%',
             transform: 'rotate(8deg)',
           }}
@@ -287,7 +390,7 @@ function HeroSection() {
         <div 
           className="absolute top-1/3 right-1/4 w-[300px] h-[250px]"
           style={{
-            background: 'radial-gradient(ellipse, rgba(6, 182, 212, 0.02) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse, rgba(26, 107, 255, 0.02) 0%, transparent 60%)',
             borderRadius: '40% 60% 55% 45% / 55% 40% 60% 45%',
           }}
         />
@@ -314,7 +417,7 @@ function HeroSection() {
                   borderRadius: '8px 12px 8px 14px', // 不对称圆角
                 }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-pulse" />
                 {t('home.heroTagNew')}
               </span>
             </motion.div>
@@ -328,7 +431,7 @@ function HeroSection() {
               className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-white mb-5 leading-[1.15] tracking-tight"
             >
               <span className="block text-white/85 mb-1">{t('home.heroTitle1New')}</span>
-              <span className="block text-[#22D3EE]">
+              <span className="block text-[#00D4FF]">
                 {t('home.heroTitle2New')}
               </span>
               <span className="block text-white/60 text-2xl sm:text-3xl lg:text-[1.75rem] font-medium mt-3">
@@ -435,13 +538,13 @@ function HeroSection() {
                 transition={{ delay: 1.2, duration: 0.6 }}
                 className="absolute right-2 top-[22%] hidden xl:block z-10"
               >
-                <div className="px-3.5 py-2.5 rounded-lg bg-[#0a0a0a]/80 backdrop-blur border border-white/[0.06]"
+                <div className="px-3.5 py-2.5 rounded-lg bg-[#0A0A1A]/80 backdrop-blur border border-white/[0.06]"
                   style={{ borderRadius: '10px 14px 12px 8px' }}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="inline-flex w-6 h-6 rounded border border-dashed border-white/15 bg-white/[0.03] items-center justify-center text-[10px] text-white/25">✕</span>
                     <div>
-                      <p className="text-[#67E8F9] font-medium text-sm">{t('home.heroPetMode')}</p>
+                      <p className="text-[#33DFFF] font-medium text-sm">{t('home.heroPetMode')}</p>
                       <p className="text-white/30 text-xs">{t('home.heroPetModeDesc')}</p>
                     </div>
                   </div>
@@ -454,13 +557,13 @@ function HeroSection() {
                 transition={{ delay: 1.5, duration: 0.6 }}
                 className="absolute left-0 bottom-[28%] hidden xl:block z-10"
               >
-                <div className="px-3.5 py-2.5 rounded-lg bg-[#0a0a0a]/80 backdrop-blur border border-white/[0.06]"
+                <div className="px-3.5 py-2.5 rounded-lg bg-[#0A0A1A]/80 backdrop-blur border border-white/[0.06]"
                   style={{ borderRadius: '8px 12px 14px 10px' }}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Activity className="w-5 h-5 text-[#4ADE80]" />
+                    <Activity className="w-5 h-5 text-[#00F5A0]" />
                     <div>
-                      <p className="text-[#4ADE80] font-medium text-sm">{t('home.hero30DayPredict')}</p>
+                      <p className="text-[#00F5A0] font-medium text-sm">{t('home.hero30DayPredict')}</p>
                       <p className="text-white/30 text-xs">{t('home.hero30DayPredictDesc')}</p>
                     </div>
                   </div>
@@ -559,11 +662,11 @@ function LifePreviewSection() {
   return (
     <div ref={ref} className="relative py-20 lg:py-28 min-h-screen flex flex-col justify-center">
       {/* 背景 - 不对称有机形状 */}
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         <div 
           className="absolute top-[15%] left-[10%] w-[500px] h-[400px] opacity-40"
           style={{
-            background: 'radial-gradient(ellipse at 40% 50%, rgba(34, 211, 238, 0.03) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse at 40% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 60%)',
             borderRadius: '60% 40% 50% 50% / 40% 50% 50% 60%',
             transform: 'rotate(-15deg)',
           }}
@@ -571,7 +674,7 @@ function LifePreviewSection() {
         <div 
           className="absolute bottom-[20%] right-[5%] w-[400px] h-[350px] opacity-30"
           style={{
-            background: 'radial-gradient(ellipse at 50% 40%, rgba(74, 222, 128, 0.025) 0%, transparent 55%)',
+            background: 'radial-gradient(ellipse at 50% 40%, rgba(0, 245, 160, 0.025) 0%, transparent 55%)',
             borderRadius: '40% 60% 45% 55% / 55% 45% 55% 45%',
             transform: 'rotate(10deg)',
           }}
@@ -588,7 +691,7 @@ function LifePreviewSection() {
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
             <span className="text-white/70">{t('home.lifePreviewTitle1')}</span>
-            <span className="text-[#22D3EE]"> {dayValue} </span>
+            <span className="text-[#00D4FF]"> {dayValue} </span>
             <span className="text-white/70">{t('home.lifePreviewTitle2')}</span>
           </h2>
           
@@ -876,12 +979,12 @@ function QuickAccessSection() {
 
   return (
     <div ref={ref} className="relative py-20 lg:py-28 min-h-[80vh] flex items-center">
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         {/* 不对称有机背景 */}
         <div 
           className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[450px] opacity-30"
           style={{
-            background: 'radial-gradient(ellipse at 45% 50%, rgba(74, 222, 128, 0.02) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse at 45% 50%, rgba(0, 245, 160, 0.02) 0%, transparent 60%)',
             borderRadius: '55% 45% 40% 60% / 60% 40% 60% 40%',
             transform: 'rotate(-5deg)',
           }}
@@ -922,14 +1025,14 @@ function QuickAccessSection() {
               </div>
               
               <span className="text-xs text-white/30 uppercase tracking-wider">{t(`home.${item.subtitleKey}`)}</span>
-              <h3 className="text-xl font-semibold text-white mt-1 mb-2 group-hover:text-[#67E8F9] transition-colors">
+              <h3 className="text-xl font-semibold text-white mt-1 mb-2 group-hover:text-[#33DFFF] transition-colors">
                 {t(`home.${item.titleKey}`)}
               </h3>
               <p className="text-white/40 text-sm leading-relaxed">
                 {t(`home.${item.descKey}`)}
               </p>
               
-              <div className="mt-4 flex items-center text-white/30 group-hover:text-[#22D3EE] transition-colors text-sm">
+              <div className="mt-4 flex items-center text-white/30 group-hover:text-[#00D4FF] transition-colors text-sm">
                 <span>{t('home.learnMore')}</span>
                 <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -955,7 +1058,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoBoxDesc',
       icon: Box,
       statsKey: 'bentoBoxStats',
-      color: 'from-[#22D3EE] to-[#22D3EE]/50',
+      color: 'from-[#00D4FF] to-[#00D4FF]/50',
       size: 'large',
       featureKeys: ['bentoBoxF1', 'bentoBoxF2', 'bentoBoxF3'],
     },
@@ -966,7 +1069,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoTwinNewDesc',
       icon: Cpu,
       statsKey: 'bentoTwinNewStats',
-      color: 'from-[#06B6D4] to-[#06B6D4]/50',
+      color: 'from-[#1A6BFF] to-[#1A6BFF]/50',
       size: 'medium',
       featureKeys: ['bentoTwinNewF1', 'bentoTwinNewF2'],
     },
@@ -977,7 +1080,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoRewardsNewDesc',
       icon: Coins,
       statsKey: 'bentoRewardsNewStats',
-      color: 'from-[#4ADE80] to-[#4ADE80]/50',
+      color: 'from-[#00F5A0] to-[#00F5A0]/50',
       size: 'medium',
       featureKeys: ['bentoRewardsNewF1', 'bentoRewardsNewF2'],
     },
@@ -998,7 +1101,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoSleepNewDesc',
       icon: Moon,
       statsKey: 'bentoSleepNewStats',
-      color: 'from-[#22D3EE] to-[#22D3EE]/50',
+      color: 'from-[#00D4FF] to-[#00D4FF]/50',
       size: 'small',
     },
     {
@@ -1008,7 +1111,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoAINewDesc',
       icon: Brain,
       statsKey: 'bentoAINewStats',
-      color: 'from-[#06b6d4] to-[#06b6d4]/50',
+      color: 'from-[#1A6BFF] to-[#1A6BFF]/50',
       size: 'small',
     },
     {
@@ -1018,7 +1121,7 @@ function BentoFeaturesSection() {
       descKey: 'bentoSecurityNewDesc',
       icon: Shield,
       statsKey: 'bentoSecurityNewStats',
-      color: 'from-[#4ADE80] to-[#4ADE80]/50',
+      color: 'from-[#00F5A0] to-[#00F5A0]/50',
       size: 'small',
     },
   ];
@@ -1036,11 +1139,11 @@ function BentoFeaturesSection() {
   return (
     <div ref={ref} className="relative py-20 lg:py-28 min-h-screen flex flex-col justify-center">
       {/* 背景 */}
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         <div 
           className="absolute top-[10%] left-[15%] w-[400px] h-[350px] opacity-30"
           style={{
-            background: 'radial-gradient(ellipse at 40% 50%, rgba(34, 211, 238, 0.02) 0%, transparent 55%)',
+            background: 'radial-gradient(ellipse at 40% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 55%)',
             borderRadius: '50% 50% 40% 60% / 60% 40% 60% 40%',
             transform: 'rotate(-8deg)',
           }}
@@ -1048,7 +1151,7 @@ function BentoFeaturesSection() {
         <div 
           className="absolute bottom-[15%] right-[10%] w-[350px] h-[300px] opacity-25"
           style={{
-            background: 'radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.02) 0%, transparent 50%)',
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(26, 107, 255, 0.02) 0%, transparent 50%)',
             borderRadius: '40% 60% 50% 50% / 50% 50% 50% 50%',
             transform: 'rotate(12deg)',
           }}
@@ -1112,18 +1215,18 @@ function AIPredictionSection() {
 
   const predictionItems = [
     { labelKey: 'aiHeartPrediction', value: '95%', color: '#ef4444' },
-    { labelKey: 'aiSleepPrediction', value: '89%', color: '#22D3EE' },
-    { labelKey: 'aiStressPrediction', value: '87%', color: '#4ADE80' },
+    { labelKey: 'aiSleepPrediction', value: '89%', color: '#00D4FF' },
+    { labelKey: 'aiStressPrediction', value: '87%', color: '#00F5A0' },
   ];
 
   return (
     <div ref={ref} className="relative py-20 lg:py-28 min-h-[85vh] flex items-center">
       {/* 背景 */}
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         <div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[450px] opacity-30"
           style={{
-            background: 'radial-gradient(ellipse at 50% 45%, rgba(74, 222, 128, 0.025) 0%, transparent 55%)',
+            background: 'radial-gradient(ellipse at 50% 45%, rgba(0, 245, 160, 0.025) 0%, transparent 55%)',
             borderRadius: '45% 55% 50% 50% / 50% 45% 55% 50%',
           }}
         />
@@ -1141,7 +1244,7 @@ function AIPredictionSection() {
 
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
               {t('home.aiTitle1New')}<br />
-              <span className="text-[#4ADE80]">{t('home.aiTitle2New')}</span>
+              <span className="text-[#00F5A0]">{t('home.aiTitle2New')}</span>
             </h2>
 
             <p className="text-white/35 text-base mb-6 leading-relaxed max-w-md">
@@ -1247,11 +1350,11 @@ function CTASection() {
   return (
     <div ref={ref} className="relative py-20 lg:py-28 min-h-[80vh] flex items-center">
       {/* 背景 */}
-      <div className="absolute inset-0 bg-[#050505]">
+      <div className="absolute inset-0 bg-[#060618]">
         <div 
           className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-[700px] h-[400px] opacity-25"
           style={{
-            background: 'radial-gradient(ellipse at 50% 70%, rgba(34, 211, 238, 0.03) 0%, transparent 55%)',
+            background: 'radial-gradient(ellipse at 50% 70%, rgba(0, 212, 255, 0.03) 0%, transparent 55%)',
             borderRadius: '50% 50% 45% 55% / 40% 40% 60% 60%',
           }}
         />
@@ -1265,8 +1368,8 @@ function CTASection() {
         >
           {/* Logo图标 */}
           <div className="mb-6 flex justify-center">
-            <div className="w-48 h-16">
-              <Image src="/logo.png" alt="Orbiva" width={384} height={128} className="w-full h-full object-contain" />
+            <div className="w-52 h-[72px]">
+              <Image src="/blace-logo.png" alt="Orbiva" width={494} height={173} className="w-full h-full object-contain" />
             </div>
           </div>
 
@@ -1279,7 +1382,7 @@ function CTASection() {
             {t('home.ctaDescNew2')}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
               {t('home.ctaFreeTrial')}
             </Button>
@@ -1287,25 +1390,6 @@ function CTASection() {
               {t('home.ctaBookOffline')}
             </button>
           </div>
-
-          {/* 价格 - 更朴素的展示 */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-white/[0.015] border border-white/[0.03]"
-            style={{ borderRadius: '12px 16px 14px 10px' }}
-          >
-            <span className="text-[#22D3EE] text-2xl font-bold">{t('home.ctaPrice')}</span>
-            <span className="text-white/30 text-sm">{t('home.ctaPriceStart')}</span>
-            <span className="text-white/15">|</span>
-            <span className="text-white/30 text-sm">{t('home.ctaPriceNote')}</span>
-          </motion.div>
-          
-          {/* 小字说明 */}
-          <p className="text-white/15 text-xs mt-6">
-            {t('home.ctaPriceInfo')}
-          </p>
         </motion.div>
       </div>
     </div>
@@ -1315,19 +1399,24 @@ function CTASection() {
 // ========== 主页 ==========
 export default function Home() {
   return (
-    <main className="relative bg-[#050505]">
+    <main className="relative bg-[#060618]">
       {/* 全局背景 */}
-      <div className="fixed inset-0 bg-[#050505] -z-10" />
+      <div className="fixed inset-0 bg-[#060618] -z-10" />
       
-      {/* Hero */}
-      <HeroSection />
+      {/* 第一屏 - Orb 动效 */}
+      <OrbHeroSection />
       
-      {/* 生命预览交互 Demo - 新增 */}
+      {/* 第二屏 - 原 Hero */}
+      <ScrollSectionWrapper>
+        <HeroSection />
+      </ScrollSectionWrapper>
+      
+      {/* 生命预览交互 Demo */}
       <ScrollSectionWrapper>
         <LifePreviewSection />
       </ScrollSectionWrapper>
       
-      {/* 核心入口 - 新增 */}
+      {/* 核心入口 */}
       <ScrollSectionWrapper>
         <QuickAccessSection />
       </ScrollSectionWrapper>

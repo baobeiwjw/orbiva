@@ -25,7 +25,7 @@ function Loader() {
       <div className="flex flex-col items-center justify-center">
         <div className="w-32 h-1 bg-white/20 rounded-full overflow-hidden">
           <motion.div 
-            className="h-full bg-gradient-to-r from-[#06B6D4] to-[#667eea] rounded-full"
+            className="h-full bg-gradient-to-r from-[#1A6BFF] to-[#667eea] rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.3 }}
@@ -240,7 +240,7 @@ export default function Model3DViewer({
           <p>模型加载失败</p>
           <button 
             onClick={() => setHasError(false)}
-            className="mt-2 text-[#06B6D4] hover:underline"
+            className="mt-2 text-[#1A6BFF] hover:underline"
           >
             重试
           </button>

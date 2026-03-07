@@ -39,9 +39,9 @@ const healthPredictions = [
     day: 14,
     type: '睡眠优化',
     icon: Moon,
-    color: 'text-[#06B6D4]',
-    bgColor: 'bg-[#06B6D4]/10',
-    borderColor: 'border-[#06B6D4]/20',
+    color: 'text-[#1A6BFF]',
+    bgColor: 'bg-[#1A6BFF]/10',
+    borderColor: 'border-[#1A6BFF]/20',
     message: '深度睡眠比例提升空间，建议晚间减少蓝光暴露',
     score: 78,
   },
@@ -49,9 +49,9 @@ const healthPredictions = [
     day: 21,
     type: '心率健康',
     icon: Heart,
-    color: 'text-[#22D3EE]',
-    bgColor: 'bg-[#22D3EE]/10',
-    borderColor: 'border-[#22D3EE]/20',
+    color: 'text-[#00D4FF]',
+    bgColor: 'bg-[#00D4FF]/10',
+    borderColor: 'border-[#00D4FF]/20',
     message: '心率变异性良好，继续保持当前运动习惯',
     score: 92,
   },
@@ -102,8 +102,8 @@ export default function DemoSection() {
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[#06B6D4]/[0.02] rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[#22D3EE]/[0.02] rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[#00D4FF]/[0.02] rounded-full blur-[120px]" />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,13 +120,13 @@ export default function DemoSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] mb-6"
           >
-            <Brain className="w-4 h-4 text-[#06B6D4]" />
+            <Brain className="w-4 h-4 text-[#1A6BFF]" />
             <span className="text-sm text-white/60">生命预览</span>
           </motion.div>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             AI 预测您的
-            <span className="bg-gradient-to-r from-[#06B6D4] to-[#22D3EE] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">
               未来健康
             </span>
           </h2>
@@ -149,9 +149,9 @@ export default function DemoSection() {
                   <h3 className="text-xl font-bold text-white">健康仪表盘</h3>
                   <p className="text-white/50 text-sm">实时生命体征监测</p>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#22D3EE]/10 border border-[#22D3EE]/20">
-                  <div className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
-                  <span className="text-[#22D3EE] text-xs font-medium">实时同步</span>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20">
+                  <div className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse" />
+                  <span className="text-[#00D4FF] text-xs font-medium">实时同步</span>
                 </div>
               </div>
 
@@ -165,12 +165,12 @@ export default function DemoSection() {
                     className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.05]"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <metric.icon className="w-5 h-5 text-[#06B6D4]" />
+                      <metric.icon className="w-5 h-5 text-[#1A6BFF]" />
                       {metric.trend === 'up' && (
-                        <TrendingUp className="w-4 h-4 text-[#22D3EE]" />
+                        <TrendingUp className="w-4 h-4 text-[#00D4FF]" />
                       )}
                       {metric.trend === 'down' && (
-                        <TrendingUp className="w-4 h-4 text-[#22D3EE] rotate-180" />
+                        <TrendingUp className="w-4 h-4 text-[#00D4FF] rotate-180" />
                       )}
                     </div>
                     <div className="text-2xl font-bold text-white">
@@ -182,9 +182,9 @@ export default function DemoSection() {
                 ))}
               </div>
 
-              <div className="p-4 rounded-xl bg-[#06B6D4]/5 border border-[#06B6D4]/20">
+              <div className="p-4 rounded-xl bg-[#1A6BFF]/5 border border-[#1A6BFF]/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <Brain className="w-5 h-5 text-[#06B6D4]" />
+                  <Brain className="w-5 h-5 text-[#1A6BFF]" />
                   <span className="font-medium text-white">AI 健康洞察</span>
                 </div>
                 <p className="text-sm text-white/50">
@@ -264,7 +264,7 @@ export default function DemoSection() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.8 }}
-              className="mt-8 flex items-center gap-2 text-[#06B6D4]"
+              className="mt-8 flex items-center gap-2 text-[#1A6BFF]"
             >
               <Zap className="w-5 h-5" />
               <span className="text-sm font-medium">
