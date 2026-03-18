@@ -10,10 +10,8 @@ import {
   Mail,
   MapPin,
   Phone,
-  ArrowRight,
 } from 'lucide-react';
 import Image from 'next/image';
-import Button from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n';
 
 const socialLinks = [
@@ -61,27 +59,6 @@ export default function Footer() {
   };
 
   // 更自然口语化的文案
-  const newsletterText = {
-    'zh-CN': {
-      title: '保持联系',
-      subtitle: '订阅后，你会收到产品更新和健康小贴士',
-      placeholder: '你的邮箱',
-      subscribe: '订阅',
-    },
-    'zh-TW': {
-      title: '保持聯繫',
-      subtitle: '訂閱後，你會收到產品更新和健康小貼士',
-      placeholder: '你的郵箱',
-      subscribe: '訂閱',
-    },
-    'en': {
-      title: 'Stay in Touch',
-      subtitle: 'Get product updates and health tips',
-      placeholder: 'Your email',
-      subscribe: 'Subscribe',
-    },
-  };
-
   const bottomText = {
     'zh-CN': '港股上市公司旗下品牌 · NTU新加坡技术合作',
     'zh-TW': '港股上市公司旗下品牌 · NTU新加坡技術合作',
@@ -90,45 +67,6 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-background-secondary border-t border-border">
-      {/* Newsletter Section - 手绘风格 */}
-      <div className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div 
-            className="flex flex-col lg:flex-row items-center justify-between gap-8"
-            style={{ transform: 'rotate(-0.1deg)' }}
-          >
-            <div className="text-center lg:text-left">
-              <h3 
-                className="text-2xl font-bold text-foreground mb-2"
-                style={{ transform: 'rotate(0.2deg)' }}
-              >
-                {newsletterText[locale].title}
-              </h3>
-              <p 
-                className="text-foreground-muted"
-                style={{ transform: 'rotate(-0.1deg)' }}
-              >
-                {newsletterText[locale].subtitle}
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-              <input
-                type="email"
-                placeholder={newsletterText[locale].placeholder}
-                className="px-4 py-3 bg-background border border-border rounded-[20px_24px_22px_18px] text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-[#00F5A0] transition-colors w-full sm:w-80"
-                style={{ transform: 'rotate(0.3deg)' }}
-              />
-              <Button
-                variant="primary"
-                icon={<ArrowRight className="w-4 h-4" style={{ transform: 'rotate(-2deg)' }} />}
-              >
-                {newsletterText[locale].subscribe}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">

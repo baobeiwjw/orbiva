@@ -12,7 +12,7 @@ export const translations = {
   common: {
     'zh-CN': {
       login: '登录',
-      getStarted: '立即体验',
+      getStarted: '探索',
       learnMore: '了解更多',
       buyNow: '立即体验',
       contactUs: '联系我们',
@@ -26,7 +26,7 @@ export const translations = {
     },
     'zh-TW': {
       login: '登入',
-      getStarted: '立即體驗',
+      getStarted: '探索',
       learnMore: '了解更多',
       buyNow: '立即體驗',
       contactUs: '聯繫我們',
@@ -40,7 +40,7 @@ export const translations = {
     },
     'en': {
       login: 'Login',
-      getStarted: 'Try Now',
+      getStarted: 'Explore',
       learnMore: 'Learn More',
       buyNow: 'Try Now',
       contactUs: 'Contact Us',
