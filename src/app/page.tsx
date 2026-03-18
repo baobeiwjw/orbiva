@@ -139,7 +139,7 @@ function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute left-1/2 -translate-x-1/2 bottom-6"
+        className="absolute left-1/2 -translate-x-1/2 bottom-8"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
