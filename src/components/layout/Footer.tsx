@@ -36,7 +36,7 @@ export default function Footer() {
       title: t('footer', 'company'),
       links: [
         { name: t('footer', 'aboutUs'), href: '/about' },
-        { name: t('footer', 'careers'), href: '/careers' },
+        { name: t('footer', 'careers'), href: '#' },
         { name: t('footer', 'news'), href: '/about#news' },
         { name: t('footer', 'contact'), href: '/about#contact' },
       ],
@@ -44,16 +44,16 @@ export default function Footer() {
     support: {
       title: t('footer', 'support'),
       links: [
-        { name: t('footer', 'helpCenter'), href: '/help' },
-        { name: t('footer', 'documentation'), href: '/docs' },
-        { name: t('footer', 'community'), href: '/community' },
+        { name: t('footer', 'helpCenter'), href: '#' },
+        { name: t('footer', 'documentation'), href: '#' },
+        { name: t('footer', 'community'), href: '#' },
       ],
     },
     legal: {
       title: t('footer', 'legal'),
       links: [
-        { name: t('footer', 'privacy'), href: '/privacy' },
-        { name: t('footer', 'terms'), href: '/terms' },
+        { name: t('footer', 'privacy'), href: '#' },
+        { name: t('footer', 'terms'), href: '#' },
       ],
     },
   };
@@ -122,7 +122,7 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3">
                 {section.links.map((link, linkIndex) => (
-                  <li key={link.href} style={{ transform: `rotate(${(linkIndex - 1) * 0.5}deg)` }}>
+                  <li key={link.name} style={{ transform: `rotate(${(linkIndex - 1) * 0.5}deg)` }}>
                     <Link
                       href={link.href}
                       className="text-foreground-muted hover:text-[#00F5A0] transition-colors text-sm"
