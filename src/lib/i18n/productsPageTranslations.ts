@@ -1,0 +1,201 @@
+// 产品页多语言翻译配置
+// 英文版本以当前页面实际文案为准
+export const productsPageTranslations = {
+  en: {
+    // Hero Section
+    heroTitle1: 'Smart Health Living',
+    heroTitle2: 'Complete Suite',
+    heroSubtitle: 'From core devices to ecosystem accessories, build a complete family health management center',
+
+    // VivaBox Section
+    vivaboxTitle: 'VivaBox',
+    vivaboxSubtitle1: 'AI-Powered Digital Twin Health Ecosystem',
+    vivaboxSubtitle2: 'An AI health companion smaller than a credit card, integrating multiple sensors for 24/7 health monitoring and emotional interaction.',
+    vivaboxTempTitle: 'Temperature Monitor',
+    vivaboxTempDesc: 'Infrared temp, ±0.1°C accuracy',
+    vivaboxBioTitle: 'Biometrics',
+    vivaboxBioDesc: 'Fingerprint & pulse dual recognition',
+    vivaboxQuickTitle: 'Quick Check',
+    vivaboxQuickDesc: '30-second full health check',
+    vivaboxSkinTitle: 'Skin Analysis',
+    vivaboxSkinDesc: 'Multi-spectral scan, skin assessment',
+    vivaboxScreenTitle: 'AMOLED Screen',
+    vivaboxScreenDesc: '1.9" HD touch display',
+    vivaboxCameraTitle: 'Front Camera',
+    vivaboxCameraDesc: 'Facial emotion analysis',
+    vivaboxVoiceTitle: 'Voice Assistant',
+    vivaboxVoiceDesc: 'Dual-mic noise cancellation',
+    vivaboxHealthTitle: 'Health Daily',
+    vivaboxHealthDesc: 'Daily health trend visualization',
+    vivaboxSpec1: '5G/WiFi 6',
+    vivaboxSpec2: '4 TOPS NPU',
+    vivaboxSpec3: '14 days standby',
+    vivaboxSpec4: 'Type-C fast charge',
+
+    // Digital Twin Section
+    twinTitle: 'Your Digital Health Avatar',
+    twinSubtitle: 'Through continuous data collection, build your health mirror in the cloud. AI simulates and predicts future body states in real-time',
+    twinFeature1: 'Personalized pet customization',
+    twinFeature2: 'Pet status reflects real health',
+    twinFeature3: 'Real-time vital sign curves',
+    twinFeature4: 'Historical data trend analysis',
+    twinFeature5: 'Abnormal indicator smart alerts',
+    twinFeature6: 'Exportable medical reports',
+
+    // Sensing Network Section
+    sensingTitle: 'Full-Scenario Health Sensing Network',
+    sensingSubtitle: '6 smart home devices seamlessly integrated with VivaBox, building an invisible health data collection network',
+    sensingCushionTitle: 'Smart Cushion',
+    sensingCushionSubtitle: 'Posture health guardian',
+    sensingTag1: 'Posture Correction',
+    sensingTag2: 'Sedentary Reminder',
+    sensingTag3: 'Pressure Distribution',
+    sensingSpec1: 'Pressure Sensors',
+    sensingSpec2: '6-month battery',
+    sensingSpec3: 'Real-time sync',
+
+    // Health Hub Section
+    hubTitle: 'Health Hub',
+    hubSubtitle: 'Device management, data visualization, AI insights, digital twin interaction, health rewards—all at your fingertips',
+    hubAppStore: 'App  Store',
+    hubGooglePlay: 'Google Play',
+    hubFeature1: 'Real-time health data dashboard',
+    hubFeature2: 'AI health assistant Q&A',
+    hubFeature3: 'Digital twin interaction',
+    hubFeature4: 'Privacy data management',
+    hubFeature5: 'Health incentive points',
+  },
+
+  'zh-CN': {
+    // Hero Section
+    heroTitle1: '智慧健康生活',
+    heroTitle2: '全场景套件',
+    heroSubtitle: '从核心设备到生态配件，构建完整的家庭健康管理中心',
+
+    // VivaBox Section
+    vivaboxTitle: 'VivaBox',
+    vivaboxSubtitle1: 'AI 驱动的数字孪生健康生态',
+    vivaboxSubtitle2: '比信用卡还小的 AI 健康伴侣，集成多传感器实现 24/7 全天候健康监测与情感交互。',
+    vivaboxTempTitle: '体温监测',
+    vivaboxTempDesc: '红外测温，±0.1°C 精度',
+    vivaboxBioTitle: '生物识别',
+    vivaboxBioDesc: '指纹 & 脉搏双重识别',
+    vivaboxQuickTitle: '快速检测',
+    vivaboxQuickDesc: '30 秒全面健康检查',
+    vivaboxSkinTitle: '皮肤分析',
+    vivaboxSkinDesc: '多光谱扫描，皮肤评估',
+    vivaboxScreenTitle: 'AMOLED 屏幕',
+    vivaboxScreenDesc: '1.9 英寸高清触控屏',
+    vivaboxCameraTitle: '前置摄像头',
+    vivaboxCameraDesc: '面部情绪分析',
+    vivaboxVoiceTitle: '语音助手',
+    vivaboxVoiceDesc: '双麦克风降噪',
+    vivaboxHealthTitle: '健康日报',
+    vivaboxHealthDesc: '每日健康趋势可视化',
+    vivaboxSpec1: '5G/WiFi 6',
+    vivaboxSpec2: '4 TOPS NPU',
+    vivaboxSpec3: '14 天续航',
+    vivaboxSpec4: 'Type-C 快充',
+
+    // Digital Twin Section
+    twinTitle: '你的数字健康分身',
+    twinSubtitle: '通过持续的数据采集，在云端构建你的健康镜像。AI 实时模拟并预测未来身体状态',
+    twinFeature1: '个性化宠物定制',
+    twinFeature2: '宠物状态映射真实健康',
+    twinFeature3: '实时生命体征曲线',
+    twinFeature4: '历史数据趋势分析',
+    twinFeature5: '异常指标智能预警',
+    twinFeature6: '可导出医疗报告',
+
+    // Sensing Network Section
+    sensingTitle: '全场景健康感知网络',
+    sensingSubtitle: '6 款智能家居设备与 VivaBox 无缝集成，构建隐形健康数据采集网络',
+    sensingCushionTitle: '智能坐垫',
+    sensingCushionSubtitle: '坐姿健康守护者',
+    sensingTag1: '姿势矫正',
+    sensingTag2: '久坐提醒',
+    sensingTag3: '压力分布',
+    sensingSpec1: '压力传感器',
+    sensingSpec2: '6 个月续航',
+    sensingSpec3: '实时同步',
+
+    // Health Hub Section
+    hubTitle: 'Health Hub',
+    hubSubtitle: '设备管理、数据可视化、AI 洞察、数字孪生交互、健康奖励——尽在指尖',
+    hubAppStore: 'App  Store',
+    hubGooglePlay: 'Google Play',
+    hubFeature1: '实时健康数据仪表盘',
+    hubFeature2: 'AI 健康助手问答',
+    hubFeature3: '数字孪生交互',
+    hubFeature4: '隐私数据管理',
+    hubFeature5: '健康激励积分',
+  },
+
+  'zh-TW': {
+    // Hero Section
+    heroTitle1: '智慧健康生活',
+    heroTitle2: '全場景套件',
+    heroSubtitle: '從核心設備到生態配件，構建完整的家庭健康管理中心',
+
+    // VivaBox Section
+    vivaboxTitle: 'VivaBox',
+    vivaboxSubtitle1: 'AI 驅動的數位孿生健康生態',
+    vivaboxSubtitle2: '比信用卡還小的 AI 健康夥伴，整合多感測器實現 24/7 全天候健康監測與情感互動。',
+    vivaboxTempTitle: '體溫監測',
+    vivaboxTempDesc: '紅外測溫，±0.1°C 精度',
+    vivaboxBioTitle: '生物辨識',
+    vivaboxBioDesc: '指紋 & 脈搏雙重辨識',
+    vivaboxQuickTitle: '快速檢測',
+    vivaboxQuickDesc: '30 秒全面健康檢查',
+    vivaboxSkinTitle: '皮膚分析',
+    vivaboxSkinDesc: '多光譜掃描，皮膚評估',
+    vivaboxScreenTitle: 'AMOLED 螢幕',
+    vivaboxScreenDesc: '1.9 吋高清觸控螢幕',
+    vivaboxCameraTitle: '前置鏡頭',
+    vivaboxCameraDesc: '面部情緒分析',
+    vivaboxVoiceTitle: '語音助手',
+    vivaboxVoiceDesc: '雙麥克風降噪',
+    vivaboxHealthTitle: '健康日報',
+    vivaboxHealthDesc: '每日健康趨勢視覺化',
+    vivaboxSpec1: '5G/WiFi 6',
+    vivaboxSpec2: '4 TOPS NPU',
+    vivaboxSpec3: '14 天續航',
+    vivaboxSpec4: 'Type-C 快充',
+
+    // Digital Twin Section
+    twinTitle: '你的數位健康分身',
+    twinSubtitle: '透過持續的數據採集，在雲端構建你的健康鏡像。AI 即時模擬並預測未來身體狀態',
+    twinFeature1: '個性化寵物定製',
+    twinFeature2: '寵物狀態映射真實健康',
+    twinFeature3: '即時生命體徵曲線',
+    twinFeature4: '歷史數據趨勢分析',
+    twinFeature5: '異常指標智慧預警',
+    twinFeature6: '可匯出醫療報告',
+
+    // Sensing Network Section
+    sensingTitle: '全場景健康感知網路',
+    sensingSubtitle: '6 款智慧家居設備與 VivaBox 無縫整合，構建隱形健康數據採集網路',
+    sensingCushionTitle: '智慧坐墊',
+    sensingCushionSubtitle: '坐姿健康守護者',
+    sensingTag1: '姿勢矯正',
+    sensingTag2: '久坐提醒',
+    sensingTag3: '壓力分佈',
+    sensingSpec1: '壓力感測器',
+    sensingSpec2: '6 個月續航',
+    sensingSpec3: '即時同步',
+
+    // Health Hub Section
+    hubTitle: 'Health Hub',
+    hubSubtitle: '設備管理、數據視覺化、AI 洞察、數位孿生互動、健康獎勵——盡在指尖',
+    hubAppStore: 'App  Store',
+    hubGooglePlay: 'Google Play',
+    hubFeature1: '即時健康數據儀表板',
+    hubFeature2: 'AI 健康助手問答',
+    hubFeature3: '數位孿生互動',
+    hubFeature4: '隱私數據管理',
+    hubFeature5: '健康激勵積分',
+  },
+};
+
+export type ProductsPageLocale = keyof typeof productsPageTranslations;
+export type ProductsPageTranslationKeys = keyof typeof productsPageTranslations.en;

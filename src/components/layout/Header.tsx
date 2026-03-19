@@ -96,7 +96,7 @@ export default function Header() {
             </nav>
 
             {/* Desktop CTA & Language Switcher */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3" style={{ marginRight: 60 }}>
               <LanguageSwitcher variant="compact" />
               <Button
                 variant="primary"
