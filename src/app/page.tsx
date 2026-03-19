@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useI18n } from '@/lib/i18n';
 import { newHomeTranslations, type NewHomeLocale } from '@/lib/i18n/newHomeTranslations';
@@ -59,7 +59,7 @@ function HeroSection() {
   const t = useNewHomeT();
 
   return (
-    <section className="relative w-full h-screen min-h-[800px] overflow-hidden flex items-center justify-center bg-[#060010]">
+    <section className="relative w-full min-h-[900px] overflow-hidden flex items-center justify-center bg-[#060010]" style={{ height: '110vh' }}>
       {/* Orb animated background — constrained square, centered below navbar */}
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[37%] aspect-square pointer-events-none"
@@ -160,9 +160,9 @@ function DualitySection() {
   const [activeStatus, setActiveStatus] = useState(0);
 
   const statuses = [
-    { label: t('sideAStatus1Label'), desc: t('sideAStatus1Desc'), icon: '/images/home/11.svg' },
-    { label: t('sideAStatus2Label'), desc: t('sideAStatus2Desc'), icon: '/images/home/12.svg' },
-    { label: t('sideAStatus3Label'), desc: t('sideAStatus3Desc'), icon: '/images/home/13.svg' },
+    { label: t('sideAStatus1Label'), desc: t('sideAStatus1Desc'), icon: '/images/home/11.svg', avatar: '/images/home/a.svg' },
+    { label: t('sideAStatus2Label'), desc: t('sideAStatus2Desc'), icon: '/images/home/12.svg', avatar: '/images/home/c.svg' },
+    { label: t('sideAStatus3Label'), desc: t('sideAStatus3Desc'), icon: '/images/home/13.svg', avatar: '/images/home/b.svg' },
   ];
 
   return (
@@ -193,15 +193,27 @@ function DualitySection() {
               <h3 className="text-[24px] font-bold font-['Urbanist'] leading-[32px]" style={{ color: '#00F686' }}>{t('sideATitle')}</h3>
               <p className="text-[16px] font-normal font-['Urbanist'] leading-[24px] mt-[8px]" style={{ color: '#ffffff' }}>{t('sideASubtitle')}</p>
 
-              {/* Avatar */}
+              {/* Avatar — switches based on active tab */}
               <div className="flex justify-center my-8">
-                <motion.div
-                  whileHover={{ scale: 1.05, rotate: 2 }}
-                  className="relative w-64 h-64 rounded-[32px] bg-[#1E293B] border-4 border-[#334155] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]"
-                >
-                  <div className="absolute inset-1 bg-gradient-to-tr from-[rgba(17,82,212,0.20)] to-transparent rounded-[28px]" />
-                  <Image src="/images/home/89.png" alt="Q-version Spirit" fill className="object-cover scale-125" />
-                </motion.div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStatus}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    className="w-[332px] h-[332px] drop-shadow-[0_25px_50px_rgba(0,0,0,0.25)]"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={statuses[activeStatus].avatar}
+                      alt="Q-version Spirit"
+                      width={332}
+                      height={332}
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               {/* Status Cards */}
