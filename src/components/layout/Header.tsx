@@ -18,7 +18,6 @@ import {
   Leaf,
   Users,
   FileText,
-  ArrowRight,
 } from 'lucide-react';
 
 export default function Header() {
@@ -101,7 +100,6 @@ export default function Header() {
               <Button
                 variant="primary"
                 size="sm"
-                icon={<ArrowRight className="w-4 h-4" />}
               >
                 {t('common', 'getStarted')}
               </Button>
@@ -189,7 +187,6 @@ export default function Header() {
                 <Button
                   variant="primary"
                   className="w-full"
-                  icon={<ArrowRight className="w-4 h-4" />}
                 >
                   {t('common', 'getStarted')}
                 </Button>
