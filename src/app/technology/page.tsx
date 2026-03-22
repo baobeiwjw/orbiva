@@ -1,852 +1,735 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import Button from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n';
-import {
-  Cpu,
-  Shield,
-  Brain,
-  Lock,
-  Wifi,
-  Eye,
-  GraduationCap,
-  CheckCircle2,
-  ArrowRight,
-  Sparkles,
-  Database,
-  Cloud,
-  Laptop,
-  FileCheck,
-  Award,
-  Lightbulb,
-  Layers,
-  Zap,
-  Server,
-  GitBranch,
-  FileText,
-  ExternalLink,
-  Users,
-  BarChart3,
-  Activity,
-} from 'lucide-react';
-import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
+import { technologyPageTranslations, type TechnologyPageLocale } from '@/lib/i18n/technologyPageTranslations';
 
-// ========== 动画变体 ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] as [number, number, number, number],
-    },
-  }),
-};
+function useTechT() {
+  const { locale } = useI18n();
+  const loc = (locale as TechnologyPageLocale) || 'en';
+  const dict = technologyPageTranslations[loc] || technologyPageTranslations.en;
+  return (key: string) => (dict as Record<string, string>)[key] ?? key;
+}
 
-// ========== 滚动区块包装组件 ==========
-function ScrollSectionWrapper({ 
-  children, 
-  className = '', 
-  isLast = false 
-}: { 
-  children: React.ReactNode; 
-  className?: string; 
-  isLast?: boolean;
+// ============================================================
+// ANIMATED SECTION WRAPPER
+// ============================================================
+function AnimatedSection({
+  children,
+  className = '',
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
 }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
-  const { scrollYProgress } = useScroll({
-    target: mounted ? sectionRef : undefined,
-    offset: ['start end', 'end start'],
-  });
-  
-  const opacity = useTransform(
-    scrollYProgress, 
-    [0, 0.2, 0.35, 0.65, 0.8, 1], 
-    [0, 0.5, 1, 1, isLast ? 1 : 0.5, isLast ? 1 : 0]
-  );
-  
-  const y = useTransform(
-    scrollYProgress, 
-    [0, 0.2, 0.35, 0.65, 0.8, 1], 
-    [100, 40, 0, 0, isLast ? 0 : -40, isLast ? 0 : -100]
-  );
-  
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.35, 0.65, 0.8, 1],
-    [0.9, 0.95, 1, 1, isLast ? 1 : 0.95, isLast ? 1 : 0.9]
-  );
-
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
   return (
-    <section ref={sectionRef} className={`relative min-h-screen overflow-hidden scroll-section ${className}`}>
-      <motion.div 
-        style={{ opacity, y, scale }}
-        className="relative z-10 w-full h-full origin-center will-change-transform"
-      >
-        {children}
-      </motion.div>
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay, ease: 'easeOut' } },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
+// ============================================================
+// 1. HERO SECTION — Edge Intelligence Privacy First
+// ============================================================
+function HeroSection() {
+  const t = useTechT();
+  return (
+    <section className="relative w-[1440px] h-[950px] bg-[#060010] overflow-hidden">
+      {/* Background decorative band image at top */}
+      <Image
+        src="/images/technology/44.png"
+        alt=""
+        width={1437}
+        height={181}
+        className="absolute left-0 top-[297px] w-[1437px] h-[181px] object-cover"
+        priority
+      />
+
+      {/* Center content block */}
+      <div className="absolute left-[393px] top-[210px] w-[654px] h-[328px]">
+        {/* Tag pill */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="absolute left-[227.5px] top-0 w-[199px] h-[47px] rounded-full bg-white/10 border border-white/10 flex items-center gap-2 px-4"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/technology/21.svg" alt="" width={18} height={24} className="mt-[0.5px]" />
+          <span className="text-[18px] font-normal text-white font-['Urbanist']">
+            {t('heroTag')}
+          </span>
+        </motion.div>
+
+        {/* Main title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="absolute left-0 top-[67px] w-[654px] text-center"
+        >
+          <span className="text-[68px] font-extrabold text-white font-['Urbanist'] leading-[1.15]">{t('heroTitle1')}</span>
+          <span className="text-[68px] font-extrabold text-[#00EF82] font-['Urbanist'] leading-[1.15]">{t('heroTitle2')}</span>
+        </motion.div>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="absolute left-[18px] top-[268px] w-[618px] text-center text-[24px] font-light text-white font-['Urbanist'] leading-[30px]"
+        >
+          {t('heroSubtitle')}
+        </motion.p>
+
+        {/* Scroll down arrow */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="absolute left-[320px] top-[374px]"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/technology/22.svg" alt="scroll" width={14} height={8} />
+        </motion.div>
+
+        {/* Decorative lines */}
+        <div className="absolute left-[-121px] top-[392px] w-[896px] h-[143px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/technology/23.svg" alt="" className="absolute left-0 top-[-5.5px]" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/technology/24.svg" alt="" className="absolute left-[448px] top-[-5.5px]" />
+        </div>
+      </div>
+
+      {/* Bottom cube image */}
+      <Image
+        src="/images/technology/45.png"
+        alt=""
+        width={1018}
+        height={841}
+        className="absolute left-[211px] top-[460px] w-[1018.43px] h-[841px] pointer-events-none"
+      />
     </section>
   );
 }
 
-// ========== 数据 ==========
-const certifications = [
-  { nameKey: 'cert1Name', descKey: 'cert1Desc', icon: Shield },
-  { nameKey: 'cert2Name', descKey: 'cert2Desc', icon: Lock },
-  { nameKey: 'cert3Name', descKey: 'cert3Desc', icon: FileCheck },
-  { nameKey: 'cert4Name', descKey: 'cert4Desc', icon: Activity },
-] as const;
+// ============================================================
+// 2. THREE PILLARS — Edge AI (large) + Explainable AI + Privacy
+// ============================================================
 
-const techPillarsData = [
-  {
-    id: 'edge-ai',
-    icon: Cpu,
-    titleKey: 'edgeAITitle',
-    subtitleKey: 'edgeAISubtitle',
-    descKey: 'edgeAIDesc',
-    detailKeys: ['edgeAIDetail1', 'edgeAIDetail2', 'edgeAIDetail3', 'edgeAIDetail4'],
-    detailIcons: [Zap, Server, Wifi, Layers],
-    color: 'from-[#00F5A0] to-[#33DFFF]',
-    stats: [
-      { value: '<50ms', labelKey: 'statLatency' },
-      { value: '95%+', labelKey: 'statAccuracy' },
-      { value: '<2W', labelKey: 'statPower' },
-    ],
-  },
-  {
-    id: 'explainable-ai',
-    icon: Lightbulb,
-    titleKey: 'explainableAITitle',
-    subtitleKey: 'explainableAISubtitle',
-    descKey: 'explainableAIDesc',
-    detailKeys: ['explainableAIDetail1', 'explainableAIDetail2', 'explainableAIDetail3', 'explainableAIDetail4'],
-    detailIcons: [Eye, GitBranch, BarChart3, FileText],
-    color: 'from-[#1A6BFF] to-[#00D4FF]',
-    stats: [
-      { value: '100%', labelKey: 'statTransparency' },
-      { value: '+40%', labelKey: 'statTrust' },
-      { value: '+65%', labelKey: 'statAdoption' },
-    ],
-  },
-  {
-    id: 'privacy',
-    icon: Shield,
-    titleKey: 'privacyArchTitle',
-    subtitleKey: 'privacyArchSubtitle',
-    descKey: 'privacyArchDesc',
-    detailKeys: ['privacyArchDetail1', 'privacyArchDetail2', 'privacyArchDetail3', 'privacyArchDetail4'],
-    detailIcons: [Lock, Database, Users, Shield],
-    color: 'from-[#00D4FF] to-[#1A6BFF]',
-    stats: [
-      { value: 'AES-256', labelKey: 'statEncryption' },
-      { value: '4', labelKey: 'statCertCount' },
-      { value: '1/yr', labelKey: 'statAudit' },
-    ],
-  },
-];
+function ThreePillarsSection() {
+  const t = useTechT();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-const explainableAIFeatures = [
-  {
-    titleKey: 'inferencePathTitle',
-    descKey: 'inferencePathDesc',
-    icon: GitBranch,
-    exampleKey: 'inferencePathExample',
-  },
-  {
-    titleKey: 'featureContribTitle',
-    descKey: 'featureContribDesc',
-    icon: BarChart3,
-    exampleKey: 'featureContribExample',
-  },
-  {
-    titleKey: 'naturalLangTitle',
-    descKey: 'naturalLangDesc',
-    icon: FileText,
-    exampleKey: 'naturalLangExample',
-  },
-  {
-    titleKey: 'confidenceTitle',
-    descKey: 'confidenceDesc',
-    icon: Activity,
-    exampleKey: 'confidenceExample',
-  },
-];
-
-const ntuCollaboration = {
-  institutionKey: 'ntuInstitution',
-  departmentKey: 'ntuDepartment',
-  labKey: 'ntuLab',
-  startYear: 2022,
-  papers: 12,
-  patents: 5,
-  publications: [
-    { title: 'Deep Learning for Multi-modal Health Prediction', venue: 'Nature Digital Medicine', year: 2024, impact: 'IF: 15.3' },
-    { title: 'Privacy-Preserving Edge Computing for Wearable Devices', venue: 'IEEE IoT Journal', year: 2024, impact: 'IF: 10.6' },
-    { title: 'Explainable AI for Personal Health Management', venue: 'ACM CHI', year: 2024, impactKey: 'ntuBestPaperCandidate' },
-    { title: 'Digital Twin Technology for Personalized Health', venue: 'JMIR', year: 2023, impact: 'IF: 7.4' },
-  ],
-  researchers: [
-    { name: 'Prof. Lim Joo Hwee', roleKey: 'chiefResearcher', focusKey: 'multimodalLearning' },
-    { name: 'Dr. Chen Wei', roleKey: 'jointResearcher', focusKey: 'edgeComputing' },
-    { name: 'Prof. Ong Yew Soon', roleKey: 'advisor', focusKey: 'evolutionaryComputing' },
-  ],
-};
-
-// ========== Hero 区块 ==========
-function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-[#060618]" />
-      
-      {/* 椭圆装饰 */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          className="absolute w-[160vw] h-[80vh] border border-white/[0.04] rounded-[50%]"
-          style={{ transform: 'rotate(-5deg)' }}
-        />
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#00F5A0]/[0.06] rounded-[50%]"
-        />
-      </div>
-
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.1}
-          className="mb-6"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/60 text-sm">
-            <HandDrawnIcon icon={Cpu} size="sm" variant="outline" />
-            {t('technology.heroTag')}
-          </span>
-        </motion.div>
-
-        <motion.h1
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.2}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-        >
-          {t('technology.heroTitle1New')}
-          <span className="block bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
-            {t('technology.heroTitle2New')}
-          </span>
-        </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.35}
-          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-8"
-        >
-          {t('technology.heroSubtitleNew')}
-        </motion.p>
-
-        {/* 技术标签 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-3"
-        >
-          {[t('technology.techTag1'), t('technology.techTag2'), t('technology.techTag3'), t('technology.techTag4')].map((tag, index) => (
-            <motion.span
-              key={tag}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.6 + index * 0.1 }}
-              className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm"
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* 滚动指示器 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-3"
-        >
-          <span className="text-white/20 text-xs tracking-[0.3em] uppercase">{t('common.scroll')}</span>
-          <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
-// ========== 三大技术支柱 ==========
-function TechPillarsSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [activePillar, setActivePillar] = useState('edge-ai');
-  const { t } = useI18n();
-
-  const currentPillar = techPillarsData.find(p => p.id === activePillar)!;
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Sparkles} size="sm" variant="outline" />
-            {t('technology.techPillarsTag')}
-          </span>
-          
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('technology.techPillarsTitle1')}<span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('technology.techPillarsTitle2')}</span>
-          </h2>
-        </motion.div>
-
-        {/* 切换标签 */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {techPillarsData.map((pillar) => (
-            <button
-              key={pillar.id}
-              onClick={() => setActivePillar(pillar.id)}
-              className={`flex items-center gap-3 px-6 py-4 rounded-xl font-medium transition-all ${
-                activePillar === pillar.id
-                  ? 'bg-white/[0.1] text-white border border-white/[0.1]'
-                  : 'bg-white/[0.02] text-white/60 border border-white/[0.05] hover:bg-white/[0.05]'
-              }`}
-            >
-              <HandDrawnIcon icon={pillar.icon} size="md" variant="filled" className="mr-2" />
-              {t(`technology.${pillar.titleKey}`)}
-            </button>
-          ))}
-        </div>
-
-        {/* 内容区域 */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activePillar}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="grid lg:grid-cols-2 gap-12 items-start"
-          >
-            {/* 左侧描述 */}
-            <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-              <HandDrawnIcon icon={currentPillar.icon} size="xl" variant="filled" className="mb-6" />
-              
-              <h3 className="text-2xl font-bold text-white mb-2">{t(`technology.${currentPillar.titleKey}`)}</h3>
-              <p className="text-white/40 text-sm mb-4">{t(`technology.${currentPillar.subtitleKey}`)}</p>
-              <p className="text-white/60 mb-8">{t(`technology.${currentPillar.descKey}`)}</p>
-              
-              <div className="space-y-4">
-                {currentPillar.detailKeys.map((detailKey, index) => (
-                  <motion.div
-                    key={detailKey}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-4"
-                  >
-                    <HandDrawnIcon icon={currentPillar.detailIcons[index]} size="md" variant="filled" />
-                    <span className="text-white">{t(`technology.${detailKey}`)}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* 右侧统计 */}
-            <div className="space-y-6">
-              <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-                <h4 className="text-lg font-bold text-white mb-6">{t('technology.keyMetrics')}</h4>
-                <div className="grid grid-cols-3 gap-4">
-                  {currentPillar.stats.map((stat) => (
-                    <div key={stat.labelKey} className="text-center">
-                      <div className="text-2xl font-bold text-[#00D4FF]">{stat.value}</div>
-                      <div className="text-xs text-white/40 mt-1">{t(`technology.${stat.labelKey}`)}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 可视化示意 */}
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/[0.05]">
-                <h4 className="text-sm font-medium text-white/60 mb-4">{t('technology.techArchDiagram')}</h4>
-                <div className="space-y-3">
-                  {activePillar === 'edge-ai' && (
-                    <>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00F5A0]" />
-                        <span className="text-sm text-white/60">{t('technology.edgeFlow1')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
-                        <span className="text-sm text-white/60">{t('technology.edgeFlow2')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
-                        <span className="text-sm text-white/60">{t('technology.edgeFlow3')}</span>
-                      </div>
-                    </>
-                  )}
-                  {activePillar === 'explainable-ai' && (
-                    <>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
-                        <span className="text-sm text-white/60">{t('technology.explainableFlow1')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
-                        <span className="text-sm text-white/60">{t('technology.explainableFlow2')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00F5A0]" />
-                        <span className="text-sm text-white/60">{t('technology.explainableFlow3')}</span>
-                      </div>
-                    </>
-                  )}
-                  {activePillar === 'privacy' && (
-                    <>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
-                        <span className="text-sm text-white/60">{t('technology.privacyFlow1')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#1A6BFF]" />
-                        <span className="text-sm text-white/60">{t('technology.privacyFlow2')}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[#00D4FF]" />
-                        <span className="text-sm text-white/60">{t('technology.privacyFlow3')}</span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-// ========== 可解释性AI深度解读 ==========
-function ExplainableAISection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Lightbulb} size="sm" variant="outline" />
-            {t('technology.explainableTag')}
-          </span>
-          
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('technology.explainableTitle1')}
-            <span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">{t('technology.explainableTitle2')}</span>
-          </h2>
-          
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('technology.explainableSubtitle')}
-          </p>
-        </motion.div>
-
-        {/* 特性卡片 */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {explainableAIFeatures.map((feature, index) => (
-            <motion.div
-              key={feature.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#1A6BFF]/30 transition-all"
-            >
-              <div className="flex items-start gap-4 mb-4">
-                <HandDrawnIcon icon={feature.icon} size="lg" variant="filled" className="flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-white mb-1">{t(`technology.${feature.titleKey}`)}</h3>
-                  <p className="text-sm text-white/40">{t(`technology.${feature.descKey}`)}</p>
-                </div>
-              </div>
-              
-              {/* 示例 */}
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                <div className="text-xs text-white/30 mb-2">{t('technology.exampleOutput')}</div>
-                <p className="text-sm text-white/60 font-mono">{t(`technology.${feature.exampleKey}`)}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* 对比图 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-        >
-          <h3 className="text-xl font-bold text-white text-center mb-8">{t('technology.aiComparisonTitle')}</h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-6 rounded-2xl bg-red-500/5 border border-red-500/20">
-              <div className="text-red-400 font-medium mb-4">❌ {t('technology.traditionalBlackboxAI')}</div>
-              <div className="space-y-3 text-sm text-white/50">
-                <p>{t('technology.compInput')}</p>
-                <p>{t('technology.compOutput')}</p>
-                <p className="text-red-400/60">{t('technology.compQuestion')}</p>
-              </div>
-            </div>
-            <div className="p-6 rounded-2xl bg-green-500/5 border border-green-500/20">
-              <div className="text-green-400 font-medium mb-4">✓ {t('technology.orbivaExplainableAI')}</div>
-              <div className="space-y-3 text-sm text-white/50">
-                <p>{t('technology.compInput')}</p>
-                <p>{t('technology.compOutput')}</p>
-                <p className="text-green-400/60">{t('technology.compExplain1')}</p>
-                <p className="text-green-400/60">{t('technology.compExplain2')}</p>
-                <p className="text-green-400/60">{t('technology.compSuggestion')}</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== 隐私保护 ==========
-function PrivacySection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  const privacyFeatures = [
-    { icon: Laptop, titleKey: 'localFirstTitle', descKey: 'localFirstDesc' },
-    { icon: Lock, titleKey: 'e2eEncryptTitle', descKey: 'e2eEncryptDesc' },
-    { icon: Database, titleKey: 'diffPrivacyTitle', descKey: 'diffPrivacyDesc' },
-    { icon: Eye, titleKey: 'userControlTitle', descKey: 'userControlDesc' },
+  const pillarCards = [
+    {
+      id: 'edge-ai',
+      title: t('edgeAiTitle'),
+      subtitle: t('edgeAiSubtitle'),
+      icon: '32.svg',
+      decorativeIcon: null,
+      stats: [
+        { value: t('edgeAiStat1Value'), label: t('edgeAiStat1Label') },
+        { value: t('edgeAiStat2Value'), label: t('edgeAiStat2Label') },
+        { value: t('edgeAiStat3Value'), label: t('edgeAiStat3Label') },
+      ],
+      flows: [
+        { icon: '25.svg', text: t('edgeAiFlow1') },
+        { icon: '26.svg', text: t('edgeAiFlow2') },
+        { icon: '27.svg', text: t('edgeAiFlow3') },
+      ],
+      features: [
+        { icon: '28.svg', text: t('edgeAiFeat1') },
+        { icon: '29.svg', text: t('edgeAiFeat2') },
+        { icon: '30.svg', text: t('edgeAiFeat3') },
+        { icon: '31.svg', text: t('edgeAiFeat4') },
+      ],
+      collapsedIcon: 'edge-ai-deco.png',
+      collapsedIconPos: 'left-[20px] top-[340px]',
+    },
+    {
+      id: 'explainable-ai',
+      title: t('explainableTitle'),
+      subtitle: t('explainableSubtitle'),
+      icon: '32.svg',
+      decorativeIcon: '32.svg',
+      stats: [
+        { value: t('explainableStat1Value'), label: t('explainableStat1Label') },
+        { value: t('explainableStat2Value'), label: t('explainableStat2Label') },
+        { value: t('explainableStat3Value'), label: t('explainableStat3Label') },
+      ],
+      flows: [
+        { icon: '25.svg', text: t('explainableFlow1') },
+        { icon: '26.svg', text: t('explainableFlow2') },
+        { icon: '27.svg', text: t('explainableFlow3') },
+      ],
+      features: [
+        { icon: '28.svg', text: t('explainableFeat1') },
+        { icon: '29.svg', text: t('explainableFeat2') },
+        { icon: '30.svg', text: t('explainableFeat3') },
+        { icon: '31.svg', text: t('explainableFeat4') },
+      ],
+      collapsedIcon: '32.svg',
+      collapsedIconPos: 'left-[34px] top-[366px]',
+    },
+    {
+      id: 'privacy',
+      title: t('privacyPillarTitle'),
+      subtitle: t('privacyPillarSubtitle'),
+      icon: '33.svg',
+      decorativeIcon: '33.svg',
+      stats: [
+        { value: t('privacyPillarStat1Value'), label: t('privacyPillarStat1Label') },
+        { value: t('privacyPillarStat2Value'), label: t('privacyPillarStat2Label') },
+        { value: t('privacyPillarStat3Value'), label: t('privacyPillarStat3Label') },
+      ],
+      flows: [
+        { icon: '25.svg', text: t('privacyPillarFlow1') },
+        { icon: '26.svg', text: t('privacyPillarFlow2') },
+        { icon: '27.svg', text: t('privacyPillarFlow3') },
+      ],
+      features: [
+        { icon: '28.svg', text: t('privacyPillarFeat1') },
+        { icon: '29.svg', text: t('privacyPillarFeat2') },
+        { icon: '30.svg', text: t('privacyPillarFeat3') },
+        { icon: '31.svg', text: t('privacyPillarFeat4') },
+      ],
+      collapsedIcon: '33.svg',
+      collapsedIconPos: 'left-[19px] top-[336px]',
+    },
   ];
 
   return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
+    <AnimatedSection className="relative w-[1440px] mt-[-400px] z-10">
+      {/* Gradient overlay for smooth transition from hero bottom */}
+      <div className="absolute inset-x-0 top-0 h-[400px] bg-gradient-to-b from-transparent to-[#060010] pointer-events-none z-[1]" />
+      <div className="relative z-[2] w-[1220px] mx-auto pt-[240px] pb-[80px]">
+        <div className="flex gap-[20px] h-[582px]">
+          {pillarCards.map((card, index) => {
+            const isExpanded = activeIndex === index;
+            return (
+              <motion.div
+                key={card.id}
+                layout
+                onClick={() => setActiveIndex(index)}
+                className={`relative h-[582px] bg-[#1E293B] rounded-[16px] overflow-hidden backdrop-blur-[30px] cursor-pointer ${
+                  isExpanded ? 'border border-black' : ''
+                }`}
+                style={{ width: isExpanded ? 712 : 234 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              >
+                {/* ===== EXPANDED STATE ===== */}
+                {isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute inset-0"
+                  >
+                    {/* Decorative orb */}
+                    <Image
+                      src="/images/technology/46.png"
+                      alt=""
+                      width={513}
+                      height={513}
+                      className="absolute left-[-218px] bottom-[-248px] rotate-180 pointer-events-none"
+                    />
+
+                    {/* Top half */}
+                    <div className="absolute left-0 top-0 w-[712px] h-[337px] border-b border-[#060010]">
+                      {/* Title + subtitle */}
+                      <div className="absolute left-[32px] top-[32px] w-[648px]">
+                        <h3 className="text-[36px] font-bold font-['Urbanist'] leading-[1.2]" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                          {card.title}
+                        </h3>
+                        <p className="mt-[24px] text-[16px] font-normal text-white font-['Urbanist']">
+                          {card.subtitle}
+                        </p>
+                      </div>
+
+                      {/* Stats row */}
+                      <div className="absolute left-[32px] top-[160px] w-[648px] h-[90px] flex">
+                        {card.stats.map((stat) => (
+                          <div key={stat.label} className="flex-1 flex flex-col items-center justify-center">
+                            <span
+                              className="text-[48px] font-bold font-['Urbanist'] leading-[48px]"
+                              style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+                            >
+                              {stat.value}
+                            </span>
+                            <span className="mt-[4px] text-[16px] font-light text-white/80 font-['Urbanist'] text-center">{stat.label}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Flow tags */}
+                      <div className="absolute left-[32px] top-[282px] w-[648px] flex gap-[31px]">
+                        {card.flows.map((flow) => (
+                          <div key={flow.text} className="flex items-center gap-[6px] h-[22px] rounded-[6px]">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={`/images/technology/${flow.icon}`} alt="" width={6} height={6} className="mt-[1px]" />
+                            <span className="text-[12px] font-medium text-white font-['Inter'] text-center">{flow.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bottom half — Feature grid */}
+                    <div className="absolute left-[32px] top-[369px] w-[648px] h-[168px]">
+                      <div className="grid grid-cols-2 gap-x-[16px] gap-y-[16px]">
+                        {card.features.map((feat) => (
+                          <div key={feat.text} className="flex flex-col items-center gap-[12px] h-[76px]">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={`/images/technology/${feat.icon}`} alt="" width={40} height={40} />
+                            <span className="text-[16px] font-normal text-white font-['Urbanist'] text-center">{feat.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ===== COLLAPSED STATE ===== */}
+                {!isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute inset-0"
+                  >
+                    <div className="absolute left-[32px] top-[50px] w-[170px]">
+                      <h3 className="text-[28px] font-bold font-['Urbanist'] leading-[34px]" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        {card.title}
+                      </h3>
+                      <p className="mt-[20px] text-[16px] font-normal text-white font-['Urbanist'] leading-[24px]">
+                        {card.subtitle}
+                      </p>
+                    </div>
+                    {/* Decorative icon */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/images/technology/${card.collapsedIcon}`} alt="" className={`absolute ${card.collapsedIconPos}`} />
+                  </motion.div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// ============================================================
+// 3. AI TELLS YOU WHY — Explainable AI Deep Dive
+// ============================================================
+function ExplainableAISection() {
+  const t = useTechT();
+  return (
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010] overflow-hidden">
+      {/* Section header */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px]">
+        <h2 className="text-center opacity-[0.97]">
+          <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('aiWhyTitle1')}</span>
+          <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('aiWhyTitle2')}</span>
+        </h2>
+        <p className="mt-[20px] text-center text-[24px] font-light text-white/80 font-['Urbanist'] opacity-80">
+          {t('aiWhySubtitle')}
+        </p>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Shield} size="sm" variant="outline" />
-            {t('technology.privacyTag')}
-          </span>
-          
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('technology.privacyTitle1')}
-            <span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">{t('technology.privacyTitle2')}</span>
-          </h2>
-          
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('technology.privacySubtitle')}
-          </p>
-        </motion.div>
+      {/* Content area: left 4-card grid + right comparison card */}
+      <div className="absolute left-[110px] top-[273px] w-[1220px] h-[496px] flex gap-[20px]">
+        {/* Left 4-card grid (2x2) */}
+        <div className="relative w-[716px] h-[496px]">
+          {/* Card 1: Inference Path Visualization */}
+          <div className="absolute left-0 top-0 w-[348px] h-[238px]">
+            <ExplainableCard
+              icon="9.svg"
+              title={t('aiWhyCard1Title')}
+              desc={t('aiWhyCard1Desc')}
+              example={t('aiWhyCard1Example')}
+              exampleLabel={t('exampleOutput')}
+            />
+          </div>
 
-        {/* Bento Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {privacyFeatures.map((feature, index) => (
-            <motion.div
-              key={feature.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="group p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00D4FF]/30 transition-all duration-300 text-center"
-            >
-              <HandDrawnIcon icon={feature.icon} size="lg" variant="filled" className="mb-4 mx-auto group-hover:scale-110 transition-transform duration-300" />
-              <h3 className="font-bold text-white mb-2">{t(`technology.${feature.titleKey}`)}</h3>
-              <p className="text-sm text-white/40">{t(`technology.${feature.descKey}`)}</p>
+          {/* Card 2: Feature Contribution Analysis */}
+          <div className="absolute left-[368px] top-0 w-[348px] h-[238px]">
+            <ExplainableCard
+              icon="7.svg"
+              title={t('aiWhyCard2Title')}
+              desc={t('aiWhyCard2Desc')}
+              example={t('aiWhyCard2Example')}
+              exampleLabel={t('exampleOutput')}
+            />
+          </div>
+
+          {/* Card 3: Natural Language Explanation */}
+          <div className="absolute left-0 top-[258px] w-[348px] h-[238px]">
+            <ExplainableCard
+              icon="5.svg"
+              title={t('aiWhyCard3Title')}
+              desc={t('aiWhyCard3Desc')}
+              example={t('aiWhyCard3Example')}
+              exampleLabel={t('exampleOutput')}
+            />
+          </div>
+
+          {/* Card 4: Confidence Transparency */}
+          <div className="absolute left-[368px] top-[258px] w-[348px] h-[238px]">
+            <ExplainableCard
+              icon="3.svg"
+              title={t('aiWhyCard4Title')}
+              desc={t('aiWhyCard4Desc')}
+              example={t('aiWhyCard4Example')}
+              exampleLabel={t('exampleOutput')}
+            />
+          </div>
+        </div>
+
+        {/* Right: Traditional AI vs Orbiva comparison */}
+        <div className="relative w-[484px] h-[496px]">
+          {/* Card container with border */}
+          <motion.div whileHover={{ borderColor: 'rgba(255,255,255,0.5)' }} transition={{ duration: 0.3 }} className="absolute left-0 top-0 w-[484px] h-[496px] rounded-[32px] border border-white/30 overflow-hidden transition-all">
+            {/* Decorative orb top-right */}
+            <Image
+              src="/images/technology/41.png"
+              alt=""
+              width={513}
+              height={513}
+              className="absolute left-[184px] top-[-355px] pointer-events-none"
+            />
+          </motion.div>
+
+          {/* Title */}
+          <div className="absolute left-[74.75px] top-[33.68px] w-[321px]">
+            <p className="text-center text-[30px] font-semibold text-white/80 font-['Urbanist'] leading-[36px]">
+              {t('vsTitle')}
+            </p>
+          </div>
+
+          {/* Input label */}
+          <div className="absolute left-[129.11px] top-[135.74px] w-[223px] text-center">
+            <span className="text-[20px] font-semibold font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {t('vsInput')}
+            </span>
+          </div>
+
+          {/* VS divider - centered on the boundary between two panels */}
+          <div className="absolute left-[197px] top-[189px] w-[49px] h-[49px] z-10 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/technology/1.svg" alt="" className="absolute inset-0 w-full h-full" />
+            <span className="relative z-10 text-[20px] font-semibold font-['Urbanist']">
+              <span className="text-white">V</span>
+              <span style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>S</span>
+            </span>
+          </div>
+
+          {/* Left panel: Traditional Black-box AI */}
+          <div className="absolute left-[19.21px] top-[188.81px] w-[202.73px] h-[289.84px] bg-[#1E293B] rounded-tl-[20px] rounded-bl-[20px]">
+            <div className="absolute left-0 top-0 w-[211.27px] h-[48.99px] bg-[#2F4261] rounded-tl-[20px]" />
+            <p className="absolute left-[9.6px] top-[17.35px] w-[169.66px] text-[14px] font-semibold text-white font-['Urbanist']">
+              {t('vsLeftTitle')}
+            </p>
+            <div className="absolute left-[17.28px] top-[67.35px] w-[174.78px]">
+              <p className="text-[14px] font-normal text-white font-['Urbanist'] leading-[20px] whitespace-pre-line">
+                {t('vsLeftContent')}
+              </p>
+            </div>
+          </div>
+
+          {/* Right panel: Orbiva Explainable AI */}
+          <div className="absolute left-[221.83px] top-[188.81px] w-[242.96px] h-[289.84px] bg-[#162031] rounded-tr-[20px] rounded-br-[20px]">
+            <div className="absolute left-0 top-0 w-[241.04px] h-[48.99px] bg-[#37FFA4] rounded-tr-[20px]" />
+            <p className="absolute left-[36.49px] top-[15.31px] w-[196.72px] text-center text-[18px] font-semibold font-['Urbanist']" style={{ background: 'black', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {t('vsRightTitle')}
+            </p>
+            <div className="absolute left-[26.89px] top-[67.36px] w-[206.47px]">
+              <p className="text-[14px] font-semibold font-['Urbanist'] leading-[20px] whitespace-pre-line" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                {t('vsRightContent')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+function ExplainableCard({ icon, title, desc, example, exampleLabel }: { icon: string; title: string; desc: string; example: string; exampleLabel?: string }) {
+  return (
+    <motion.div whileHover={{ y: -4, scale: 1.02 }} transition={{ duration: 0.3 }} className="relative w-full h-full cursor-pointer">
+      {/* Card background SVG */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/technology/8.svg" alt="" className="absolute left-0 top-0 w-full h-full" />
+
+      {/* Header area */}
+      <div className="absolute left-[16.47px] top-[10px] w-[312.99px]">
+        <div className="flex items-start justify-between">
+          <h4 className="text-[20px] font-bold text-white font-['Urbanist'] w-[233.72px] whitespace-pre-line">{title}</h4>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/images/technology/${icon}`} alt="" width={40} height={40} className="flex-shrink-0 -mt-[6px]" />
+        </div>
+        <p className="mt-[14px] text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[19.5px]">{desc}</p>
+      </div>
+
+      {/* Example output box */}
+      <div className="absolute left-[16.47px] top-[117px] w-[315.05px] h-[105px] bg-white/10 rounded-[16px]">
+        <div className="absolute left-[16px] top-[10px] w-[283px]">
+          <p className="text-[14px] font-bold text-white font-['Urbanist']">{exampleLabel || 'Example Output'}</p>
+          <p className="mt-[10px] text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[18px]">{example}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================================
+// 4. YOUR DATA, YOUR CONTROL — Privacy Section
+// ============================================================
+function PrivacySection() {
+  const t = useTechT();
+  return (
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010] overflow-hidden">
+      {/* Section header */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px]">
+        <h2 className="text-center opacity-[0.97]">
+          <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('privacyTitle1')}</span>
+          <span className="text-[60px] font-bold font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t('privacyTitle2')}</span>
+        </h2>
+        <p className="mt-[20px] text-center text-[24px] font-light text-white/80 font-['Urbanist'] opacity-80">
+          {t('privacySubtitle')}
+        </p>
+      </div>
+
+      {/* 4 Feature cards row */}
+      <div className="absolute left-[110px] top-[244px] w-[1220px] flex gap-[20px]">
+        {[
+          { icon: '10.svg', title: t('privacyCard1Title'), desc: t('privacyCard1Desc') },
+          { icon: '11.svg', title: t('privacyCard2Title'), desc: t('privacyCard2Desc') },
+          { icon: '12.svg', title: t('privacyCard3Title'), desc: t('privacyCard3Desc') },
+          { icon: '13.svg', title: t('privacyCard4Title'), desc: t('privacyCard4Desc') },
+        ].map((card) => (
+          <motion.div key={card.title} whileHover={{ y: -4, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="relative w-[290px] h-[180px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/images/technology/${card.icon}`} alt="" className="absolute left-[17px] top-[20px]" />
+            <p className="absolute left-[17px] top-[78px] w-[257px] text-[20px] font-bold text-white font-['Urbanist']">{card.title}</p>
+            <p className="absolute left-[17px] top-[112px] w-[248px] text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[20px]">{card.desc}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Compliance Certifications card */}
+      <motion.div whileHover={{ borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[110px] top-[462px] w-[1220px] h-[300px] bg-[#1E293B] rounded-[16px] border border-[#334155] transition-all">
+        <h3 className="absolute left-0 top-[34px] w-full text-center text-[30px] font-semibold text-white font-['Urbanist']">
+          {t('complianceTitle')}
+        </h3>
+
+        <div className="absolute left-[24px] top-[90px] w-[1172px] flex">
+          {[
+            { img: '52.png', name: t('cert1Name'), desc: t('cert1Desc') },
+            { img: '50.png', name: t('cert2Name'), desc: t('cert2Desc'), imgStyle: 'w-[200px] h-[100px] -ml-[46px]' },
+            { img: '42.png', name: t('cert3Name'), desc: t('cert3Desc'), imgStyle: 'w-[202px] h-[102px] -ml-[47px] -mt-[2px]' },
+            { img: '51.png', name: t('cert4Name'), desc: t('cert4Desc') },
+          ].map((cert) => (
+            <motion.div key={cert.name} whileHover={{ y: -4 }} transition={{ duration: 0.3 }} className="flex-1 flex flex-col items-center cursor-pointer">
+              <div className="w-[100px] h-[100px] rounded-full overflow-hidden bg-[#1E69B3] flex items-center justify-center">
+                {cert.imgStyle ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={`/images/technology/${cert.img}`} alt={cert.name} className={cert.imgStyle} />
+                ) : (
+                  <Image src={`/images/technology/${cert.img}`} alt={cert.name} width={100} height={100} className="w-[100px] h-[100px] object-cover" />
+                )}
+              </div>
+              <p className="mt-[20px] text-center text-[20px] font-bold text-white font-['Urbanist']">{cert.name}</p>
+              <p className="text-center text-[14px] font-medium text-white font-['Urbanist']">{cert.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatedSection>
+  );
+}
+
+// ============================================================
+// 5. CORE RESEARCH TEAM — NTU Collaboration
+// ============================================================
+function ResearchTeamSection() {
+  const t = useTechT();
+  return (
+    <AnimatedSection className="relative w-[1440px] bg-[#060010] overflow-hidden">
+      <div className="w-[1220px] mx-auto pt-[75px] pb-[75px]">
+        {/* Section header */}
+        <div className="w-[1220px]">
+          <h2 className="text-center opacity-[0.97]">
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('researchTitle')}</span>
+          </h2>
+          <p className="mt-[20px] text-center text-[24px] font-light text-white/80 font-['Urbanist'] opacity-80 max-w-[858px] mx-auto">
+            {t('researchSubtitle')}
+          </p>
+        </div>
+
+        {/* Stats row */}
+        <div className="flex justify-center gap-[20px] mt-[20px]">
+          {[
+            { value: t('researchStat1Value'), label: t('researchStat1Label') },
+            { value: t('researchStat2Value'), label: t('researchStat2Label') },
+            { value: t('researchStat3Value'), label: t('researchStat3Label') },
+          ].map((stat) => (
+            <motion.div key={stat.label} whileHover={{ scale: 1.05, borderColor: 'rgba(0,246,134,0.4)' }} className="h-[39px] bg-white/[0.02] rounded-[12px] border border-white/30 flex items-center px-[14px] gap-[8px] whitespace-nowrap cursor-pointer transition-all">
+              <span
+                className="text-[26px] font-extrabold font-['Urbanist'] leading-[26px]"
+                style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+              >
+                {stat.value}
+              </span>
+              <span className="text-[14px] font-light text-white font-['Urbanist']">{stat.label}</span>
             </motion.div>
           ))}
         </div>
 
-        {/* 认证 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-        >
-          <h3 className="text-xl font-bold text-white mb-6 text-center">{t('technology.complianceCert')}</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {certifications.map((cert) => (
-              <div key={cert.nameKey} className="text-center group">
-                <div className="w-16 h-16 mx-auto rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-3 group-hover:border-[#00D4FF]/30 transition-colors">
-                  <HandDrawnIcon icon={cert.icon} size="md" variant="filled" />
+        {/* Researcher cards */}
+        <div className="flex gap-[32px] mt-[55px]">
+          {[
+            { img: '47.png', name: t('researcher1Name'), role: t('researcher1Role'), tag: t('researcher1Tag') },
+            { img: '48.png', name: t('researcher2Name'), role: t('researcher2Role'), tag: t('researcher2Tag') },
+            { img: '49.png', name: t('researcher3Name'), role: t('researcher3Role'), tag: t('researcher3Tag') },
+          ].map((person) => (
+            <motion.div key={person.name} whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="relative w-[385px] h-[480px] rounded-[12px] overflow-hidden cursor-pointer group">
+              <Image
+                src={`/images/technology/${person.img}`}
+                alt={person.name}
+                width={385}
+                height={480}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Bottom gradient */}
+              <div className="absolute left-0 top-[232px] w-[385px] h-[248px]" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.40) 100%)' }}>
+                {/* Info card */}
+                <div className="absolute left-[16px] top-[96px] w-[353px] h-[136px] bg-white/30 rounded-[16px] border border-white/30 backdrop-blur-[12px]">
+                  <p className="absolute left-[20px] top-[20px] text-[24px] font-bold text-white font-['Urbanist']">{person.name}</p>
+                  <p className="absolute left-[20px] top-[60px] text-[16px] font-bold text-white font-['Urbanist']">{person.role}</p>
+                  <div className="absolute left-[20px] top-[92px] h-[24px] bg-[#00F686] rounded-full px-[8px] flex items-center">
+                    <span className="text-[12px] font-medium text-black font-['Urbanist'] text-center">{person.tag}</span>
+                  </div>
                 </div>
-                <div className="text-sm font-medium text-white">{t(`technology.${cert.nameKey}`)}</div>
-                <p className="text-xs text-white/40">{t(`technology.${cert.descKey}`)}</p>
               </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Representative Papers */}
+        <div className="mt-[55px]">
+          <h3 className="text-[20px] font-bold text-white font-['Urbanist'] mb-[20px]">{t('papersTitle')}</h3>
+
+          <div className="grid grid-cols-2 gap-[20px]">
+            {[
+              { title: t('paper1Title'), venue: t('paper1Venue'), impact: 'IF: 10.6' },
+              { title: t('paper2Title'), venue: t('paper2Venue'), impact: 'IF: 10.6' },
+              { title: t('paper3Title'), venue: t('paper3Venue'), impact: 'IF: 10.6' },
+              { title: t('paper4Title'), venue: t('paper4Venue'), impact: 'IF: 10.6' },
+            ].map((paper, index) => (
+              <motion.div key={index} whileHover={{ y: -4, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="w-[600px] h-[104px] bg-[#1E293B] rounded-[16px] border border-[#334155] px-[24px] py-[24px] flex justify-between items-start cursor-pointer transition-all">
+                <div>
+                  <p className="text-[16px] font-bold text-white font-['Urbanist'] mb-[8px]">{paper.title}</p>
+                  <p className="text-[16px] font-normal font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    {paper.venue}
+                  </p>
+                </div>
+                <div className="flex-shrink-0 ml-[20px] mt-[32px] rounded-[6px] shadow-sm px-[8px] py-[2px]">
+                  <span className="text-[12px] font-medium text-white/70 font-['Urbanist']">{paper.impact}</span>
+                </div>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== NTU 学术合作 ==========
-function NTUSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* 左侧 */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-              <HandDrawnIcon icon={GraduationCap} size="sm" variant="outline" />
-              {t('technology.ntuTag')}
-            </span>
-
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              {t(`technology.${ntuCollaboration.institutionKey}`)}
-              <span className="block text-xl font-normal text-white/40 mt-2">
-                {t('technology.ntuEnglishName')}
-              </span>
-            </h2>
-            
-            <p className="text-white/40 mb-8 text-lg">
-              {t('technology.ntuCollabDesc')}
-            </p>
-
-            {/* 合作数据 */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#00F5A0]">{ntuCollaboration.startYear}</div>
-                <div className="text-xs text-white/40">{t('technology.collabSince')}</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#00D4FF]">{ntuCollaboration.papers}+</div>
-                <div className="text-xs text-white/40">{t('technology.ntuPapersCount')}</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-center">
-                <div className="text-2xl font-bold text-[#1A6BFF]">{ntuCollaboration.patents}+</div>
-                <div className="text-xs text-white/40">{t('technology.ntuPatentsCount')}</div>
-              </div>
-            </div>
-
-            {/* 研究团队 */}
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
-              <h4 className="font-medium text-white mb-4">{t('technology.coreResearchTeam')}</h4>
-              <div className="space-y-3">
-                {ntuCollaboration.researchers.map((researcher) => (
-                  <div key={researcher.name} className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm text-white">{researcher.name}</div>
-                      <div className="text-xs text-white/40">{t(`technology.${researcher.roleKey}`)}</div>
-                    </div>
-                    <span className="px-2 py-1 text-xs rounded-full bg-[#00F5A0]/10 text-[#00F5A0]">
-                      {t(`technology.${researcher.focusKey}`)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* 右侧 - 论文列表 */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-              <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                <HandDrawnIcon icon={FileText} size="sm" variant="outline" />
-                {t('technology.representativePapers')}
-              </h3>
-              
-              <div className="space-y-4 mb-8">
-                {ntuCollaboration.publications.map((paper, index) => (
-                  <motion.div
-                    key={paper.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00F5A0]/30 transition-colors cursor-pointer group"
-                  >
-                    <h4 className="font-medium text-white text-sm mb-2 group-hover:text-[#00F5A0] transition-colors">
-                      {paper.title}
-                    </h4>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#00F5A0]">{paper.venue}, {paper.year}</span>
-                      <span className="text-white/40">{'impactKey' in paper ? t(`technology.${paper.impactKey}`) : paper.impact}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <Button variant="secondary" className="w-full" icon={<ExternalLink className="w-4 h-4" />}>
-                {t('technology.viewAllPapers')}
-              </Button>
-            </div>
-          </motion.div>
         </div>
       </div>
-    </div>
+    </AnimatedSection>
   );
 }
 
-// ========== CTA 区块 ==========
-function CTASection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
+// ============================================================
+// 6. FOOTER CTA — Background image section
+// ============================================================
+function FooterCTASection() {
   return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00F5A0]/[0.03] to-transparent rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-52 h-[72px] mx-auto mb-8"
-          >
-            <Image src="/blace-logo.png" alt="Orbiva Logo" width={494} height={173} className="w-full h-full object-contain" />
-          </motion.div>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            {t('technology.ctaTitle1')}
-            <span className="block bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">
-              {t('technology.ctaTitle2')}
-            </span>
-          </h2>
-
-          <p className="text-white/40 text-lg mb-10 max-w-2xl mx-auto">
-            {t('technology.ctaDesc')}
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-              {t('technology.downloadWhitepaper')}
-            </Button>
-            <Button variant="secondary" size="lg">
-              {t('technology.contactTechTeam')}
-            </Button>
+    <section className="relative w-[1440px] h-[474px] overflow-hidden">
+      <Image
+        src="/images/technology/43.png"
+        alt="Footer background"
+        width={1513}
+        height={651}
+        className="absolute left-[-33px] top-[-169px] w-[1505px] h-[643px] object-cover"
+      />
+      {/* Logo overlay */}
+      <div className="absolute left-[142px] top-[210px] w-[148px] h-[66px] bg-[#111111] flex items-center justify-center">
+        <div className="w-[121.92px] h-[40px] relative">
+          {/* Logo SVGs */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/technology/34.svg" alt="" className="absolute left-[65.32px] top-0" />
+          <div className="absolute left-0 top-[8.35px] w-[121.92px] h-[31.65px]">
+            {['38.svg', '37.svg', '36.svg', '40.svg', '39.svg', '35.svg'].map((svg) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={svg} src={`/images/technology/${svg}`} alt="" className="absolute" style={{ left: svg === '38.svg' ? 0 : svg === '37.svg' ? '26.05px' : svg === '36.svg' ? '44.16px' : svg === '40.svg' ? '70.21px' : svg === '39.svg' ? '78.13px' : '99.98px', top: svg === '36.svg' ? 0 : '8.3px' }} />
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-// ========== 主页面 ==========
+// ============================================================
+// MAIN PAGE
+// ============================================================
 export default function TechnologyPage() {
+  const [pageZoom, setPageZoom] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 1440) {
+        setPageZoom(width / 1440);
+      } else {
+        setPageZoom(1);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <main className="relative bg-[#060618]">
-      <div className="fixed inset-0 bg-[#060618] -z-10" />
-      
-      {/* Hero */}
-      <HeroSection />
-      
-      {/* Tech Pillars */}
-      <ScrollSectionWrapper>
-        <TechPillarsSection />
-      </ScrollSectionWrapper>
-      
-      {/* Explainable AI */}
-      <ScrollSectionWrapper>
+    <main className="relative bg-black min-h-screen -mt-20">
+      <div
+        className="mx-auto bg-[#060010]"
+        style={{
+          width: 1440,
+          transform: pageZoom < 1 ? `scale(${pageZoom})` : 'none',
+          transformOrigin: 'top center',
+        }}
+      >
+        <HeroSection />
+        <ThreePillarsSection />
         <ExplainableAISection />
-      </ScrollSectionWrapper>
-      
-      {/* Privacy */}
-      <ScrollSectionWrapper>
         <PrivacySection />
-      </ScrollSectionWrapper>
-      
-      {/* NTU */}
-      <ScrollSectionWrapper>
-        <NTUSection />
-      </ScrollSectionWrapper>
-      
-      {/* CTA */}
-      <ScrollSectionWrapper isLast>
-        <CTASection />
-      </ScrollSectionWrapper>
+        <ResearchTeamSection />
+      </div>
     </main>
   );
 }

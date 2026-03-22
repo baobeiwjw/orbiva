@@ -1,1359 +1,1023 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import Button from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n';
-import {
-  Leaf,
-  Gift,
-  Shield,
-  Heart,
-  Activity,
-  Moon,
-  Pill,
-  Users,
-  Database,
-  ArrowRight,
-  CheckCircle2,
-  Sparkles,
-  Coins,
-  RefreshCw,
-  Lock,
-  Share2,
-  Award,
-  Zap,
-  TrendingUp,
-  Wallet,
-  Key,
-  FileText,
-  Globe,
-  ArrowDown,
-  ArrowUp,
-  CircleDot,
-  Hexagon,
-  ChevronRight,
-  Cpu,
-  Link2,
-  Eye,
-  DollarSign,
-  ShieldCheck,
-  BarChart3,
-  Timer,
-  Fingerprint,
-  Network,
-} from 'lucide-react';
-import HandDrawnIcon from '@/components/ui/HandDrawnIcon';
+import { ecosystemPageTranslations, type EcosystemPageLocale } from '@/lib/i18n/ecosystemPageTranslations';
 
-// ========== 动画变体 ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] as [number, number, number, number],
-    },
-  }),
-};
+function useEcoT() {
+  const { locale } = useI18n();
+  const loc = (locale as EcosystemPageLocale) || 'en';
+  const dict = ecosystemPageTranslations[loc] || ecosystemPageTranslations.en;
+  return (key: string) => (dict as Record<string, string>)[key] ?? key;
+}
 
-// ========== 滚动区块包装组件 ==========
-function ScrollSectionWrapper({
+// ============================================================
+// ANIMATED SECTION WRAPPER
+// ============================================================
+function AnimatedSection({
   children,
   className = '',
-  isLast = false
+  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
-  isLast?: boolean;
+  delay?: number;
 }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: mounted ? sectionRef : undefined,
-    offset: ['start end', 'end start'],
-  });
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.35, 0.65, 0.8, 1],
-    [0, 0.5, 1, 1, isLast ? 1 : 0.5, isLast ? 1 : 0]
-  );
-
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.35, 0.65, 0.8, 1],
-    [100, 40, 0, 0, isLast ? 0 : -40, isLast ? 0 : -100]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.35, 0.65, 0.8, 1],
-    [0.9, 0.95, 1, 1, isLast ? 1 : 0.95, isLast ? 1 : 0.9]
-  );
-
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
   return (
-    <section ref={sectionRef} className={`relative min-h-screen overflow-hidden scroll-section ${className}`}>
-      <motion.div
-        style={{ opacity, y, scale }}
-        className="relative z-10 w-full h-full origin-center will-change-transform"
-      >
-        {children}
-      </motion.div>
+    <motion.section
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay, ease: 'easeOut' } },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
+// ============================================================
+// 1. HERO SECTION — Health is Mining, Data has Value
+// ============================================================
+function HeroSection({ visibleWidth = 1440 }: { visibleWidth?: number }) {
+  const t = useEcoT();
+  // 背景图原始 1920px，左偏移 -40px，所以图片右边缘在 1880px 处
+  // 当屏幕 > 1440 时，向右扩展显示更多 3D 硬币内容
+  const extraRight = visibleWidth - 1440;
+  return (
+    <section
+      className="relative bg-[#060010] overflow-hidden"
+      style={{
+        width: visibleWidth,
+        height: 808,
+        marginRight: -extraRight,
+      }}
+    >
+      {/* Background image */}
+      <Image
+        src="/images/ecosystem/81.png"
+        alt=""
+        width={1920}
+        height={800}
+        className="absolute left-[-40px] top-0 w-[1920px] h-[800px] object-cover"
+        priority
+      />
+
+      {/* Right edge black gradient mask — smooth transition to black background */}
+      {extraRight > 0 && (
+        <div
+          className="absolute top-0 right-0 h-full pointer-events-none z-[5]"
+          style={{
+            width: Math.max(120, extraRight),
+            background: 'linear-gradient(to right, transparent 0%, #060010 85%)',
+          }}
+        />
+      )}
+
+      {/* Center content */}
+      <div className="absolute left-[200px] top-[200px] w-[540px] h-[460px]">
+        {/* Title area */}
+        <div className="absolute left-0 top-0 w-[540px] h-[260px]">
+          {/* Tag pill */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="absolute left-0 top-0 w-[206px] h-[47px] rounded-full bg-white/10 border border-white/10 flex items-center"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/ecosystem/1.svg" alt="" className="absolute left-[16px] top-[11.5px]" />
+            <span className="absolute left-[50px] top-[10px] text-[18px] font-normal text-white font-['Urbanist']">
+              {t('heroTag')}
+            </span>
+          </motion.div>
+
+          {/* Main title */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="absolute left-0 top-[67px] w-[540px]"
+          >
+            <div className="text-[68px] font-extrabold text-white font-['Urbanist'] leading-[1.15]">{t('heroTitle1')}</div>
+            <div className="text-[68px] font-extrabold font-['Urbanist'] leading-[1.15]" style={{ background: '#00EF82', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t('heroTitle2')}</div>
+          </motion.div>
+        </div>
+
+        {/* Subtitle */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="absolute left-0 top-[290px] w-[500px]"
+        >
+          <span className="text-[24px] font-light text-white font-['Urbanist']">
+            {t('heroSubtitle')}
+          </span>
+        </motion.div>
+
+        {/* Three pills: Health Token, Data NFT, Health DAO */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="absolute left-0 top-[430px] w-[540px] h-[52px] flex gap-[20px]"
+        >
+          {/* Health Token */}
+          <motion.div whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.18)' }} className="w-[165px] h-[52px] bg-white/[0.12] rounded-full relative cursor-pointer transition-all">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/ecosystem/88.svg" alt="" className="absolute left-[14px] top-[10px]" />
+            <span className="absolute left-[56px] top-[11px] w-[94px] text-[16px] font-light text-white font-['Urbanist']">{t('heroPill1')}</span>
+          </motion.div>
+          {/* Data NFT */}
+          <motion.div whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.18)' }} className="w-[161px] h-[52px] bg-white/[0.12] rounded-full relative cursor-pointer transition-all">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/ecosystem/100.svg" alt="" className="absolute left-[14px] top-[10px]" />
+            <span className="absolute left-[56px] top-[11px] w-[69px] text-center text-[16px] font-light text-white font-['Urbanist']">{t('heroPill2')}</span>
+          </motion.div>
+          {/* Health DAO */}
+          <motion.div whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.18)' }} className="w-[160px] h-[52px] bg-white/[0.12] rounded-full relative cursor-pointer transition-all">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/ecosystem/86.svg" alt="" className="absolute left-[14px] top-[10px]" />
+            <span className="absolute left-[56px] top-[11px] w-[84px] text-[16px] font-light text-white font-['Urbanist']">{t('heroPill3')}</span>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
 
-// ========== 数据配置（使用 key 供后续翻译使用） ==========
-const healthTasksConfig = [
-  {
-    icon: Activity,
-    titleKey: 'task1Title',
-    descKey: 'task1Desc',
-    points: 50,
-    freqKey: 'daily',
-    category: 'exercise',
-    progress: 75,
-  },
-  {
-    icon: Moon,
-    titleKey: 'task2Title',
-    descKey: 'task2Desc',
-    points: 30,
-    freqKey: 'daily',
-    category: 'sleep',
-    progress: 60,
-  },
-  {
-    icon: Pill,
-    titleKey: 'task3Title',
-    descKey: 'task3Desc',
-    points: 20,
-    freqKey: 'daily',
-    category: 'medication',
-    progress: 90,
-  },
-  {
-    icon: Heart,
-    titleKey: 'task4Title',
-    descKey: 'task4Desc',
-    points: 15,
-    freqKey: 'daily',
-    category: 'vitals',
-    progress: 45,
-  },
-  {
-    icon: Database,
-    titleKey: 'task5Title',
-    descKey: 'task5Desc',
-    points: 100,
-    freqKey: 'monthly',
-    category: 'data',
-    progress: 30,
-  },
-  {
-    icon: Users,
-    titleKey: 'task6Title',
-    descKey: 'task6Desc',
-    points: 10,
-    freqKey: 'eachTime',
-    category: 'social',
-    progress: 85,
-  },
-];
+// ============================================================
+// 2. HEALTH BEHAVIOR TOKENIZATION — Three cards
+// ============================================================
 
-const rewardCategoriesConfig = [
-  {
-    titleKey: 'rewardCat1',
-    itemKeys: ['rewardCat1Item1', 'rewardCat1Item2', 'rewardCat1Item3', 'rewardCat1Item4'],
-    icon: Heart,
-    color: 'from-[#00F5A0] to-[#33DFFF]',
-  },
-  {
-    titleKey: 'rewardCat2',
-    itemKeys: ['rewardCat2Item1', 'rewardCat2Item2', 'rewardCat2Item3', 'rewardCat2Item4'],
-    icon: Gift,
-    color: 'from-[#1A6BFF] to-[#00D4FF]',
-  },
-  {
-    titleKey: 'rewardCat3',
-    itemKeys: ['rewardCat3Item1', 'rewardCat3Item2', 'rewardCat3Item3', 'rewardCat3Item4'],
-    icon: Hexagon,
-    color: 'from-[#00D4FF] to-[#00D4FF]',
-  },
-];
+function TokenizationSection() {
+  const t = useEcoT();
 
-const dataSovereigntyRightsConfig = [
-  {
-    icon: Key,
-    titleKey: 'right1Title',
-    descKey: 'right1Desc',
-    detailKey: 'right1Detail',
-  },
-  {
-    icon: Lock,
-    titleKey: 'right2Title',
-    descKey: 'right2Desc',
-    detailKey: 'right2Detail',
-  },
-  {
-    icon: Share2,
-    titleKey: 'right3Title',
-    descKey: 'right3Desc',
-    detailKey: 'right3Detail',
-  },
-  {
-    icon: Wallet,
-    titleKey: 'right4Title',
-    descKey: 'right4Desc',
-    detailKey: 'right4Detail',
-  },
-];
-
-const ecosystemFlowStepsConfig = [
-  {
-    step: 1,
-    titleKey: 'flow1Title',
-    descKey: 'flow1Desc',
-    icon: Database,
-    color: '#00D4FF',
-  },
-  {
-    step: 2,
-    titleKey: 'flow2Title',
-    descKey: 'flow2Desc',
-    icon: Shield,
-    color: '#1A6BFF',
-  },
-  {
-    step: 3,
-    titleKey: 'flow3Title',
-    descKey: 'flow3Desc',
-    icon: Key,
-    color: '#00F5A0',
-  },
-  {
-    step: 4,
-    titleKey: 'flow4Title',
-    descKey: 'flow4Desc',
-    icon: Coins,
-    color: '#f59e0b',
-  },
-  {
-    step: 5,
-    titleKey: 'flow5Title',
-    descKey: 'flow5Desc',
-    icon: Gift,
-    color: '#00D4FF',
-  },
-  {
-    step: 6,
-    titleKey: 'flow6Title',
-    descKey: 'flow6Desc',
-    icon: RefreshCw,
-    color: '#00D4FF',
-  },
-];
-
-const web3FeaturesConfig = [
-  {
-    titleKey: 'hltTitle',
-    descKey: 'hltDesc',
-    icon: Coins,
-    color: '#f59e0b',
-    detailKeys: ['hltDetail1', 'hltDetail2', 'hltDetail3', 'hltDetail4'],
-    stats: { value: '1.2M+', labelKey: 'hltStats' },
-  },
-  {
-    titleKey: 'nftTitle',
-    descKey: 'nftDesc',
-    icon: Hexagon,
-    color: '#00D4FF',
-    detailKeys: ['nftDetail1', 'nftDetail2', 'nftDetail3', 'nftDetail4'],
-    stats: { value: '50K+', labelKey: 'nftStats' },
-  },
-  {
-    titleKey: 'daoTitle',
-    descKey: 'daoDesc',
-    icon: Users,
-    color: '#1A6BFF',
-    detailKeys: ['daoDetail1', 'daoDetail2', 'daoDetail3', 'daoDetail4'],
-    stats: { value: '10K+', labelKey: 'daoStats' },
-  },
-];
-
-// 代币经济学数据
-const tokenomicsDataConfig = [
-  { categoryKey: 'tokenPool1', percentage: 40, color: '#00D4FF', descKey: 'tokenPool1Desc' },
-  { categoryKey: 'tokenPool2', percentage: 25, color: '#1A6BFF', descKey: 'tokenPool2Desc' },
-  { categoryKey: 'tokenPool3', percentage: 20, color: '#00F5A0', descKey: 'tokenPool3Desc' },
-  { categoryKey: 'tokenPool4', percentage: 10, color: '#f59e0b', descKey: 'tokenPool4Desc' },
-  { categoryKey: 'tokenPool5', percentage: 5, color: '#00D4FF', descKey: 'tokenPool5Desc' },
-];
-
-// 数据主权闭环节点配置
-const dataLoopNodesConfig = [
-  {
-    id: 'collect',
-    titleKey: 'loop1Title',
-    subtitleKey: 'loop1Subtitle',
-    icon: Database,
-    color: '#00D4FF',
-    descKey: 'loop1Desc',
-  },
-  {
-    id: 'process',
-    titleKey: 'loop2Title',
-    subtitleKey: 'loop2Subtitle',
-    icon: Cpu,
-    color: '#1A6BFF',
-    descKey: 'loop2Desc',
-  },
-  {
-    id: 'confirm',
-    titleKey: 'loop3Title',
-    subtitleKey: 'loop3Subtitle',
-    icon: Link2,
-    color: '#00F5A0',
-    descKey: 'loop3Desc',
-  },
-  {
-    id: 'authorize',
-    titleKey: 'loop4Title',
-    subtitleKey: 'loop4Subtitle',
-    icon: Key,
-    color: '#f59e0b',
-    descKey: 'loop4Desc',
-  },
-  {
-    id: 'share',
-    titleKey: 'loop5Title',
-    subtitleKey: 'loop5Subtitle',
-    icon: Eye,
-    color: '#00D4FF',
-    descKey: 'loop5Desc',
-  },
-  {
-    id: 'reward',
-    titleKey: 'loop6Title',
-    subtitleKey: 'loop6Subtitle',
-    icon: DollarSign,
-    color: '#33DFFF',
-    descKey: 'loop6Desc',
-  },
-];
-
-// 隐私保护技术配置
-const privacyTechnologiesConfig = [
-  {
-    titleKey: 'privacy1Title',
-    icon: ShieldCheck,
-    descKey: 'privacy1Desc',
-    detailKey: 'privacy1Detail',
-  },
-  {
-    titleKey: 'privacy2Title',
-    icon: Network,
-    descKey: 'privacy2Desc',
-    detailKey: 'privacy2Detail',
-  },
-  {
-    titleKey: 'privacy3Title',
-    icon: Lock,
-    descKey: 'privacy3Desc',
-    detailKey: 'privacy3Detail',
-  },
-  {
-    titleKey: 'privacy4Title',
-    icon: Fingerprint,
-    descKey: 'privacy4Desc',
-    detailKey: 'privacy4Detail',
-  },
-];
-
-// ========== Hero 区块 ==========
-function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const { t } = useI18n();
+  const tokenCards = [
+    {
+      id: 'hlt',
+      title: t('tokenCard1Title'),
+      subtitle: t('tokenCard1Subtitle'),
+      statValue: t('tokenCard1StatValue'),
+      statLabel: t('tokenCard1StatLabel'),
+      coinImg: '95.png',
+      tagSvg: '6.svg',
+      features: [
+        { icon: 'check-circle.svg', text: t('tokenCard1Feat1') },
+        { icon: 'check-circle.svg', text: t('tokenCard1Feat2') },
+        { icon: 'check-circle.svg', text: t('tokenCard1Feat3') },
+        { icon: 'check-circle.svg', text: t('tokenCard1Feat4') },
+      ],
+    },
+    {
+      id: 'nft',
+      title: t('tokenCard2Title'),
+      subtitle: t('tokenCard2Subtitle'),
+      statValue: t('tokenCard2StatValue'),
+      statLabel: t('tokenCard2StatLabel'),
+      coinImg: '101.png',
+      tagSvg: '11.svg',
+      features: [
+        { icon: 'check-circle.svg', text: t('tokenCard2Feat1') },
+        { icon: 'check-circle.svg', text: t('tokenCard2Feat2') },
+        { icon: 'check-circle.svg', text: t('tokenCard2Feat3') },
+        { icon: 'check-circle.svg', text: t('tokenCard2Feat4') },
+      ],
+    },
+    {
+      id: 'dao',
+      title: t('tokenCard3Title'),
+      subtitle: t('tokenCard3Subtitle'),
+      statValue: t('tokenCard3StatValue'),
+      statLabel: t('tokenCard3StatLabel'),
+      coinImg: '87.png',
+      tagSvg: '16.svg',
+      features: [
+        { icon: 'check-circle.svg', text: t('tokenCard3Feat1') },
+        { icon: 'check-circle.svg', text: t('tokenCard3Feat2') },
+        { icon: 'check-circle.svg', text: t('tokenCard3Feat3') },
+        { icon: 'check-circle.svg', text: t('tokenCard3Feat4') },
+      ],
+    },
+  ];
 
   return (
-    <div ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-[#060618]" />
+    <AnimatedSection className="relative w-[1440px] h-[780px] bg-[#060010]">
+      <div className="absolute left-[110px] top-0 w-[1220px] h-[780px]">
+        {/* Section header */}
+        <div className="absolute left-[271px] top-[75px] w-[678px] h-[150px] opacity-[0.97]">
+          <div className="absolute left-[-271px] top-0 w-[1220px] text-center">
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('tokenTitle1')}</span>
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('tokenTitle2')}</span>
+          </div>
+          <div className="absolute left-[-90px] top-[92px] w-[858px] text-center opacity-80">
+            <span className="text-[24px] font-light text-white/80 font-['Urbanist']">
+              {t('tokenSubtitle')}
+            </span>
+          </div>
+        </div>
 
-      {/* 椭圆装饰 */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          className="absolute w-[160vw] h-[80vh] border border-white/[0.04] rounded-[50%]"
-          style={{ transform: 'rotate(-5deg)' }}
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          className="absolute w-[130vw] h-[60vh] border border-[#00D4FF]/[0.06] rounded-[50%]"
-        />
-      </div>
-
-      <div className="absolute bottom-1/3 left-1/4 w-[500px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.1}
-          className="mb-6"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-white/60 text-sm">
-            <HandDrawnIcon icon={Leaf} size="sm" variant="outline" />
-            {t('ecosystem.heroTag')}
-          </span>
-        </motion.div>
-
-        <motion.h1
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.2}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-        >
-          {t('ecosystem.heroTitle1')}
-          <span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">
-            {t('ecosystem.heroTitle2')}
-          </span>
-        </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={0.35}
-          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-8"
-        >
-          {t('ecosystem.heroSubtitle')}
-        </motion.p>
-
-        {/* 核心概念 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          {[
-            { icon: Coins, text: 'Health Token', color: '#f59e0b' },
-            { icon: Hexagon, text: 'Data NFT', color: '#00D4FF' },
-            { icon: Users, text: 'Health DAO', color: '#1A6BFF' },
-          ].map((item, index) => (
-            <motion.div
-              key={item.text}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.6 + index * 0.1 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05]"
+        {/* Three cards */}
+        <div className="absolute left-0 top-[285px] w-[1220px] h-[435px]">
+          {tokenCards.map((card, index) => (
+            <div
+              key={card.id}
+              className="absolute top-[7.01px] w-[390px] h-[420.98px]"
+              style={{ left: index * 416 - 1 + (index === 0 ? 0 : index === 1 ? 1 : 1) }}
             >
-              <HandDrawnIcon icon={item.icon} size="sm" variant="outline" />
-              <span className="text-white/60 text-sm">{item.text}</span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+              {/* Tag SVG at top */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/images/ecosystem/${card.tagSvg}`} alt="" className="absolute left-[7px] top-0 z-10" />
 
-      {/* 滚动指示器 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-3"
-        >
-          <span className="text-white/20 text-xs tracking-[0.3em] uppercase">{t('common.scroll')}</span>
-          <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        </motion.div>
-      </motion.div>
-    </div>
+              {/* Card background */}
+              <motion.div whileHover={{ y: -6, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-0 top-[0.98px] w-[390px] h-[420px] bg-[rgba(51,65,85,0.30)] rounded-[16px] border border-[#334155] cursor-pointer transition-all">
+                {/* Title block */}
+                <div className="absolute left-[25.7px] top-[49.65px] w-[339px] h-[142px]">
+                  {/* Title + subtitle */}
+                  <div className="absolute left-0 top-0 w-[203px] h-[54px]">
+                    <div className="absolute left-0 top-0">
+                      <span className="text-[20px] font-bold text-white font-['Urbanist']">{card.title}</span>
+                    </div>
+                    <div className="absolute left-0 top-[34px]">
+                      <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{card.subtitle}</span>
+                    </div>
+                  </div>
+
+                  {/* Stat value */}
+                  <div className="absolute left-0 top-[84px] w-[107px] h-[58px]">
+                    <div className="absolute left-[0.28px] top-0">
+                      <span className="text-[36px] font-bold font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{card.statValue}</span>
+                    </div>
+                    <div className="absolute left-0 top-[37.48px]">
+                      <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{card.statLabel}</span>
+                    </div>
+                  </div>
+
+                  {/* Coin image with glow */}
+                  <div className="absolute right-0 top-[51px] w-[77px] h-[91px]">
+                    <div className="absolute left-0 top-[56px] w-[77px] h-[34px] opacity-50 mix-blend-color-dodge rounded-full" style={{ background: 'conic-gradient(from 76deg at 50% 50%, #00F686 28deg, #0044F2 224deg, #B0FDFF 321deg)', filter: 'blur(15.35px)' }} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/images/ecosystem/${card.coinImg}`} alt="" className="absolute left-[2.45px] top-0 w-[75.05px] h-[85.94px]" />
+                  </div>
+                </div>
+
+                {/* Features list */}
+                <div className="absolute left-[20px] top-[221.38px] w-[350px] h-[177.62px]">
+                  {/* Divider */}
+                  <div className="absolute left-0 top-0 w-[350px] h-0 border-t border-white/20" />
+                  <div className="absolute left-0 top-[20px] w-[350px] h-[157.62px]">
+                    {card.features.map((feat, i) => (
+                      <div key={i} className="absolute left-0 w-[347px] h-[24px] flex items-center" style={{ top: i * 44.31 }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={`/images/ecosystem/${feat.icon}`} alt="" className="absolute left-0 top-[2px]" />
+                        <span className="absolute left-[30px] text-[14px] font-bold text-white font-['Urbanist']">{feat.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </AnimatedSection>
   );
 }
 
-// ========== Web3 健康激励 ==========
-function Web3IncentiveSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [activeFeature, setActiveFeature] = useState(0);
-  const [showTokenomics, setShowTokenomics] = useState(false);
-  const { t } = useI18n();
-
+// ============================================================
+// 3. HLT TOKENOMICS
+// ============================================================
+function TokenomicsSection() {
+  const t = useEcoT();
   return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Hexagon} size="sm" variant="outline" />
-            {t('ecosystem.web3Tag')}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('ecosystem.web3Title1')}
-            <span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">{t('ecosystem.web3Title2')}</span>
-          </h2>
-
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('ecosystem.web3Subtitle')}
-          </p>
-        </motion.div>
-
-        {/* Web3特性卡片 - 增强版 */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-12">
-          {web3FeaturesConfig.map((feature, index) => (
-            <motion.div
-              key={feature.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              onClick={() => setActiveFeature(index)}
-              className={`relative p-6 rounded-3xl cursor-pointer transition-all duration-300 overflow-hidden ${
-                activeFeature === index
-                  ? 'bg-gradient-to-br from-[#00D4FF]/10 to-[#1A6BFF]/10 border-2 border-[#00D4FF]/50 shadow-lg shadow-[#00D4FF]/10'
-                  : 'bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1]'
-              }`}
-            >
-              {/* 背景光效 - 选中时显示 */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: activeFeature === index ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-0 right-0 w-32 h-32 rounded-full blur-[60px]"
-                style={{ backgroundColor: `${feature.color}20` }}
-              />
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-4">
-                    <HandDrawnIcon icon={feature.icon} size="lg" variant="filled" className={`transition-all duration-300 ${
-                        activeFeature === index ? 'scale-110' : ''
-                      }`} />
-                    <div>
-                      <h3 className="font-bold text-white">{t(`ecosystem.${feature.titleKey}`)}</h3>
-                      <p className="text-xs text-white/40">{t(`ecosystem.${feature.descKey}`)}</p>
-                    </div>
-                  </div>
-
-                  {/* 统计数据 */}
-                  <div className="text-right">
-                    <div className="text-lg font-bold" style={{ color: feature.color }}>{feature.stats.value}</div>
-                    <div className="text-xs text-white/30">{t(`ecosystem.${feature.stats.labelKey}`)}</div>
-                  </div>
-                </div>
-
-                {/* 详情内容 - 始终显示 */}
-                <div className="pt-4 border-t border-white/[0.05] space-y-2">
-                  {feature.detailKeys.map((detailKey) => (
-                    <div key={detailKey} className="flex items-center gap-2 text-sm text-white/60">
-                      <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: feature.color }} />
-                      {t(`ecosystem.${detailKey}`)}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+    <AnimatedSection className="relative w-[1440px] h-[509px] bg-[#060010]">
+      <div className="absolute left-[110px] top-0 w-[1220px] h-[509px]">
+        {/* Title */}
+        <div className="absolute left-[493.5px] top-0 text-center">
+          <span className="text-[32px] font-bold text-white font-['Urbanist']">{t('tokenomicsTitle')}</span>
         </div>
 
-        {/* 代币经济学 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3 }}
-          className="mb-12"
-        >
-          <div
-            onClick={() => setShowTokenomics(!showTokenomics)}
-            className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] cursor-pointer hover:border-[#00D4FF]/30 transition-colors"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <HandDrawnIcon icon={BarChart3} size="lg" variant="filled" />
+        {/* Content area */}
+        <div className="absolute left-0 top-[97px] w-[1220px] h-[382px]">
+          {/* Left: Distribution labels */}
+          <div className="absolute left-0 top-0 w-[220px] h-[382px] flex flex-col justify-between">
+            {[
+              { label: t('tokenomicsPool1'), value: t('tokenomicsPool1Value'), icon: '17.svg' },
+              { label: t('tokenomicsPool2'), value: t('tokenomicsPool2Value'), icon: '18.svg' },
+              { label: t('tokenomicsPool3'), value: t('tokenomicsPool3Value'), icon: '19.svg' },
+              { label: t('tokenomicsPool4'), value: t('tokenomicsPool4Value'), icon: '20.svg' },
+              { label: t('tokenomicsPool5'), value: t('tokenomicsPool5Value'), icon: '21.svg' },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-[6px]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/images/ecosystem/${item.icon}`} alt="" className="mt-[3px] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-white">{t('ecosystem.tokenomicsTitle')}</h3>
-                  <p className="text-sm text-white/40">{t('ecosystem.tokenomicsSupply')}</p>
+                  <div className="text-[14px] font-bold text-white/50 font-['Urbanist'] leading-[1.3]">{item.label}</div>
+                  <div className="text-[24px] font-bold text-white font-['Urbanist'] leading-[1.2] mt-[2px]">{item.value}</div>
                 </div>
               </div>
-              <motion.div
-                animate={{ rotate: showTokenomics ? 90 : 0 }}
-                className="w-8 h-8 rounded-full bg-white/[0.05] flex items-center justify-center"
-              >
-                <ChevronRight className="w-4 h-4 text-white/40" />
-              </motion.div>
-            </div>
+            ))}
+          </div>
 
-            <AnimatePresence>
-              {showTokenomics && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-6 mt-6 border-t border-white/[0.05]">
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {/* 分配比例条 */}
-                      <div className="space-y-4">
-                        {tokenomicsDataConfig.map((item, index) => (
-                          <div key={item.categoryKey}>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-sm text-white/60">{t(`ecosystem.${item.categoryKey}`)}</span>
-                              <span className="text-sm font-medium" style={{ color: item.color }}>{item.percentage}%</span>
-                            </div>
-                            <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                animate={{ width: `${item.percentage}%` }}
-                                transition={{ delay: 0.3 + index * 0.1, duration: 0.8 }}
-                                className="h-full rounded-full"
-                                style={{ backgroundColor: item.color }}
-                              />
-                            </div>
-                            <p className="text-xs text-white/30 mt-1">{t(`ecosystem.${item.descKey}`)}</p>
-                          </div>
-                        ))}
-                      </div>
+          {/* Right: Chart + stat cards */}
+          <div className="absolute left-[235px] top-0 w-[985px] h-[380px]">
+            {/* Donut chart */}
+            <Image
+              src="/images/ecosystem/82.png"
+              alt="Tokenomics chart"
+              width={372}
+              height={372}
+              className="absolute left-0 top-0 w-[372px] h-[372px]"
+            />
 
-                      {/* 关键指标 */}
-                      <div className="grid grid-cols-2 gap-4">
-                        {[
-                          { labelKey: 'circulation', value: '120M', subValue: '12%' },
-                          { labelKey: 'stakingApy', value: '8.5%', subKey: 'annual' },
-                          { labelKey: 'burnMechanism', value: '2%', subKey: 'transactionFee' },
-                          { labelKey: 'releaseCycle', value: t('ecosystem.years10'), subKey: 'linearRelease' },
-                        ].map((stat) => (
-                          <div key={stat.labelKey} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                            <div className="text-xs text-white/40 mb-1">{t(`ecosystem.${stat.labelKey}`)}</div>
-                            <div className="text-xl font-bold text-white">{stat.value}</div>
-                            <div className="text-xs text-[#00D4FF]">{stat.subValue || t(`ecosystem.${stat.subKey}`)}</div>
-                          </div>
-                        ))}
-                      </div>
+            {/* 4 stat cards */}
+            <div className="absolute left-[385px] top-0 w-[600px] h-[380px]">
+              {[
+                { title: t('tokenomicsStat1Title'), value: t('tokenomicsStat1Value'), sub: t('tokenomicsStat1Sub'), top: 0, left: 0 },
+                { title: t('tokenomicsStat2Title'), value: t('tokenomicsStat2Value'), sub: t('tokenomicsStat2Sub'), top: 0, left: 310 },
+                { title: t('tokenomicsStat3Title'), value: t('tokenomicsStat3Value'), sub: t('tokenomicsStat3Sub'), top: 200, left: 0 },
+                { title: t('tokenomicsStat4Title'), value: t('tokenomicsStat4Value'), sub: t('tokenomicsStat4Sub'), top: 200, left: 310 },
+              ].map((card) => (
+                <motion.div key={card.title} whileHover={{ y: -4, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute w-[290px] h-[180px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all" style={{ top: card.top, left: card.left }}>
+                  <div className="absolute left-[21px] top-[28px]">
+                    <span className="text-[20px] font-bold text-white font-['Urbanist']">{card.title}</span>
+                  </div>
+                  <div className="absolute left-[21px] top-[82px] w-[170px] h-[70px]">
+                    <div className="absolute left-0 top-0">
+                      <span className="text-[36px] font-bold font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{card.value}</span>
+                    </div>
+                    <div className="absolute left-0 top-[50px]">
+                      <span className="text-[14px] font-normal text-white/50 font-['Urbanist']">{card.sub}</span>
                     </div>
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
+              ))}
+            </div>
           </div>
-        </motion.div>
-
-        {/* 健康任务列表 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4 }}
-          className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-        >
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <HandDrawnIcon icon={Zap} size="sm" variant="filled" />
-            {t('ecosystem.healthTasksTitle')}
-          </h3>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {healthTasksConfig.map((task, index) => (
-              <motion.div
-                key={task.titleKey}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.5 + index * 0.05 }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-[#00D4FF]/30 transition-all cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <HandDrawnIcon icon={task.icon} size="md" variant="filled" />
-                  <span className="px-2 py-1 rounded-full bg-[#f59e0b]/10 text-[#f59e0b] text-xs font-medium">
-                    +{task.points} HLT
-                  </span>
-                </div>
-                <h4 className="font-medium text-white text-sm mb-1">{t(`ecosystem.${task.titleKey}`)}</h4>
-                <p className="text-xs text-white/40">{t(`ecosystem.${task.descKey}`)}</p>
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="text-xs text-white/30">{t(`ecosystem.${task.freqKey}`)}</span>
-                  <div className="w-16 h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                    <div className="h-full bg-[#00D4FF] rounded-full" style={{ width: `${task.progress}%` }} />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
-    </div>
+    </AnimatedSection>
   );
 }
 
-// ========== 数据主权闭环 ==========
+// ============================================================
+// 4. DAILY HEALTH MINING TASKS
+// ============================================================
+const taskImages = ['96.png', '102.png', '85.png', '97.png', '99.png', '98.png'];
+const taskIcons = ['92.svg', '93.svg', '94.svg', '89.svg', '90.svg', '91.svg'];
+
+function HealthMiningSection() {
+  const t = useEcoT();
+  return (
+    <AnimatedSection className="relative w-[1440px] h-[500px] bg-[#060010] overflow-hidden">
+      {/* Background image */}
+      <Image
+        src="/images/ecosystem/103.png"
+        alt=""
+        width={1440}
+        height={500}
+        className="absolute left-0 top-0 w-[1440px] h-[500px] object-cover"
+      />
+
+      {/* Title removed — already baked into background image 103.png */}
+
+      {/* Row 1: 3 cards */}
+      <div className="absolute left-[110px] top-[125px] w-[1220px] h-[150px]">
+        {[0, 1, 2].map((i) => (
+          <TaskCard key={`row1-${i}`} left={i === 0 ? 4 : i === 1 ? 418 : 832} imgSrc={taskImages[i]} iconSrc={taskIcons[i]} taskTitle={t('miningTaskTitle')} taskDesc={t('miningTaskDesc')} taskProgress={t('miningTaskProgress')} />
+        ))}
+      </div>
+
+      {/* Row 2: 3 cards */}
+      <div className="absolute left-[110px] top-[295px] w-[1220px] h-[150px]">
+        {[3, 4, 5].map((i) => (
+          <TaskCard key={`row2-${i}`} left={i === 3 ? 4 : i === 4 ? 418 : 832} imgSrc={taskImages[i]} iconSrc={taskIcons[i]} taskTitle={t('miningTaskTitle')} taskDesc={t('miningTaskDesc')} taskProgress={t('miningTaskProgress')} />
+        ))}
+      </div>
+    </AnimatedSection>
+  );
+}
+
+function TaskCard({ left, imgSrc, iconSrc, taskTitle, taskDesc, taskProgress }: { left: number; imgSrc: string; iconSrc: string; taskTitle: string; taskDesc: string; taskProgress: string }) {
+  return (
+    <motion.div whileHover={{ y: -4, boxShadow: '0 4px 20px rgba(0,246,134,0.1)' }} transition={{ duration: 0.3 }} className="absolute w-[384px] h-[150px] bg-[#1E293B] rounded-[16px] cursor-pointer transition-all" style={{ left }}>
+      {/* Avatar */}
+      <div className="absolute left-[20px] top-[25px] w-[100px] h-[100px]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/images/ecosystem/${imgSrc}`} alt="" className="w-[100px] h-[100px] rounded-full object-cover" />
+      </div>
+
+      {/* Content */}
+      <div className="absolute left-[130px] top-[26.91px] w-[234px] h-[96.19px]">
+        {/* Title + points */}
+        <div className="absolute left-0 top-0 w-[234px] h-[53px]">
+          <div className="absolute left-0 top-0 w-[219.42px] h-[24px]">
+            <div className="absolute left-0 top-0">
+              <span className="text-[20px] font-bold text-white font-['Urbanist']">{taskTitle}</span>
+            </div>
+            <div className="absolute left-[160px] top-[2px] w-[59.42px] h-[20px] flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/images/ecosystem/${iconSrc}`} alt="" className="absolute left-0 top-[1px]" />
+              <span className="absolute left-[24.42px] text-[20px] font-bold font-['Urbanist']" style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>+50</span>
+            </div>
+          </div>
+          <div className="absolute left-0 top-[29px] w-[234px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{taskDesc}</span>
+          </div>
+        </div>
+
+        {/* Progress */}
+        <div className="absolute left-0 top-[68px] w-[224px] h-[28.19px]">
+          <div className="absolute left-0 top-0">
+            <span className="text-[12px] font-normal font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{taskProgress}</span>
+          </div>
+          <div className="absolute left-0 top-[22.19px] w-[224px] h-[6px]">
+            <div className="absolute left-0 top-0 w-[224px] h-[6px] bg-[rgba(51,65,85,0.50)] rounded-full" />
+            <div className="absolute left-0 top-0 w-[130px] h-[6px] rounded-full" style={{ background: 'linear-gradient(236deg, #00C7CC 0%, #00F686 44%, #00C7CC 100%)' }} />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================================
+// 5. YOUR DATA, YOUR ASSET — Data Sovereignty
+// ============================================================
 function DataSovereigntySection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [activeRight, setActiveRight] = useState<number | null>(null);
-  const [activeLoopNode, setActiveLoopNode] = useState<number>(0);
-  const { t } = useI18n();
-
-  // 自动轮播闭环节点
-  useEffect(() => {
-    if (!isInView) return;
-    const interval = setInterval(() => {
-      setActiveLoopNode((prev) => (prev + 1) % dataLoopNodesConfig.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isInView]);
-
+  const t = useEcoT();
   return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#1A6BFF]/[0.02] rounded-full blur-[150px]" />
-      </div>
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010] overflow-hidden">
+      {/* Decorative SVG bg */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ecosystem/22.svg" alt="" className="absolute left-[411px] top-[-315px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Shield} size="sm" variant="outline" />
-            {t('ecosystem.sovereigntyTag')}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('ecosystem.sovereigntyTitle1')}
-            <span className="bg-gradient-to-r from-[#1A6BFF] to-[#00D4FF] bg-clip-text text-transparent">{t('ecosystem.sovereigntyTitle2')}</span>
-          </h2>
-
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('ecosystem.sovereigntySubtitle')}
-          </p>
-        </motion.div>
-
-        {/* 权利卡片 */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {dataSovereigntyRightsConfig.map((right, index) => (
-            <motion.div
-              key={right.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              onClick={() => setActiveRight(activeRight === index ? null : index)}
-              className={`group p-6 rounded-3xl cursor-pointer transition-all duration-300 ${
-                activeRight === index
-                  ? 'bg-gradient-to-br from-[#1A6BFF]/10 to-[#00D4FF]/10 border border-[#1A6BFF]/30'
-                  : 'bg-white/[0.02] border border-white/[0.05] hover:border-[#1A6BFF]/30'
-              }`}
-            >
-              <HandDrawnIcon icon={right.icon} size="xl" variant="filled" className="mb-4 mx-auto group-hover:scale-110 transition-transform duration-300" />
-              <h3 className="font-bold text-white mb-2 text-center">{t(`ecosystem.${right.titleKey}`)}</h3>
-              <p className="text-sm text-white/40 text-center">{t(`ecosystem.${right.descKey}`)}</p>
-
-              <AnimatePresence>
-                {activeRight === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pt-4 mt-4 border-t border-white/[0.05]">
-                      <p className="text-xs text-white/50">{t(`ecosystem.${right.detailKey}`)}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* 数据主权闭环图解 - 简洁流程展示 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-        >
-          <h3 className="text-xl font-bold text-white text-center mb-8 flex items-center justify-center gap-2">
-            <HandDrawnIcon icon={RefreshCw} size="sm" variant="outline" />
-            {t('ecosystem.dataLoopTitle')}
-          </h3>
-
-          {/* 横向流程展示 */}
-          <div className="relative">
-            {/* 连接线 */}
-            <div className="absolute top-8 left-[8%] right-[8%] h-0.5 bg-gradient-to-r from-[#00D4FF]/20 via-[#1A6BFF]/40 to-[#00D4FF]/20 hidden md:block" />
-
-            {/* 流程节点 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-2">
-              {dataLoopNodesConfig.map((node, index) => {
-                const isActive = activeLoopNode === index;
-                const NodeIcon = node.icon;
-
-                return (
-                  <motion.div
-                    key={node.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    onClick={() => setActiveLoopNode(index)}
-                    className="relative cursor-pointer group"
-                  >
-                    {/* 节点图标 */}
-                    <div className="flex flex-col items-center">
-                      <motion.div
-                        animate={{
-                          scale: isActive ? 1.1 : 1,
-                          boxShadow: isActive ? `0 0 25px ${node.color}40` : 'none',
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className={`relative w-16 h-16 rounded-2xl flex items-center justify-center mb-3 transition-all duration-300 ${
-                          isActive 
-                            ? 'border-2' 
-                            : 'border border-white/10 group-hover:border-white/20'
-                        }`}
-                        style={{
-                          backgroundColor: isActive ? `${node.color}25` : `${node.color}10`,
-                          borderColor: isActive ? node.color : undefined,
-                        }}
-                      >
-                        <NodeIcon className="w-7 h-7" style={{ color: node.color }} />
-
-                        {/* 序号角标 */}
-                        <div
-                          className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
-                          style={{
-                            backgroundColor: node.color,
-                            color: '#000'
-                          }}
-                        >
-                          {index + 1}
-                        </div>
-                      </motion.div>
-
-                      {/* 标题 */}
-                      <h4 className={`text-sm font-medium text-center transition-colors ${
-                        isActive ? 'text-white' : 'text-white/60'
-                      }`}>
-                        {t(`ecosystem.${node.titleKey}`)}
-                      </h4>
-                      <p className="text-xs text-white/30 text-center mt-1 hidden md:block">
-                        {t(`ecosystem.${node.subtitleKey}`)}
-                      </p>
-                    </div>
-
-                    {/* 箭头连接符（除了最后一个） */}
-                    {index < dataLoopNodesConfig.length - 1 && (
-                      <div className="absolute top-8 -right-1 text-white/20 hidden lg:block">
-                        <ChevronRight className="w-4 h-4" />
-                      </div>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* 循环箭头指示 */}
-            <div className="flex justify-center mt-6">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05]">
-                <RefreshCw className="w-4 h-4 text-[#00D4FF] animate-spin" style={{ animationDuration: '4s' }} />
-                <span className="text-xs text-white/40">{t('ecosystem.continuousCycle')}</span>
-              </div>
-            </div>
+      {/* Section header */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px] h-[390px]">
+        <div className="absolute left-[271px] top-0 w-[678px] h-[150px] opacity-[0.97]">
+          <div className="absolute left-[-271px] top-0 w-[1220px] text-center">
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('dataTitle')}</span>
           </div>
-
-          {/* 当前选中节点详情 */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeLoopNode}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="mt-8 p-6 rounded-2xl border border-white/[0.05]"
-              style={{ backgroundColor: `${dataLoopNodesConfig[activeLoopNode].color}08` }}
-            >
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: `${dataLoopNodesConfig[activeLoopNode].color}20` }}
-                >
-                  {(() => {
-                    const ActiveIcon = dataLoopNodesConfig[activeLoopNode].icon;
-                    return <ActiveIcon className="w-6 h-6" style={{ color: dataLoopNodesConfig[activeLoopNode].color }} />;
-                  })()}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="text-xs font-bold px-2 py-0.5 rounded"
-                      style={{ backgroundColor: dataLoopNodesConfig[activeLoopNode].color, color: '#000' }}
-                    >
-                      {t('ecosystem.step')} {activeLoopNode + 1}
-                    </span>
-                    <h4 className="font-bold text-white">{t(`ecosystem.${dataLoopNodesConfig[activeLoopNode].titleKey}`)}</h4>
-                  </div>
-                  <p className="text-sm text-white/40 mt-1">{t(`ecosystem.${dataLoopNodesConfig[activeLoopNode].subtitleKey}`)}</p>
-                </div>
-              </div>
-              <p className="text-white/60 mt-4 pl-16">{t(`ecosystem.${dataLoopNodesConfig[activeLoopNode].descKey}`)}</p>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* 步骤指示器 */}
-          <div className="flex justify-center gap-2 mt-6">
-            {dataLoopNodesConfig.map((node, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveLoopNode(index)}
-                className={`h-1.5 rounded-full transition-all ${
-                  activeLoopNode === index 
-                    ? 'w-8' 
-                    : 'w-1.5 hover:bg-white/40'
-                }`}
-                style={{
-                  backgroundColor: activeLoopNode === index ? node.color : 'rgba(255,255,255,0.2)'
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== 隐私保护技术 ==========
-function PrivacyTechSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [activeTech, setActiveTech] = useState<number | null>(null);
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Lock} size="sm" variant="outline" />
-            {t('ecosystem.privacyTag')}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('ecosystem.privacyTitle1')}
-            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('ecosystem.privacyTitle2')}</span>
-          </h2>
-
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('ecosystem.privacySubtitle')}
-          </p>
-        </motion.div>
-
-        {/* 隐私技术网格 */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {privacyTechnologiesConfig.map((tech, index) => (
-            <motion.div
-              key={tech.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              onMouseEnter={() => setActiveTech(index)}
-              onMouseLeave={() => setActiveTech(null)}
-              className="relative group"
-            >
-              <div className={`p-6 rounded-3xl transition-all duration-300 ${
-                activeTech === index
-                  ? 'bg-gradient-to-br from-[#00F5A0]/10 to-[#00D4FF]/10 border border-[#00F5A0]/30 scale-105'
-                  : 'bg-white/[0.02] border border-white/[0.05]'
-              }`}>
-                {/* 背景动画 */}
-                {activeTech === index && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="absolute inset-0 rounded-3xl overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#00F5A0]/10 rounded-full blur-[40px]" />
-                  </motion.div>
-                )}
-
-                <div className="relative z-10">
-                  <HandDrawnIcon icon={tech.icon} size="lg" variant="filled" className="mb-4 group-hover:scale-110 transition-transform duration-300" />
-
-                  <h3 className="font-bold text-white mb-2">{t(`ecosystem.${tech.titleKey}`)}</h3>
-                  <p className="text-sm text-white/40 mb-4">{t(`ecosystem.${tech.descKey}`)}</p>
-
-                  <AnimatePresence>
-                    {activeTech === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-4 border-t border-white/[0.05]">
-                          <p className="text-xs text-white/50">{t(`ecosystem.${tech.detailKey}`)}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* 安全承诺 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="mt-12 p-8 rounded-3xl bg-gradient-to-r from-[#00F5A0]/5 to-[#00D4FF]/5 border border-white/[0.05]"
-        >
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: Shield, labelKey: 'endToEndEncryption', value: 'AES-256' },
-              { icon: Timer, labelKey: 'dataRetention', valueKey: 'userControlled' },
-              { icon: FileText, labelKey: 'compliance', value: 'GDPR / PDPA' },
-            ].map((item) => (
-              <div key={item.labelKey} className="flex items-center gap-4">
-                <HandDrawnIcon icon={item.icon} size="lg" variant="filled" />
-                <div>
-                  <div className="text-xs text-white/40">{t(`ecosystem.${item.labelKey}`)}</div>
-                  <div className="font-bold text-white">{item.value || t(`ecosystem.${item.valueKey}`)}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== 生态价值循环 ==========
-function EcosystemFlowSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#00F5A0]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={RefreshCw} size="sm" variant="outline" />
-            {t('ecosystem.flowTag')}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('ecosystem.flowTitle1')}
-            <span className="bg-gradient-to-r from-[#00F5A0] to-[#33DFFF] bg-clip-text text-transparent">{t('ecosystem.flowTitle2')}</span>
-          </h2>
-
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
-            {t('ecosystem.flowSubtitle')}
-          </p>
-        </motion.div>
-
-        {/* 流程步骤 - 环形布局 */}
-        <div className="relative max-w-4xl mx-auto">
-          {/*/!* 中心 *!/*/}
-          {/*<motion.div*/}
-          {/*  initial={{ scale: 0, opacity: 0 }}*/}
-          {/*  animate={isInView ? { scale: 1, opacity: 1 } : {}}*/}
-          {/*  transition={{ delay: 0.3 }}*/}
-          {/*  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-[#00F5A0]/20 to-[#00D4FF]/20 border border-white/[0.1] flex items-center justify-center z-10"*/}
-          {/*>*/}
-          {/*  <span className="text-sm font-medium text-white/80">Orbiva</span>*/}
-          {/*</motion.div>*/}
-
-          {/* 步骤环 */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {ecosystemFlowStepsConfig.map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-all"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${item.color}20` }}
-                  >
-                    <span className="font-bold text-sm" style={{ color: item.color }}>{item.step}</span>
-                  </div>
-                  <HandDrawnIcon icon={item.icon} size="md" variant="filled" />
-                </div>
-                <h3 className="font-bold text-white mb-2">{t(`ecosystem.${item.titleKey}`)}</h3>
-                <p className="text-sm text-white/40">{t(`ecosystem.${item.descKey}`)}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* 数据统计 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8 }}
-          className="mt-16 p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-        >
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            {[
-              { value: '1.2M+', labelKey: 'statsTokens', color: '#f59e0b' },
-              { value: '50+', labelKey: 'statsInstitutions', color: '#00D4FF' },
-              { value: '5,000+', labelKey: 'statsProjects', color: '#1A6BFF' },
-              { value: '98%', labelKey: 'statsSatisfaction', color: '#00D4FF' },
-            ].map((stat) => (
-              <div key={stat.labelKey}>
-                <div className="text-3xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
-                <div className="text-sm text-white/40 mt-1">{t(`ecosystem.${stat.labelKey}`)}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== 积分兑换商城 ==========
-function RewardsSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-[#00D4FF]/[0.02] rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] text-white/60 text-sm mb-6">
-            <HandDrawnIcon icon={Gift} size="sm" variant="outline" />
-            {t('ecosystem.rewardsTag')}
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {t('ecosystem.rewardsTitle1')}
-            <span className="bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">{t('ecosystem.rewardsTitle2')}</span>
-          </h2>
-        </motion.div>
-
-        {/* 奖励类别 */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-12">
-          {rewardCategoriesConfig.map((category, index) => (
-            <motion.div
-              key={category.titleKey}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]"
-            >
-              <HandDrawnIcon icon={category.icon} size="xl" variant="filled" className="mb-6" />
-              <h3 className="text-xl font-bold text-white mb-4">{t(`ecosystem.${category.titleKey}`)}</h3>
-              <ul className="space-y-3">
-                {category.itemKeys.map((itemKey) => (
-                  <li key={itemKey} className="flex items-center gap-2 text-sm text-white/50">
-                    <CheckCircle2 className="w-4 h-4 text-[#00D4FF]" />
-                    {t(`ecosystem.${itemKey}`)}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* 积分卡片预览 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="max-w-md mx-auto"
-        >
-          <div className="p-8 rounded-3xl bg-gradient-to-br from-[#00D4FF]/10 to-[#1A6BFF]/10 border border-white/[0.1]">
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#00D4FF] to-[#1A6BFF] flex items-center justify-center mb-4">
-                <Award className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">{t('ecosystem.healthMaster')}</h3>
-              <p className="text-[#00D4FF] font-medium">Platinum Level</p>
-            </div>
-
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center justify-between">
-                <span className="text-white/40">{t('ecosystem.availablePoints')}</span>
-                <span className="text-2xl font-bold text-[#00D4FF]">12,580 HLT</span>
-              </div>
-              <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={isInView ? { width: '75%' } : {}}
-                  transition={{ delay: 0.7, duration: 1 }}
-                  className="h-full bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] rounded-full"
-                />
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-white/40">{t('ecosystem.toNextLevel')}</span>
-                <span className="text-white">2,420 HLT</span>
-              </div>
-            </div>
-
-            <Button variant="primary" className="w-full">
-              {t('ecosystem.enterPointsMall')}
-            </Button>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ========== CTA 区块 ==========
-function CTASection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const { t } = useI18n();
-
-  return (
-    <div ref={ref} className="relative py-24 lg:py-32 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-[#060618]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-t from-[#00D4FF]/[0.03] to-transparent rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-52 h-[72px] mx-auto mb-8"
-          >
-            <Image src="/blace-logo.png" alt="Orbiva Logo" width={494} height={173} className="w-full h-full object-contain" />
-          </motion.div>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            {t('ecosystem.ctaTitle1')}
-            <span className="block bg-gradient-to-r from-[#00D4FF] to-[#1A6BFF] bg-clip-text text-transparent">
-              {t('ecosystem.ctaTitle2')}
+          <div className="absolute left-[-90px] top-[92px] w-[858px] text-center opacity-80">
+            <span className="text-[24px] font-light text-white/80 font-['Urbanist']">
+              {t('dataSubtitle')}
             </span>
-          </h2>
-
-          <p className="text-white/40 text-lg mb-10 max-w-2xl mx-auto">
-            {t('ecosystem.ctaSubtitle')}
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-              {t('ecosystem.joinNow')}
-            </Button>
-            <Button variant="secondary" size="lg">
-              {t('ecosystem.learnMoreBenefits')}
-            </Button>
           </div>
-        </motion.div>
+        </div>
+
+        {/* 4 Feature cards */}
+        <div className="absolute left-0 top-[210px] w-[1220px] h-[180px] flex">
+          {[
+            { icon: '28.svg', title: t('dataCard1Title'), desc: t('dataCard1Desc'), left: 0 },
+            { icon: '29.svg', title: t('dataCard2Title'), desc: t('dataCard2Desc'), left: 310 },
+            { icon: '30.svg', title: t('dataCard3Title'), desc: t('dataCard3Desc'), left: 620 },
+            { icon: '31.svg', title: t('dataCard4Title'), desc: t('dataCard4Desc'), left: 930 },
+          ].map((card) => (
+            <motion.div key={card.title} whileHover={{ y: -4, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute w-[290px] h-[180px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all" style={{ left: card.left }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/images/ecosystem/${card.icon}`} alt="" className="absolute left-[17px] top-[20px]" />
+              <div className="absolute left-[17px] top-[78px] w-[257px]">
+                <span className="text-[20px] font-bold text-white font-['Urbanist']">{card.title}</span>
+              </div>
+              <div className="absolute left-[17px] top-[112px] w-[248px]">
+                <span className="text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[20px]">{card.desc}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Data Sovereignty Loop */}
+      <div className="absolute left-[110px] top-[520px] w-[1220px] h-[252px]">
+        {/* Loop title */}
+        <div className="absolute left-[329px] top-[7px] w-[563px] h-[36px] text-center">
+          <span className="text-[30px] font-semibold text-white font-['Urbanist']">{t('dataLoopTitle')}</span>
+        </div>
+
+        {/* Circle nodes */}
+        <div className="absolute left-0 top-0 w-[1220px] h-[198px]">
+          {/* Node 01 */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-0 top-0 w-[100px] h-[100px] bg-[#334155] rounded-full flex items-center justify-center cursor-pointer">
+            <span className="text-[40px] font-bold text-white font-['Urbanist'] leading-none">01</span>
+          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/27.svg" alt="" className="absolute left-[104px] top-[58px]" />
+          {/* Node 02 */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-[200px] top-[65px] w-[100px] h-[100px] bg-[#334155] rounded-full flex items-center justify-center cursor-pointer">
+            <span className="text-[40px] font-bold text-white font-['Urbanist'] leading-none">02</span>
+          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/23.svg" alt="" className="absolute left-[329.39px] top-[103.39px]" />
+          {/* Node 03 */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-[440px] top-[98px] w-[100px] h-[100px] bg-[#334155] rounded-full flex items-center justify-center cursor-pointer">
+            <span className="text-[40px] font-bold text-white font-['Urbanist'] leading-none">03</span>
+          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/24.svg" alt="" className="absolute left-[577.05px] top-[124.05px]" />
+          {/* Node 04 */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-[690px] top-[98px] w-[100px] h-[100px] bg-[#334155] rounded-full flex items-center justify-center cursor-pointer">
+            <span className="text-[40px] font-bold text-white font-['Urbanist'] leading-none">04</span>
+          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/25.svg" alt="" className="absolute left-[834.41px] top-[129.08px]" />
+          {/* Node 05 (green gradient) */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-[920px] top-[65px] w-[100px] h-[100px] rounded-full flex items-center justify-center cursor-pointer" style={{ background: 'linear-gradient(222deg, #0EFF85 0%, #B0FDFF 100%)' }}>
+            <span className="text-[40px] font-bold text-black font-['Urbanist'] leading-none">05</span>
+          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/26.svg" alt="" className="absolute left-[1046px] top-[65px]" />
+          {/* Node 06 */}
+          <motion.div whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(0,246,134,0.2)' }} className="absolute left-[1120px] top-0 w-[100px] h-[100px] bg-[#334155] rounded-full flex items-center justify-center cursor-pointer">
+            <span className="text-[40px] font-bold text-white font-['Urbanist'] leading-none">06</span>
+          </motion.div>
+        </div>
+
+        {/* Labels */}
+        <div className="absolute left-0 top-[135px] w-[112px] h-[39px]">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode1')}</span>
+          <div className="mt-[6px] opacity-50"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode1Sub')}</span></div>
+        </div>
+        <div className="absolute left-[191px] top-[185px] w-[117px] h-[44px] text-center">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode2')}</span>
+          <div className="mt-[10px] opacity-50 text-center"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode2Sub')}</span></div>
+        </div>
+        <div className="absolute left-[407px] top-[208px] w-[166px] h-[44px] text-center">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode3')}</span>
+          <div className="mt-[10px] opacity-50 text-center"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode3Sub')}</span></div>
+        </div>
+        <div className="absolute left-[662px] top-[208px] w-[154px] h-[44px] text-center">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode4')}</span>
+          <div className="mt-[10px] opacity-50 text-center"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode4Sub')}</span></div>
+        </div>
+        <div className="absolute left-[897px] top-[185px] w-[160px] h-[67px] text-center">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode5')}</span>
+          <div className="mt-[10px] opacity-50 text-center"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode5Sub')}</span></div>
+          <div className="mt-[3px] text-center"><span className="text-[12px] font-normal font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t('dataNode5Note')}</span></div>
+        </div>
+        <div className="absolute left-[1072px] top-[135px] w-[148px] h-[44px] text-right">
+          <span className="text-[16px] font-bold text-white font-['Urbanist']">{t('dataNode6')}</span>
+          <div className="mt-[10px] opacity-50 text-right"><span className="text-[12px] font-normal text-white font-['Urbanist']">{t('dataNode6Sub')}</span></div>
+        </div>
+      </div>
+    </AnimatedSection>
   );
 }
 
-// ========== 主页面 ==========
-export default function EcosystemPage() {
+// ============================================================
+// 6. COMPLETE ECOSYSTEM LOOP
+// ============================================================
+function EcosystemLoopSection() {
+  const t = useEcoT();
   return (
-    <main className="relative bg-[#060618]">
-      <div className="fixed inset-0 bg-[#060618] -z-10" />
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010] overflow-hidden">
+      {/* Decorative bg */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ecosystem/32.svg" alt="" className="absolute left-[411px] top-[-315px]" />
 
-      {/* Hero */}
-      <HeroSection />
+      {/* Section header */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px] h-[150px]">
+        <div className="absolute left-[271px] top-0 w-[678px] h-[150px] opacity-[0.97]">
+          <div className="absolute left-[-271px] top-0 w-[1220px] text-center">
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('loopTitle1')}</span>
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('loopTitle2')}</span>
+          </div>
+          <div className="absolute left-[-90px] top-[92px] w-[858px] text-center opacity-80">
+            <span className="text-[24px] font-light text-white/80 font-['Urbanist']">
+              {t('loopSubtitle')}
+            </span>
+          </div>
+        </div>
+      </div>
 
-      {/* Web3 Incentive */}
-      <ScrollSectionWrapper>
-        <Web3IncentiveSection />
-      </ScrollSectionWrapper>
+      {/* 6 Step Icons Row */}
+      <div className="absolute left-[110px] top-[292px] w-[1220px] h-[192px]">
+        {/* Icons row */}
+        <div className="absolute left-0 top-0 w-[1220px] h-[100px]">
+          {[
+            { icon: '33.svg', bg: '#0044F2', left: 0 },
+            { icon: '35.svg', bg: '#00F686', left: 224 },
+            { icon: '37.svg', bg: '#00C7CC', left: 448 },
+            { icon: '39.svg', bg: '#B0FDFF', left: 672 },
+            { icon: '41.svg', bg: '#64748B', left: 896 },
+            { icon: '43.svg', bg: '#00F686', left: 1120 },
+          ].map((step, index) => (
+            <div key={index}>
+              <motion.div whileHover={{ scale: 1.1, y: -4 }} className="absolute w-[100px] h-[100px] rounded-full flex items-center justify-center cursor-pointer" style={{ left: step.left, background: step.bg }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/images/ecosystem/${step.icon}`} alt="" className="w-[44px] h-[44px]" />
+              </motion.div>
+              {index < 5 && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`/images/ecosystem/${['34', '36', '38', '40', '42'][index]}.svg`}
+                  alt=""
+                  className="absolute top-[28px]"
+                  style={{ left: step.left + 135.5 }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
 
-      {/* Data Sovereignty */}
-      <ScrollSectionWrapper>
+        {/* Step labels */}
+        {[
+          { text: t('loopStep1'), sub: t('loopStep1Sub'), left: 0, w: 119, align: 'left' as const },
+          { text: t('loopStep2'), sub: t('loopStep2Sub'), left: 196, w: 155, align: 'center' as const },
+          { text: t('loopStep3'), sub: t('loopStep3Sub'), left: 416, w: 165, align: 'center' as const },
+          { text: t('loopStep4'), sub: t('loopStep4Sub'), left: 640, w: 165, align: 'center' as const },
+          { text: t('loopStep5'), sub: t('loopStep5Sub'), left: 873, w: 148, align: 'center' as const },
+          { text: t('loopStep6'), sub: t('loopStep6Sub'), left: 1057, w: 163, align: 'right' as const },
+        ].map((label) => (
+          <div key={label.text} className="absolute top-[120px]" style={{ left: label.left, width: label.w, textAlign: label.align }}>
+            <span className="text-[16px] font-bold text-white font-['Urbanist']">{label.text}</span>
+            <div className="mt-[10px] opacity-50" style={{ textAlign: label.align }}>
+              <span className="text-[12px] font-normal text-white font-['Urbanist']">{label.sub}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Stats bar */}
+      <motion.div whileHover={{ borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[110px] top-[548px] w-[1220px] h-[152px] bg-[#1E293B] rounded-[16px] border border-[#334155] transition-all">
+        <div className="absolute left-[51px] top-[31px] w-[1118px] h-[90px] flex">
+          {[
+            { value: t('loopStat1Value'), label: t('loopStat1Label'), left: 0 },
+            { value: t('loopStat2Value'), label: t('loopStat2Label'), left: 341.33 },
+            { value: t('loopStat3Value'), label: t('loopStat3Label'), left: 656.67 },
+            { value: t('loopStat4Value'), label: t('loopStat4Label'), left: 1000 },
+          ].map((stat) => (
+            <div key={stat.label} className="absolute top-[9.5px]" style={{ left: stat.left }}>
+              <div className="text-center">
+                <span className="text-[48px] font-bold font-['Urbanist'] leading-[48px]" style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{stat.value}</span>
+              </div>
+              <div className="mt-[4px] text-center opacity-80">
+                <span className="text-[16px] font-light text-white font-['Urbanist']">{stat.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatedSection>
+  );
+}
+
+// ============================================================
+// 7. TOP-TIER PRIVACY TECHNOLOGY
+// ============================================================
+function PrivacyTechSection() {
+  const t = useEcoT();
+  return (
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010] overflow-hidden">
+      {/* Section header */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px] h-[150px]">
+        <div className="absolute left-[271px] top-0 w-[678px] h-[150px] opacity-[0.97]">
+          <div className="absolute left-[-271px] top-0 w-[1220px] text-center">
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('privacyTitle1')}</span>
+            <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('privacyTitle2')}</span>
+          </div>
+          <div className="absolute left-[-90px] top-[92px] w-[858px] text-center opacity-80">
+            <span className="text-[24px] font-light text-white/80 font-['Urbanist']">
+              {t('privacySubtitle')}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 4 Privacy cards (3 normal + 1 highlighted) */}
+      {/* Card 1: Differential Privacy */}
+      <motion.div whileHover={{ y: -6, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[110px] top-[284px] w-[290px] h-[240px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/ecosystem/44.svg" alt="" className="absolute left-[21px] top-[21.5px]" />
+        <div className="absolute left-[21px] top-[89.5px] w-[257px]">
+          <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyCard1Title')}</span>
+          <div className="mt-[5px] w-[248px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[20px]">{t('privacyCard1Desc')}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Card 2: Federated Learning (highlighted) */}
+      <motion.div whileHover={{ y: -6, boxShadow: '0 8px 30px rgba(0,246,134,0.2)' }} transition={{ duration: 0.3 }} className="absolute left-[420px] top-[265px] w-[290px] h-[280px] rounded-[16px] cursor-pointer transition-all" style={{ background: 'linear-gradient(317deg, #00F686 0%, #B0FDFF 100%)' }}>
+        <div className="absolute left-[20px] top-[20.5px] w-[48px] h-[48px] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/47.svg" alt="" className="absolute left-[-2px] top-[3.5px]" />
+        </div>
+        <div className="absolute left-[20px] top-[88.5px] w-[257px]">
+          <span className="text-[20px] font-bold text-black font-['Urbanist']">{t('privacyCard2Title')}</span>
+          <div className="mt-[5px] w-[248px]">
+            <span className="text-[14px] font-normal text-black/70 font-['Urbanist']">{t('privacyCard2Desc')}</span>
+          </div>
+          <div className="mt-[22px] w-[248px]">
+            <span className="text-[14px] font-normal text-black font-['Urbanist']">{t('privacyCard2Extra')}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Card 3 */}
+      <motion.div whileHover={{ y: -6, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[730px] top-[284px] w-[290px] h-[240px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/ecosystem/45.svg" alt="" className="absolute left-[21px] top-[21.5px]" />
+        <div className="absolute left-[21px] top-[89.5px] w-[257px]">
+          <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyCard3Title')}</span>
+          <div className="mt-[5px] w-[248px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[20px]">{t('privacyCard3Desc')}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Card 4 */}
+      <motion.div whileHover={{ y: -6, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[1040px] top-[284px] w-[290px] h-[240px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/ecosystem/46.svg" alt="" className="absolute left-[21px] top-[21.5px]" />
+        <div className="absolute left-[21px] top-[89.5px] w-[257px]">
+          <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyCard4Title')}</span>
+          <div className="mt-[5px] w-[248px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist'] leading-[20px]">{t('privacyCard4Desc')}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Bottom security bar */}
+      <motion.div whileHover={{ borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-[100px] top-[585px] w-[1220px] h-[154px] bg-[#1E293B] rounded-[16px] border border-[#334155] transition-all">
+        {/* Item 1 */}
+        <div className="absolute left-[51.41px] top-[50px] w-[326px] h-[54px] flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/48.svg" alt="" className="w-[48px] h-[48px]" />
+          <div className="ml-[20px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{t('privacyBar1Label')}</span>
+            <div className="mt-[4px]">
+              <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyBar1Value')}</span>
+            </div>
+          </div>
+        </div>
+        {/* Item 2 */}
+        <div className="absolute left-[447.41px] top-[50px] w-[326px] h-[54px] flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/49.svg" alt="" className="w-[48px] h-[48px]" />
+          <div className="ml-[20px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{t('privacyBar2Label')}</span>
+            <div className="mt-[4px]">
+              <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyBar2Value')}</span>
+            </div>
+          </div>
+        </div>
+        {/* Item 3 */}
+        <div className="absolute left-[843.03px] top-[50px] w-[326px] h-[54px] flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/50.svg" alt="" className="w-[48px] h-[48px]" />
+          <div className="ml-[20px]">
+            <span className="text-[14px] font-normal text-white/70 font-['Urbanist']">{t('privacyBar3Label')}</span>
+            <div className="mt-[4px]">
+              <span className="text-[20px] font-bold text-white font-['Urbanist']">{t('privacyBar3Value')}</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatedSection>
+  );
+}
+
+// ============================================================
+// 8. WHAT CAN POINTS EXCHANGE FOR?
+// ============================================================
+function PointsExchangeSection() {
+  const t = useEcoT();
+  return (
+    <AnimatedSection className="relative w-[1440px] h-[800px] bg-[#060010]">
+      {/* Title */}
+      <div className="absolute left-[110px] top-[75px] w-[1220px] text-center">
+        <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('pointsTitle1')}</span>
+        <span className="text-[60px] font-bold text-white font-['Urbanist']">{t('pointsTitle2')}</span>
+      </div>
+
+      <div className="absolute left-[110px] top-[171px] w-[1220px] h-[582px]">
+        {/* Left: Points card preview */}
+        <motion.div whileHover={{ borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-0 top-0 w-[467px] h-[582px] bg-[#1E293B] overflow-hidden rounded-[16px] border border-black backdrop-blur-[30px] transition-all">
+          {/* Decorative orb */}
+          <Image
+            src="/images/ecosystem/83.png"
+            alt=""
+            width={513}
+            height={513}
+            className="absolute left-[-218px] bottom-[-196px] rotate-180 pointer-events-none"
+          />
+
+          <div className="absolute left-0 top-0 w-[467px] h-[582px] border-b border-[#060010]">
+            {/* User avatar + title */}
+            <div className="absolute left-[32px] top-[32px] w-[403px] h-[187px]">
+              {/* Avatar */}
+              <div className="absolute left-0 top-0 w-[403px] h-[100px] flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/ecosystem/104.png" alt="" className="w-[100px] h-[100px] object-contain" />
+              </div>
+              {/* Title */}
+              <div className="absolute left-0 top-[128px] w-[403px] h-[72px]">
+                <div className="absolute left-0 top-0 w-[403px] text-center">
+                  <span className="text-[36px] font-bold font-['Urbanist']" style={{ background: '#00F686', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t('pointsUserTitle')}</span>
+                </div>
+              </div>
+              <div className="absolute left-0 top-[200px] w-[403px] text-center">
+                <span className="text-[20px] font-normal text-white font-['Urbanist']">{t('pointsUserLevel')}</span>
+              </div>
+            </div>
+
+            {/* Ring chart area — thin gauge ring matching design */}
+            <div className="absolute left-0 top-[260px] w-[467px] h-[320px] flex flex-col items-center">
+              <div className="relative w-[280px] h-[280px]">
+                <svg width="280" height="280" viewBox="0 0 280 280">
+                  <defs>
+                    <linearGradient id="progressGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.6)" />
+                      <stop offset="100%" stopColor="#00F686" />
+                    </linearGradient>
+                  </defs>
+                  {/* Gray background track: 270° arc, 90° gap at bottom */}
+                  <circle
+                    cx="140" cy="140" r="110"
+                    fill="none" stroke="#334155" strokeWidth="8" strokeLinecap="round"
+                    strokeDasharray="518.36 172.79"
+                    transform="rotate(135 140 140)"
+                  />
+                  {/* Progress arc: 195° from 10 o'clock clockwise to 4:30 */}
+                  <circle
+                    cx="140" cy="140" r="110"
+                    fill="none" stroke="url(#progressGrad)" strokeWidth="8" strokeLinecap="round"
+                    strokeDasharray="374.37 316.78"
+                    transform="rotate(210 140 140)"
+                  />
+                  {/* Indicator dot at 10 o'clock (SVG 210°) */}
+                  <circle cx="44.7" cy="85" r="6" fill="#00F686" opacity="0.5" />
+                  <circle cx="44.7" cy="85" r="4" fill="white" />
+                </svg>
+                {/* Center stats + To Next Level inside the ring */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-[34px] mt-[40px] font-bold font-['Urbanist'] leading-none" style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>12,580 HLT</span>
+                  <span className="mt-[5px] text-[13px] font-light text-white/80 font-['Urbanist']">{t('pointsAvailable')}</span>
+                  <div className="mt-[28px] flex flex-col items-center">
+                    <span className="text-[13px] font-light text-white/80 font-['Urbanist']">{t('pointsNextLevel')}</span>
+                    <span className="mt-[1px] text-[17px] font-bold font-['Urbanist']" style={{ background: 'linear-gradient(180deg, #00F686 0%, #F8FFFF 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>2,420 HLT</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right: 3 reward category cards */}
+        <div className="absolute left-[507px] top-[4.07px] w-[713px] h-[573.85px]">
+          {/* Card 1: Health Services */}
+          <RewardCard
+            top={0}
+            icon="52.svg"
+            title={t('pointsReward1Title')}
+            items={[
+              { icon: 'check-circle.svg', text: t('pointsReward1Feat1') },
+              { icon: 'check-circle.svg', text: t('pointsReward1Feat2') },
+              { icon: 'check-circle.svg', text: t('pointsReward1Feat3') },
+              { icon: 'check-circle.svg', text: t('pointsReward1Feat4') },
+            ]}
+          />
+          {/* Card 2: Product Benefits */}
+          <RewardCard
+            top={200.62}
+            icon="57.svg"
+            title={t('pointsReward2Title')}
+            items={[
+              { icon: 'check-circle.svg', text: t('pointsReward2Feat1') },
+              { icon: 'check-circle.svg', text: t('pointsReward2Feat2') },
+              { icon: 'check-circle.svg', text: t('pointsReward2Feat3') },
+              { icon: 'check-circle.svg', text: t('pointsReward2Feat4') },
+            ]}
+          />
+          {/* Card 3: Ecosystem Privileges */}
+          <RewardCard
+            top={401.24}
+            icon="62.svg"
+            title={t('pointsReward3Title')}
+            items={[
+              { icon: 'check-circle.svg', text: t('pointsReward3Feat1') },
+              { icon: 'check-circle.svg', text: t('pointsReward3Feat2') },
+              { icon: 'check-circle.svg', text: t('pointsReward3Feat3') },
+              { icon: 'check-circle.svg', text: t('pointsReward3Feat4') },
+            ]}
+          />
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+function RewardCard({ top, icon, title, items }: { top: number; icon: string; title: string; items: { icon: string; text: string }[] }) {
+  return (
+    <motion.div whileHover={{ y: -4, borderColor: 'rgba(0,246,134,0.3)' }} transition={{ duration: 0.3 }} className="absolute left-0 w-[713px] h-[172.62px] bg-[#1E293B] rounded-[16px] border border-[#334155] cursor-pointer transition-all" style={{ top }}>
+      {/* Header */}
+      <div className="absolute left-[41px] top-[31px] w-[631px] h-[26px] flex items-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/images/ecosystem/${icon}`} alt="" />
+        <span className="ml-[10px] text-[20px] font-bold text-white font-['Urbanist']">{title}</span>
+      </div>
+      {/* Items grid (2x2) */}
+      <div className="absolute left-[41px] top-[77px] w-[631px] h-[64.62px]">
+        {items.map((item, i) => (
+          <div key={i} className="absolute w-[226px] h-[24px] flex items-center" style={{ left: i % 2 === 0 ? 0 : 306, top: i < 2 ? 0 : 40.31 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/images/ecosystem/${item.icon}`} alt="" className="absolute left-0 top-[2px]" />
+            <span className="absolute left-[30px] text-[14px] font-bold text-white font-['Urbanist']">{item.text}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================================
+// 9. FOOTER CTA SECTION
+// ============================================================
+function FooterCTASection() {
+  return (
+    <section className="relative w-[1440px] h-[474px] overflow-hidden">
+      <Image
+        src="/images/ecosystem/84.png"
+        alt="Footer background"
+        width={1513}
+        height={651}
+        className="absolute left-[-33px] top-[-169px] w-[1505px] h-[643px] object-cover"
+      />
+      {/* Logo overlay */}
+      <div className="absolute left-[142px] top-[210px] w-[148px] h-[66px] bg-[#111111] flex items-center justify-center">
+        <div className="w-[121.92px] h-[40px] relative">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/ecosystem/67.svg" alt="" className="absolute left-[65.32px] top-0" />
+          <div className="absolute left-0 top-[8.35px] w-[121.92px] h-[31.65px]">
+            {['71.svg', '70.svg', '69.svg', '73.svg', '72.svg', '68.svg'].map((svg) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={svg} src={`/images/ecosystem/${svg}`} alt="" className="absolute" style={{ left: svg === '71.svg' ? 0 : svg === '70.svg' ? '26.05px' : svg === '69.svg' ? '44.16px' : svg === '73.svg' ? '70.21px' : svg === '72.svg' ? '78.13px' : '99.98px', top: svg === '69.svg' ? 0 : '8.3px' }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// MAIN PAGE
+// ============================================================
+export default function EcosystemPage() {
+  const [pageZoom, setPageZoom] = useState(1);
+  // 首屏背景图 1920px，左偏移 -240px → 右边缘 1680px
+  // 屏幕 > 1440 时向右扩展显示更多 3D 硬币，最多到 1680px
+  const [visibleWidth, setVisibleWidth] = useState(1440);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 1440) {
+        setPageZoom(width / 1440);
+      } else {
+        setPageZoom(1);
+      }
+      // 首屏可见宽度：最小 1440，最大 1680（背景图右边缘）
+      setVisibleWidth(width <= 1440 ? 1440 : Math.min(width, 1680));
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 所有 section 高度之和（固定布局）
+  const totalContentHeight = 808 + 780 + 509 + 500 + 800 + 800 + 800 + 800 + 474;
+
+  return (
+    <main
+      className="relative bg-black min-h-screen -mt-20 overflow-hidden"
+      style={pageZoom < 1 ? { height: totalContentHeight * pageZoom } : undefined}
+    >
+      <div
+        className="mx-auto bg-[#060010]"
+        style={{
+          width: 1440,
+          transform: pageZoom < 1 ? `scale(${pageZoom})` : 'none',
+          transformOrigin: 'top center',
+        }}
+      >
+        <HeroSection visibleWidth={visibleWidth} />
+        <TokenizationSection />
+        <TokenomicsSection />
+        <HealthMiningSection />
         <DataSovereigntySection />
-      </ScrollSectionWrapper>
-
-      {/* Privacy Tech */}
-      <ScrollSectionWrapper>
+        <EcosystemLoopSection />
         <PrivacyTechSection />
-      </ScrollSectionWrapper>
-
-      {/* Ecosystem Flow */}
-      <ScrollSectionWrapper>
-        <EcosystemFlowSection />
-      </ScrollSectionWrapper>
-
-      {/* Rewards */}
-      <ScrollSectionWrapper>
-        <RewardsSection />
-      </ScrollSectionWrapper>
-
-      {/* CTA */}
-      <ScrollSectionWrapper isLast>
-        <CTASection />
-      </ScrollSectionWrapper>
+        <PointsExchangeSection />
+      </div>
     </main>
   );
 }

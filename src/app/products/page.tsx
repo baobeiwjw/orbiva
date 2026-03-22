@@ -45,104 +45,129 @@ function AnimatedSection({
 // ============================================================
 function HeroSection({ zoom = 1 }: { zoom?: number }) {
   const t = useProductsT();
+
+  // 计算首屏实际可见宽度：
+  // zoom < 1 时已经整体 scale，容器保持 1440，无需特殊处理
+  // zoom = 1 时，屏幕可能 >=1440，需要向右扩展显示更多背景图
+  // 背景图原始宽 1680px，左对齐容器左侧
+  // 可见宽度 = min(屏幕宽度, 1680)，但不小于 1440
+  const [visibleWidth, setVisibleWidth] = useState(1440);
+
+  useEffect(() => {
+    const calc = () => {
+      const vw = window.innerWidth;
+      // 屏幕 <= 1440：等比缩放（由外层 scale 处理），首屏保持 1440
+      // 屏幕 > 1440：向右扩展，最多到图片原始宽度 1680
+      setVisibleWidth(vw <= 1440 ? 1440 : Math.min(vw, 1680));
+    };
+    calc();
+    window.addEventListener('resize', calc);
+    return () => window.removeEventListener('resize', calc);
+  }, []);
+
   return (
-    <section className="relative w-full min-h-[900px] overflow-hidden bg-[#060010]" style={{ height: `calc(100vh / ${zoom})` }}>
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[#060010]" />
-        <Image
-          src="/images/products/hero-bg.png"
-          alt=""
-          fill
-          className="object-cover rotate-180"
-          priority
-        />
-      </div>
-
-      <div className="relative z-10 max-w-[1440px] mx-auto px-[110px] h-full flex items-center">
-        <div className="relative flex items-center w-full">
-          {/* Left content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative z-10"
-          >
-            {/* Title — each line is a block, nowrap prevents any unexpected breaking */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-[68px] font-extrabold leading-[80px] font-['Urbanist'] mb-5"
-            >
-              <div className="text-white whitespace-nowrap">{t('heroTitle1')}</div>
-              <div className="bg-gradient-to-r from-[#00F686] to-[#B0FDFF] bg-clip-text text-transparent whitespace-nowrap">
-                {t('heroTitle2')}
-              </div>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="text-[24px] font-light text-white/80 font-['Urbanist'] leading-[30px] mb-8 max-w-[618px]"
-            >
-              {t('heroSubtitle')}
-            </motion.p>
-
-            {/* Icon row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex items-center gap-5"
-            >
-              {[
-                { src: '/images/products/icon-heart.svg', alt: 'Heart' },
-                { src: '/images/products/icon-clock.svg', alt: 'Clock' },
-                { src: '/images/products/icon-foot.svg', alt: 'Foot' },
-              ].map((icon) => (
-                <motion.div
-                  key={icon.alt}
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  className="w-[60px] h-[60px] rounded-full bg-white/8 border border-white/10 flex items-center justify-center cursor-pointer"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={icon.src} alt={icon.alt} width={32} height={32} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Right side — Product showcase, overlaps and fills remaining space */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute right-[-110px] top-1/2 -translate-y-[36%] hidden lg:block"
-            style={{ width: 920 }}
-          >
-            <div className="relative w-full aspect-square">
-              <Image
-                src="/images/products/hero-right.png"
-                alt="Product Showcase"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
+    <section
+      className="relative overflow-hidden bg-[#060010]"
+      style={{
+        width: visibleWidth,
+        height: 1100,
+        // 当向右扩展时，需要向左偏移，使左侧内容仍然对齐 1440 容器
+        // 外层容器是 1440 居中，首屏比它宽出 (visibleWidth - 1440) px
+        // 向左偏移一半保持居中？不，这里左侧要对齐容器左边，只往右扩展
+        marginLeft: 0,
+        marginRight: -(visibleWidth - 1440),
+      }}
+    >
+      {/* Background image — original 1680x800, shifted right, overflow masked with black gradient */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute left-1/2 -translate-x-1/2 bottom-8"
+        transition={{ duration: 1, delay: 0.3 }}
+        className="absolute top-1/2 -translate-y-1/2 pointer-events-none"
+        style={{ left: 200, width: 1440, height: 686 }}
       >
+        <Image
+          src="/images/products/hero-full-bg.png"
+          alt="Product Showcase Background"
+          width={1680}
+          height={800}
+          className="w-full h-full object-contain object-right"
+          priority
+        />
       </motion.div>
+
+      {/* Right edge black gradient mask — hides overflow at container boundary */}
+      <div
+        className="absolute top-0 right-0 h-full pointer-events-none z-[5]"
+        style={{
+          width: 120,
+          background: 'linear-gradient(to right, transparent, #060010 70%)',
+        }}
+      />
+
+      {/* Left content overlay */}
+      <div className="relative z-10 w-[1440px] px-[105px] h-full flex items-start pt-[280px]">
+        <div className="relative">
+          {/* Products tag */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex items-center gap-2.5 h-[47px] rounded-full bg-white/10 border border-white/10 px-4 mb-5 w-fit"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/products/icon-products-tag.svg" alt="" width={18} height={24} />
+            <span className="text-[18px] font-normal text-white font-['Urbanist']">
+              Products
+            </span>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-[68px] font-extrabold leading-[80px] font-['Urbanist'] mb-[30px]"
+          >
+            <div className="text-white whitespace-nowrap">Smart Health Living</div>
+            <div className="text-[#00EF82] whitespace-nowrap">Complete Suite</div>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="text-[24px] font-light text-white/80 font-['Urbanist'] leading-[30px] mb-[60px] max-w-[618px]"
+          >
+            {t('heroSubtitle')}
+          </motion.p>
+
+          {/* Icon row — 3 icons with 50px gap */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex items-center"
+            style={{ gap: '50px' }}
+          >
+            {[
+              { src: '/images/products/icon-hero-1.svg', alt: 'Health' },
+              { src: '/images/products/icon-hero-2.svg', alt: 'Time' },
+              { src: '/images/products/icon-hero-3.svg', alt: 'Activity' },
+            ].map((icon) => (
+              <motion.div
+                key={icon.alt}
+                whileHover={{ scale: 1.1, y: -3 }}
+                className="w-[60px] h-[60px] rounded-full bg-white/[0.12] flex items-center justify-center cursor-pointer"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={icon.src} alt={icon.alt} width={32} height={32} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -667,32 +692,39 @@ export default function ProductsPage() {
   const [pageZoom, setPageZoom] = useState(1);
 
   useEffect(() => {
-    const body = document.body;
-
-    body.style.overflowX = 'hidden';
-
     const handleResize = () => {
-      const z = window.innerWidth / 1440;
-      setPageZoom(z);
-      body.style.zoom = String(z);
+      const width = window.innerWidth;
+      if (width < 1440) {
+        const z = width / 1440;
+        setPageZoom(z);
+      } else {
+        setPageZoom(1);
+      }
     };
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
-      body.style.overflowX = '';
-      body.style.zoom = '';
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   return (
-    <main className="relative bg-[#060010] -mt-20">
-      <HeroSection zoom={pageZoom} />
-      <VivaBoxSection />
-      <DigitalTwinSection />
-      <SensingNetworkSection />
-      <HealthHubSection />
+    <main className="relative bg-black min-h-screen -mt-20">
+      <div 
+        className="mx-auto bg-[#060010]"
+        style={{ 
+          width: 1440,
+          transform: pageZoom < 1 ? `scale(${pageZoom})` : 'none',
+          transformOrigin: 'top center',
+        }}
+      >
+        <HeroSection zoom={pageZoom} />
+        <VivaBoxSection />
+        <DigitalTwinSection />
+        <SensingNetworkSection />
+        <HealthHubSection />
+      </div>
     </main>
   );
 }
