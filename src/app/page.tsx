@@ -160,9 +160,9 @@ function DualitySection() {
   const [activeStatus, setActiveStatus] = useState(0);
 
   const statuses = [
-    { label: t('sideAStatus1Label'), desc: t('sideAStatus1Desc'), icon: '/images/home/11.svg', avatar: '/images/home/a.svg', avatarSize: 332 },
-    { label: t('sideAStatus2Label'), desc: t('sideAStatus2Desc'), icon: '/images/home/12.svg', avatar: '/images/home/c.svg', avatarSize: 256 },
-    { label: t('sideAStatus3Label'), desc: t('sideAStatus3Desc'), icon: '/images/home/13.svg', avatar: '/images/home/b.svg', avatarSize: 256 },
+    { label: t('sideAStatus1Label'), desc: t('sideAStatus1Desc'), icon: '/images/home/11.svg', avatar: '/images/home/a.svg' },
+    { label: t('sideAStatus2Label'), desc: t('sideAStatus2Desc'), icon: '/images/home/12.svg', avatar: '/images/home/c.svg' },
+    { label: t('sideAStatus3Label'), desc: t('sideAStatus3Desc'), icon: '/images/home/13.svg', avatar: '/images/home/b.svg' },
   ];
 
   return (
@@ -203,14 +203,14 @@ function DualitySection() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.35, ease: 'easeInOut' }}
                     whileHover={{ scale: 1.05, rotate: 2 }}
-                    className="w-[332px] h-[332px] drop-shadow-[0_25px_50px_rgba(0,0,0,0.25)] flex items-center justify-center"
+                    className="w-[256px] h-[256px] drop-shadow-[0_25px_50px_rgba(0,0,0,0.25)] flex items-center justify-center"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={statuses[activeStatus].avatar}
                       alt="Q-version Spirit"
-                      width={statuses[activeStatus].avatarSize}
-                      height={statuses[activeStatus].avatarSize}
+                      width={256}
+                      height={256}
                     />
                   </motion.div>
                 </AnimatePresence>
