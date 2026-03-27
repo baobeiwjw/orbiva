@@ -11,3 +11,5 @@ export { ecosystemPageTranslations } from './ecosystemPageTranslations';
 export type { EcosystemPageLocale, EcosystemPageTranslationKeys } from './ecosystemPageTranslations';
 export { partnersPageTranslations } from './partnersPageTranslations';
 export type { PartnersPageLocale, PartnersPageTranslationKeys } from './partnersPageTranslations';
+export { aboutPageTranslations } from './aboutPageTranslations';
+export type { AboutPageLocale, AboutPageTranslationKeys } from './aboutPageTranslations';
