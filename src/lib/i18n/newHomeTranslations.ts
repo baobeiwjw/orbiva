@@ -4,9 +4,10 @@ export const newHomeTranslations = {
   en: {
     // Hero Section
     heroTag: 'NTU · Singapore Research Team',
-    heroTitle: 'The next frontier is health\nin your pocket',
-    heroSubtitle: 'AI Health Companion Smaller Than a Credit Card',
-    heroCTA: 'Explore Digital Twin',
+    heroTitle: 'The Next-Gen Health Tech Brand\nPowered by AIoT',
+    heroSubtitle: 'Making health data collection as natural as tapping your card at home',
+    heroCTA: 'Early Access →',
+    heroSecondaryCTA: 'Learn More',
 
     // A/B Duality Section
     dualityTitle: 'The A/B Duality of ',
@@ -68,7 +69,7 @@ export const newHomeTranslations = {
     // Output Layer
     outputLayerTag: 'Output Layer',
     outputLayerTitle: 'Value Exchange',
-    outputVita: '$VITA Tokens',
+    outputVita: 'Health Points',
     outputVitaDesc: 'Direct Value Transfer',
     outputHealth: 'Health Services',
     outputHealthDesc: 'Premium Diagnostics',
@@ -80,18 +81,18 @@ export const newHomeTranslations = {
     outputPredictionsDesc: 'AI Predictive Modeling',
 
     // Middle Cards
-    digitalWallet: 'Digital Asset Wallet',
-    digitalWalletDesc: 'Encrypted $VITA Storage',
+    digitalWallet: 'Health Incentive Account',
+    digitalWalletDesc: 'Encrypted Health Points Storage',
     healthWallet: 'Health Data Wallet',
     healthWalletDesc: 'Private Behavioral Vault',
 
     // Three Pillars Section
     pillarsTitle: 'Three Pillars of the Brand',
-    pillarsSubtitle: 'Establish roots in three regions and strengthen the brand\'s confidence',
+    pillarsSubtitle: 'Three core competencies that build brand confidence',
     pillar1Title: 'Singapore Quality',
-    pillar1Desc: '100% made in Singapore, ensuring political neutrality and security in data transmission',
+    pillar1Desc: 'R&D and data sovereignty based in Singapore — ensuring compliant cross-border circulation of medical health data under Singapore\'s neutral data governance framework',
     pillar2Title: 'Empowered by NTU',
-    pillar2Desc: '100% made in Singapore, ensuring political neutrality and security in data transmission',
+    pillar2Desc: 'Strategic partnership covering medical AI, cybersecurity, and data standardization, with academic endorsement from NTU\'s AI Lab',
     pillar3Title: 'Global supply',
     pillar3Desc: 'Integrating high-quality white-label medical hardware worldwide, reconstructed into smart nodes through AIoT protocols.',
 
@@ -108,9 +109,10 @@ export const newHomeTranslations = {
   'zh-CN': {
     // Hero Section
     heroTag: 'NTU · 新加坡研究团队',
-    heroTitle: '下一个前沿：口袋中的健康',
-    heroSubtitle: '比信用卡还小的 AI 健康伴侣',
-    heroCTA: '探索数字孪生',
+    heroTitle: '以 AIoT 为核心的\n新一代健康科技品牌',
+    heroSubtitle: '让健康数据的采集，像回家放卡一样自然',
+    heroCTA: '抢先体验 →',
+    heroSecondaryCTA: '了解更多',
 
     // A/B Duality Section
     dualityTitle: 'AI 健康的',
@@ -172,7 +174,7 @@ export const newHomeTranslations = {
     // Output Layer
     outputLayerTag: '输出层',
     outputLayerTitle: '价值交换',
-    outputVita: '$VITA 代币',
+    outputVita: '健康积分',
     outputVitaDesc: '直接价值转移',
     outputHealth: '健康服务',
     outputHealthDesc: '高端诊断',
@@ -184,18 +186,18 @@ export const newHomeTranslations = {
     outputPredictionsDesc: 'AI 预测建模',
 
     // Middle Cards
-    digitalWallet: '数字资产钱包',
-    digitalWalletDesc: '加密 $VITA 存储',
+    digitalWallet: '健康激励账户',
+    digitalWalletDesc: '加密健康积分存储',
     healthWallet: '健康数据钱包',
     healthWalletDesc: '私有行为数据库',
 
     // Three Pillars Section
     pillarsTitle: '品牌三大支柱',
-    pillarsSubtitle: '扎根三大区域，筑牢品牌信心',
+    pillarsSubtitle: '三大核心能力，构建品牌信心',
     pillar1Title: '新加坡品质',
-    pillar1Desc: '100% 新加坡制造，确保数据传输的政治中立性与安全性',
+    pillar1Desc: '新加坡研发与数据主权——基于新加坡中立数据治理框架，确保跨境医疗健康数据的合规流通',
     pillar2Title: 'NTU 技术赋能',
-    pillar2Desc: '100% 新加坡制造，确保数据传输的政治中立性与安全性',
+    pillar2Desc: 'NTU 战略合作——覆盖医疗 AI、网络安全与数据标准化，由南洋理工大学 AI 实验室提供学术背书',
     pillar3Title: '全球供应链',
     pillar3Desc: '整合全球优质白标医疗硬件，通过 AIoT 协议重构为智能节点。',
 
@@ -212,9 +214,10 @@ export const newHomeTranslations = {
   'zh-TW': {
     // Hero Section
     heroTag: 'NTU · 新加坡研究團隊',
-    heroTitle: '下一個前沿：口袋中的健康',
-    heroSubtitle: '比信用卡還小的 AI 健康夥伴',
-    heroCTA: '探索數位孿生',
+    heroTitle: '以 AIoT 為核心的\n新一代健康科技品牌',
+    heroSubtitle: '讓健康數據的採集，像回家放卡一樣自然',
+    heroCTA: '搶先體驗 →',
+    heroSecondaryCTA: '了解更多',
 
     // A/B Duality Section
     dualityTitle: 'AI 健康的',
@@ -276,7 +279,7 @@ export const newHomeTranslations = {
     // Output Layer
     outputLayerTag: '輸出層',
     outputLayerTitle: '價值交換',
-    outputVita: '$VITA 代幣',
+    outputVita: '健康積分',
     outputVitaDesc: '直接價值轉移',
     outputHealth: '健康服務',
     outputHealthDesc: '高端診斷',
@@ -288,18 +291,18 @@ export const newHomeTranslations = {
     outputPredictionsDesc: 'AI 預測建模',
 
     // Middle Cards
-    digitalWallet: '數位資產錢包',
-    digitalWalletDesc: '加密 $VITA 儲存',
+    digitalWallet: '健康激勵帳戶',
+    digitalWalletDesc: '加密健康積分儲存',
     healthWallet: '健康數據錢包',
     healthWalletDesc: '私有行為資料庫',
 
     // Three Pillars Section
     pillarsTitle: '品牌三大支柱',
-    pillarsSubtitle: '紮根三大區域，築牢品牌信心',
+    pillarsSubtitle: '三大核心能力，構建品牌信心',
     pillar1Title: '新加坡品質',
-    pillar1Desc: '100% 新加坡製造，確保數據傳輸的政治中立性與安全性',
+    pillar1Desc: '新加坡研發與數據主權——基於新加坡中立數據治理框架，確保跨境醫療健康數據的合規流通',
     pillar2Title: 'NTU 技術賦能',
-    pillar2Desc: '100% 新加坡製造，確保數據傳輸的政治中立性與安全性',
+    pillar2Desc: 'NTU 戰略合作——覆蓋醫療 AI、網路安全與數據標準化，由南洋理工大學 AI 實驗室提供學術背書',
     pillar3Title: '全球供應鏈',
     pillar3Desc: '整合全球優質白標醫療硬體，透過 AIoT 協議重構為智慧節點。',
 

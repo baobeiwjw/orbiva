@@ -74,13 +74,13 @@ function HeroSection() {
       </div>
 
       {/* Content — vertically centered with slight downward offset to sit inside the orb */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-[1024px] mx-auto pt-32">
-        {/* NTU Badge */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-[1024px] mx-auto pt-44">
+        {/* NTU Badge — hidden */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-6"
+          className="mb-6 hidden"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/8 border border-white/10 backdrop-blur-sm">
             <Image src="/images/home/10.svg" alt="" width={20} height={20} />
@@ -95,7 +95,8 @@ function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-[clamp(32px,4.8vw,58px)] font-extrabold leading-[1.12] text-white font-['Urbanist'] mb-4 max-w-[720px] text-center"
+          className="text-[clamp(32px,4.8vw,58px)] font-extrabold text-white font-['Urbanist'] mb-10 max-w-[720px] text-center"
+          style={{ lineHeight: 1.5 }}
         >
           {t('heroTitle').split('\n').map((line, i, arr) => (
             <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
@@ -107,16 +108,17 @@ function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
-          className="text-[clamp(15px,2vw,24px)] font-light text-white/80 font-['Urbanist'] mb-10"
+          className="text-[clamp(15px,2vw,24px)] font-light text-white/80 font-['Urbanist'] mb-16"
         >
           {t('heroSubtitle')}
         </motion.p>
 
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex items-center gap-4"
         >
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0,246,134,0.4)' }}
@@ -129,6 +131,15 @@ function HeroSection() {
                 {t('heroCTA')}
               </span>
             </div>
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.5)' }}
+            whileTap={{ scale: 0.97 }}
+            className="px-8 py-4 rounded-full border border-white/25 bg-white/5 backdrop-blur-sm cursor-pointer"
+          >
+            <span className="text-white text-xl font-semibold font-['Urbanist']">
+              {t('heroSecondaryCTA')}
+            </span>
           </motion.button>
         </motion.div>
 
@@ -510,82 +521,158 @@ function HealthToEarnSection() {
         </div>
 
         {/* Architecture Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1.2fr_auto_1fr] gap-6 items-start">
-          {/* Input Layer */}
-          <div>
-            <div className="mb-4">
+        <div className="relative">
+          {/* Background glow */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[794px] h-[795px] pointer-events-none hidden lg:block">
+            <Image src="/images/home/h2e-bg.png" alt="" fill className="object-cover opacity-60" />
+          </div>
+
+          {/* Header row: Input Layer title | spacer | Output Layer title */}
+          <div className="hidden lg:flex items-start justify-between relative">
+            <div className="w-[280px] flex-shrink-0 mb-4">
               <span className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-[#00F686] font-['Urbanist'] tracking-wider uppercase">
                 {t('inputLayerTag')}
               </span>
               <h3 className="mt-2 text-2xl font-bold text-[#F1F5F9] font-['Urbanist']">{t('inputLayerTitle')}</h3>
             </div>
-            <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
-              {inputItems.map((item, i) => (
-                <motion.div key={i} variants={fadeInUp}>
-                  <LayerItemCard {...item} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Left flow lines */}
-          <div className="hidden lg:flex flex-col items-center justify-center h-full py-20">
-            <div className="w-px h-full bg-gradient-to-b from-transparent via-[#00F686]/40 to-transparent" />
-          </div>
-
-          {/* Center: VivaCore AI + Wallets */}
-          <div className="flex flex-col items-center gap-6">
-            {/* Digital Asset Wallet */}
-            <motion.div
-              whileHover={{ borderColor: 'rgba(17,82,212,0.6)', y: -3 }}
-              className="w-full max-w-[256px] p-5 rounded-2xl bg-[rgba(17,82,212,0.05)] border border-[rgba(17,82,212,0.40)] backdrop-blur-md text-center transition-all"
-            >
-              <Image src="/images/home/69.svg" alt="" width={30} height={30} className="mx-auto mb-3" />
-              <p className="text-lg font-bold text-[#F1F5F9] font-['Urbanist']">{t('digitalWallet')}</p>
-              <p className="text-xs text-[#94A3B8] font-['Urbanist']">{t('digitalWalletDesc')}</p>
-            </motion.div>
-
-            {/* VivaCore AI Circle */}
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(0,246,134,0.3)' }}
-              className="relative w-48 h-48 lg:w-64 lg:h-64 rounded-full bg-gradient-to-b from-[#00F686] to-[#F8FFFF] flex flex-col items-center justify-center cursor-pointer transition-all"
-            >
-              <Image src="/images/home/84.png" alt="VivaCore AI" width={112} height={131} className="mb-1" />
-              <p className="text-xl lg:text-[28px] font-bold text-black font-['Urbanist']">{t('vivaCoreTitle')}</p>
-              <p className="text-sm font-semibold text-black/80 font-['Urbanist']">{t('vivaCoreSubtitle')}</p>
-            </motion.div>
-
-            {/* Health Data Wallet */}
-            <motion.div
-              whileHover={{ borderColor: 'rgba(17,82,212,0.6)', y: -3 }}
-              className="w-full max-w-[256px] p-5 rounded-2xl bg-[rgba(17,82,212,0.05)] border border-[rgba(17,82,212,0.40)] backdrop-blur-md text-center transition-all"
-            >
-              <Image src="/images/home/70.svg" alt="" width={30} height={30} className="mx-auto mb-3" />
-              <p className="text-lg font-bold text-[#F1F5F9] font-['Urbanist']">{t('healthWallet')}</p>
-              <p className="text-xs text-[#94A3B8] font-['Urbanist']">{t('healthWalletDesc')}</p>
-            </motion.div>
-          </div>
-
-          {/* Right flow lines */}
-          <div className="hidden lg:flex flex-col items-center justify-center h-full py-20">
-            <div className="w-px h-full bg-gradient-to-b from-transparent via-[#00C7CC]/40 to-transparent" />
-          </div>
-
-          {/* Output Layer */}
-          <div>
-            <div className="mb-4 lg:text-right">
+            <div className="w-[280px] flex-shrink-0 mb-4 text-right">
               <span className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-[#00F686] font-['Urbanist'] tracking-wider uppercase">
                 {t('outputLayerTag')}
               </span>
               <h3 className="mt-2 text-2xl font-bold text-[#F1F5F9] font-['Urbanist']">{t('outputLayerTitle')}</h3>
             </div>
-            <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
-              {outputItems.map((item, i) => (
-                <motion.div key={i} variants={fadeInUp}>
-                  <LayerItemCard {...item} />
+          </div>
+
+          {/* Main content row: Cards | Branch lines + Center | Cards */}
+          <div className="flex flex-col lg:flex-row items-stretch justify-center relative gap-0">
+            {/* Input Layer cards */}
+            <div className="w-full lg:w-[280px] lg:flex-shrink-0 px-4 lg:px-0 relative z-[1]">
+              <div className="mb-4 lg:hidden">
+                <span className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-[#00F686] font-['Urbanist'] tracking-wider uppercase">
+                  {t('inputLayerTag')}
+                </span>
+                <h3 className="mt-2 text-2xl font-bold text-[#F1F5F9] font-['Urbanist']">{t('inputLayerTitle')}</h3>
+              </div>
+              <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4 flex flex-col justify-between h-full">
+                {inputItems.map((item, i) => (
+                  <motion.div key={i} variants={fadeInUp} className="flex-1">
+                    <LayerItemCard {...item} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Center: Branch lines + VivaCore AI + Wallets */}
+            <div className="relative flex items-center justify-center py-8 lg:py-0 lg:flex-1">
+              {/* Left branch lines — small-radius right-angle turns */}
+              <div className="absolute top-0 bottom-0 hidden lg:block pointer-events-none" style={{ right: 'calc(50% + 128px)', left: '-10px' }}>
+                <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 w-full h-full">
+                  <defs>
+                    <linearGradient id="branchGradL" x1="200" y1="250" x2="0" y2="250" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#00F686" />
+                      <stop offset="1" stopColor="#B0FDFF" />
+                    </linearGradient>
+                  </defs>
+                  {/* Center line (card 3 at 50%) */}
+                  <line x1="0" y1="250" x2="200" y2="250" stroke="url(#branchGradL)" strokeOpacity="0.5" strokeWidth="10" />
+                  {/* Card 1 at 10% — r=40 rounded corners */}
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 90 Q110 50 70 50 L0 50" stroke="url(#branchGradL)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  {/* Card 2 at 30% */}
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 190 Q110 150 70 150 L0 150" stroke="url(#branchGradL)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  {/* Card 4 at 70% */}
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 310 Q110 350 70 350 L0 350" stroke="url(#branchGradL)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  {/* Card 5 at 90% */}
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 410 Q110 450 70 450 L0 450" stroke="url(#branchGradL)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  {/* Dashed overlay */}
+                  <line x1="0" y1="250" x2="200" y2="250" stroke="url(#branchGradL)" strokeWidth="1" strokeDasharray="2 4" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 90 Q110 50 70 50 L0 50" stroke="url(#branchGradL)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 190 Q110 150 70 150 L0 150" stroke="url(#branchGradL)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 310 Q110 350 70 350 L0 350" stroke="url(#branchGradL)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 410 Q110 450 70 450 L0 450" stroke="url(#branchGradL)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                </svg>
+              </div>
+
+              {/* Right branch lines (mirrored) */}
+              <div className="absolute top-0 bottom-0 hidden lg:block pointer-events-none" style={{ left: 'calc(50% + 128px)', right: '-10px', transform: 'scaleX(-1)' }}>
+                <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 w-full h-full">
+                  <defs>
+                    <linearGradient id="branchGradR" x1="200" y1="250" x2="0" y2="250" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#00F686" />
+                      <stop offset="1" stopColor="#B0FDFF" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="250" x2="200" y2="250" stroke="url(#branchGradR)" strokeOpacity="0.5" strokeWidth="10" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 90 Q110 50 70 50 L0 50" stroke="url(#branchGradR)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 190 Q110 150 70 150 L0 150" stroke="url(#branchGradR)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 310 Q110 350 70 350 L0 350" stroke="url(#branchGradR)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 410 Q110 450 70 450 L0 450" stroke="url(#branchGradR)" strokeOpacity="0.5" strokeWidth="10" fill="none" />
+                  <line x1="0" y1="250" x2="200" y2="250" stroke="url(#branchGradR)" strokeWidth="1" strokeDasharray="2 4" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 90 Q110 50 70 50 L0 50" stroke="url(#branchGradR)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 210 L110 190 Q110 150 70 150 L0 150" stroke="url(#branchGradR)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 310 Q110 350 70 350 L0 350" stroke="url(#branchGradR)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                  <path d="M200 250 L150 250 Q110 250 110 290 L110 410 Q110 450 70 450 L0 450" stroke="url(#branchGradR)" strokeWidth="1" strokeDasharray="2 4" fill="none" />
+                </svg>
+              </div>
+
+              {/* Vertical stack: Wallet → VivaCore → Wallet */}
+              <div className="relative z-10 flex flex-col items-center justify-between h-full py-0">
+                {/* Digital Asset Wallet */}
+                <motion.div
+                  whileHover={{ borderColor: 'rgba(17,82,212,0.6)', y: -3 }}
+                  className="w-[256px] rounded-2xl bg-[rgba(17,82,212,0.05)] border border-[rgba(17,82,212,0.40)] backdrop-blur-md text-center transition-all relative"
+                >
+                  <div className="absolute inset-[-1px] rounded-xl bg-[rgba(51,65,85,0.3)] border border-[rgba(255,255,255,0.15)] backdrop-blur-md" />
+                  <div className="relative p-5">
+                    <Image src="/images/home/69.svg" alt="" width={24} height={24} className="mx-auto mb-3" />
+                    <p className="text-lg font-bold text-[#F1F5F9] font-['Urbanist']">{t('digitalWallet')}</p>
+                    <p className="text-xs text-[#94A3B8] font-['Urbanist']">{t('digitalWalletDesc')}</p>
+                  </div>
                 </motion.div>
-              ))}
-            </motion.div>
+
+                {/* VivaCore AI Circle */}
+                <motion.div
+                  whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(0,246,134,0.3)' }}
+                  className="relative w-[256px] h-[256px] rounded-full flex flex-col items-center justify-center cursor-pointer transition-all my-6"
+                  style={{ background: 'linear-gradient(209deg, #00F686 19%, #F8FFFF 92%)' }}
+                >
+                  <Image src="/images/home/84.png" alt="VivaCore AI" width={112} height={131} className="absolute top-[13px] left-[72px]" />
+                  <div className="flex flex-col items-center pt-[117px]">
+                    <p className="text-[28px] font-bold text-black font-['Urbanist'] leading-none">{t('vivaCoreTitle')}</p>
+                    <p className="text-sm font-semibold text-black/80 font-['Urbanist'] mt-2">{t('vivaCoreSubtitle')}</p>
+                  </div>
+                </motion.div>
+
+                {/* Health Data Wallet */}
+                <motion.div
+                  whileHover={{ borderColor: 'rgba(17,82,212,0.6)', y: -3 }}
+                  className="w-[256px] rounded-2xl bg-[rgba(17,82,212,0.05)] border border-[rgba(17,82,212,0.40)] backdrop-blur-md text-center transition-all relative"
+                >
+                  <div className="absolute inset-[-1px] rounded-xl bg-[rgba(51,65,85,0.3)] border border-[rgba(255,255,255,0.15)] backdrop-blur-md" />
+                  <div className="relative p-5">
+                    <Image src="/images/home/70.svg" alt="" width={24} height={24} className="mx-auto mb-3" />
+                    <p className="text-lg font-bold text-[#F1F5F9] font-['Urbanist']">{t('healthWallet')}</p>
+                    <p className="text-xs text-[#94A3B8] font-['Urbanist']">{t('healthWalletDesc')}</p>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Output Layer cards */}
+            <div className="w-full lg:w-[280px] lg:flex-shrink-0 px-4 lg:px-0 relative z-[1]">
+              <div className="mb-4 lg:hidden text-right">
+                <span className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-[#00F686] font-['Urbanist'] tracking-wider uppercase">
+                  {t('outputLayerTag')}
+                </span>
+                <h3 className="mt-2 text-2xl font-bold text-[#F1F5F9] font-['Urbanist']">{t('outputLayerTitle')}</h3>
+              </div>
+              <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4 flex flex-col justify-between h-full">
+                {outputItems.map((item, i) => (
+                  <motion.div key={i} variants={fadeInUp} className="flex-1">
+                    <LayerItemCard {...item} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
