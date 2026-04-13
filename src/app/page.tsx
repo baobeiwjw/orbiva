@@ -354,7 +354,7 @@ function ScenarioTabsSection() {
   ];
 
   return (
-    <AnimatedSection className="relative w-full pb-20 lg:pb-28 bg-[#060010]">
+    <AnimatedSection className="relative w-full -mt-10 lg:-mt-16 pb-20 lg:pb-28 bg-[#060010]">
       <div className="max-w-[1220px] mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
           {scenarios.map((item, i) => (
