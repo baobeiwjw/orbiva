@@ -342,6 +342,47 @@ function DualitySection() {
 }
 
 // ============================================================
+// 2.5 SCENARIO TABS SECTION
+// ============================================================
+function ScenarioTabsSection() {
+  const t = useNewHomeT();
+
+  const scenarios = [
+    { icon: '/images/home/scene-sun.svg', title: t('scenarioMorningTitle'), desc: t('scenarioMorningDesc') },
+    { icon: '/images/home/scene-hospital.svg', title: t('scenarioClinicTitle'), desc: t('scenarioClinicDesc') },
+    { icon: '/images/home/scene-home.svg', title: t('scenarioHomeTitle'), desc: t('scenarioHomeDesc') },
+  ];
+
+  return (
+    <AnimatedSection className="relative w-full pb-20 lg:pb-28 bg-[#060010]">
+      <div className="max-w-[1220px] mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+          {scenarios.map((item, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ borderColor: 'rgba(75,249,170,0.4)', y: -3 }}
+              transition={{ duration: 0.25 }}
+              className="flex items-center gap-3 h-[106px] p-[17px] rounded-2xl bg-[#1E293B] border border-[#334155] cursor-pointer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={item.icon} alt="" width={50} height={50} className="shrink-0" />
+              <div className="flex flex-col gap-2 leading-6">
+                <p className="text-[20px] font-bold text-white font-['Urbanist','Noto_Sans_SC','Noto_Sans_JP',sans-serif]">
+                  {item.title}
+                </p>
+                <p className="text-sm font-normal text-white/70 font-['Urbanist','Noto_Sans_SC','Noto_Sans_JP',sans-serif]">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// ============================================================
 // 3. SENSING NETWORK SECTION
 // ============================================================
 function SensingNetworkSection() {
@@ -757,6 +798,9 @@ export default function Home() {
 
       {/* 2. A/B Duality */}
       <DualitySection />
+
+      {/* 2.5 Scenario Tabs */}
+      <ScenarioTabsSection />
 
       {/* 3. Sensing Network */}
       <SensingNetworkSection />

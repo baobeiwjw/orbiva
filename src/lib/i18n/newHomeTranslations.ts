@@ -40,6 +40,14 @@ export const newHomeTranslations = {
     baseline: 'Baseline',
     projected: 'Projected',
 
+    // Scenario Tabs
+    scenarioMorningTitle: 'Morning',
+    scenarioMorningDesc: 'Card morning health report, no unlock needed',
+    scenarioClinicTitle: 'At Clinic',
+    scenarioClinicDesc: 'NFC one-tap full medical record transfer',
+    scenarioHomeTitle: 'Back Home',
+    scenarioHomeDesc: 'Place card to charge and sync instantly',
+
     // Sensing Network Section
     sensingTitle: 'A seamless sensing network for all home scenarios',
     sensingSubtitle: 'Building a closed-loop sensory neural system for "biology-behaviour-environment".',
@@ -148,6 +156,14 @@ export const newHomeTranslations = {
     baseline: '基线',
     projected: '预测',
 
+    // Scenario Tabs
+    scenarioMorningTitle: '早晨',
+    scenarioMorningDesc: 'Card 晨间健康日报，无需解锁',
+    scenarioClinicTitle: '就诊时',
+    scenarioClinicDesc: 'NFC 一碰传递完整病历',
+    scenarioHomeTitle: '回家时',
+    scenarioHomeDesc: '放卡即充电即同步',
+
     // Sensing Network Section
     sensingTitle: '覆盖全场景的无缝感知网络',
     sensingSubtitle: '构建"生物-行为-环境"的闭环感知神经系统。',
@@ -255,6 +271,14 @@ export const newHomeTranslations = {
     futureProjectionDesc: '6個月身體變化預測',
     baseline: '基線',
     projected: '預測',
+
+    // Scenario Tabs
+    scenarioMorningTitle: '早晨',
+    scenarioMorningDesc: 'Card 晨間健康日報，無需解鎖',
+    scenarioClinicTitle: '就診時',
+    scenarioClinicDesc: 'NFC 一碰傳遞完整病歷',
+    scenarioHomeTitle: '回家時',
+    scenarioHomeDesc: '放卡即充電即同步',
 
     // Sensing Network Section
     sensingTitle: '覆蓋全場景的無縫感知網路',
