@@ -47,6 +47,7 @@ export const newHomeTranslations = {
     scenarioClinicDesc: 'NFC one-tap full medical record transfer',
     scenarioHomeTitle: 'Back Home',
     scenarioHomeDesc: 'Place card to charge and sync instantly',
+    scenarioCTA: 'Explore VivaBox',
 
     // Sensing Network Section
     sensingTitle: 'A seamless sensing network for all home scenarios',
@@ -163,6 +164,7 @@ export const newHomeTranslations = {
     scenarioClinicDesc: 'NFC 一碰传递完整病历',
     scenarioHomeTitle: '回家时',
     scenarioHomeDesc: '放卡即充电即同步',
+    scenarioCTA: '探索VivaBox',
 
     // Sensing Network Section
     sensingTitle: '覆盖全场景的无缝感知网络',
@@ -279,6 +281,7 @@ export const newHomeTranslations = {
     scenarioClinicDesc: 'NFC 一碰傳遞完整病歷',
     scenarioHomeTitle: '回家時',
     scenarioHomeDesc: '放卡即充電即同步',
+    scenarioCTA: '探索VivaBox',
 
     // Sensing Network Section
     sensingTitle: '覆蓋全場景的無縫感知網路',

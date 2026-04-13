@@ -202,7 +202,7 @@ function DualitySection() {
               <p className="text-[16px] font-normal font-['Urbanist'] leading-[24px] mt-[8px]" style={{ color: '#ffffff' }}>{t('sideASubtitle')}</p>
 
               {/* Avatar — switches based on active tab */}
-              <div className="flex justify-center my-8">
+              <div className="flex justify-center mt-20 mb-20">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeStatus}
@@ -354,7 +354,7 @@ function ScenarioTabsSection() {
   ];
 
   return (
-    <AnimatedSection className="relative w-full -mt-10 lg:-mt-16 pb-20 lg:pb-28 bg-[#060010]">
+    <AnimatedSection className="relative w-full -mt-14 lg:-mt-20 pb-20 lg:pb-28 bg-[#060010]">
       <div className="max-w-[1220px] mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
           {scenarios.map((item, i) => (
@@ -376,6 +376,21 @@ function ScenarioTabsSection() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Explore VivaBox Button */}
+        <div className="flex justify-center mt-10">
+          <motion.button
+            whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.4)' }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center justify-center gap-2.5 w-[237px] h-[60px] rounded-[400px] bg-white/10 border border-white/20 overflow-hidden cursor-pointer"
+          >
+            <span className="text-white text-[20px] font-semibold font-['Urbanist','Noto_Sans_JP',sans-serif] leading-6 text-center whitespace-nowrap">
+              {t('scenarioCTA')}
+            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/home/scene-arrow-right-white.svg" alt="" width={18} height={18} />
+          </motion.button>
         </div>
       </div>
     </AnimatedSection>
