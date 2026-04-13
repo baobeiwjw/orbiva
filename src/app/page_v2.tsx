@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useI18n } from '@/lib/i18n';
 import { newHomeTranslations, type NewHomeLocale } from '@/lib/i18n/newHomeTranslations';
+import Orb from '@/components/backgrounds/Orb';
 
 // ============================================================
 // Hook: 获取新首页翻译
@@ -58,102 +59,104 @@ function HeroSection() {
   const t = useNewHomeT();
 
   return (
-    <section className="relative w-full min-h-[800px] overflow-hidden bg-[#060010]" style={{ height: '100vh' }}>
-      {/* Main content — left/right layout */}
-      <div className="relative z-10 flex items-start gap-10 max-w-[1221px] mx-auto px-4 pt-[260px]">
-        {/* Left: Info area */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-10 w-full max-w-[612px] shrink-0"
-        >
-          {/* Badges */}
-          <div className="flex flex-wrap gap-4">
-            <div className="inline-flex items-center gap-2.5 px-2.5 py-2 rounded-[100px] bg-white/10 border border-white/10">
-              <Image src="/images/home/hero-ntu-logo.png" alt="NTU" width={32} height={32} className="rounded-[30px]" />
-              <span className="text-white text-sm font-normal font-['Urbanist','Noto_Sans_SC',sans-serif] leading-[1.5]">
-                {t('heroTagNTU')}
-              </span>
-            </div>
-            <div className="inline-flex items-center gap-2.5 px-2.5 py-2 rounded-[100px] bg-white/10 border border-white/10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/home/hero-hci-logo.svg" alt="HCI" width={32} height={32} />
-              <span className="text-white text-sm font-normal font-['Urbanist','Noto_Sans_JP',sans-serif] leading-6 whitespace-nowrap">
-                {t('heroTagHCI')}
-              </span>
-            </div>
-          </div>
-
-          {/* Title + Subtitle */}
-          <div className="relative text-white">
-            <h1 className="text-[clamp(40px,4.72vw,68px)] font-bold font-['Urbanist','Noto_Sans_SC','Noto_Sans_JP',sans-serif] leading-[1.32]">
-              {t('heroTitle').split('\n').map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-              ))}
-            </h1>
-            <p className="mt-3 text-[clamp(20px,2.22vw,32px)] font-light font-['Urbanist','Noto_Sans_SC','Noto_Sans_JP',sans-serif] leading-[1.6] tracking-[-0.64px] max-w-[612px]">
-              {t('heroSubtitle')}
-            </p>
-          </div>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            <motion.button
-              whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(0,246,134,0.35)' }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center justify-center w-[300px] h-[80px] rounded-[400px] overflow-hidden cursor-pointer"
-              style={{ backgroundImage: 'linear-gradient(253.54deg, #00C7CC 5.65%, #00F686 45.05%, #00C7CC 94.72%)' }}
-            >
-              <div className="flex items-center justify-center gap-2.5 px-0.5">
-                <span className="text-[#060010] text-2xl font-semibold font-['Urbanist','Noto_Sans_SC','Noto_Sans_JP',sans-serif] leading-6 text-center whitespace-nowrap">
-                  {t('heroCTA')}
-                </span>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/home/hero-arrow-right.svg" alt="" width={20} height={20} />
-              </div>
-            </motion.button>
-          </motion.div>
-        </motion.div>
-
-        {/* Right: Watch image */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative shrink-0 w-[599px] h-[509px] hidden lg:block"
-        >
-          <Image
-            src="/images/home/hero-watches.png"
-            alt="Smart Watch"
-            fill
-            className="object-contain"
-            priority
-          />
-        </motion.div>
+    <section className="relative w-full min-h-[900px] overflow-hidden flex items-center justify-center bg-[#060010]" style={{ height: '110vh' }}>
+      {/* Orb animated background — constrained square, centered below navbar */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[37%] aspect-square pointer-events-none"
+        style={{ width: 'min(105vh, 960px)' }}
+      >
+        <Orb
+          hue={64}
+          hoverIntensity={0.3}
+          rotateOnHover={false}
+          backgroundColor="#060010"
+        />
       </div>
 
-      {/* Scroll Indicator — bottom center */}
+      {/* Content — vertically centered with slight downward offset to sit inside the orb */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-[1024px] mx-auto pt-44">
+        {/* NTU Badge — hidden */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-6 hidden"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/8 border border-white/10 backdrop-blur-sm">
+            <Image src="/images/home/10.svg" alt="" width={20} height={20} />
+            <span className="text-white/90 text-sm font-normal font-['Urbanist']">
+              {t('heroTag')}
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Main Title */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-[clamp(32px,4.8vw,58px)] font-extrabold text-white font-['Urbanist'] mb-10 max-w-[720px] text-center"
+          style={{ lineHeight: 1.5 }}
+        >
+          {t('heroTitle').split('\n').map((line, i, arr) => (
+            <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+          ))}
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="text-[clamp(15px,2vw,24px)] font-light text-white/80 font-['Urbanist'] mb-16"
+        >
+          {t('heroSubtitle')}
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex items-center gap-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0,246,134,0.4)' }}
+            whileTap={{ scale: 0.97 }}
+            className="group relative px-8 py-4 rounded-full bg-gradient-to-br from-[#00C7CC] via-[#00F686] to-[#00C7CC] overflow-hidden cursor-pointer"
+          >
+            <div className="flex items-center gap-2.5">
+              <Image src="/images/home/9.svg" alt="" width={24} height={24} />
+              <span className="text-[#060010] text-xl font-extrabold font-['Urbanist']">
+                {t('heroCTA')}
+              </span>
+            </div>
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.5)' }}
+            whileTap={{ scale: 0.97 }}
+            className="px-8 py-4 rounded-full border border-white/25 bg-white/5 backdrop-blur-sm cursor-pointer"
+          >
+            <span className="text-white text-xl font-semibold font-['Urbanist']">
+              {t('heroSecondaryCTA')}
+            </span>
+          </motion.button>
+        </motion.div>
+
+      </div>
+
+      {/* Scroll Indicator — at the bottom of hero */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center gap-0.5"
+        className="absolute left-1/2 -translate-x-1/2 bottom-8"
       >
         <motion.div
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-0.5"
         >
-          <span className="text-white text-base font-normal font-['Urbanist','Noto_Sans_JP',sans-serif] leading-6">
-            {t('heroScrollMore')}
-          </span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/home/hero-chevron-down.svg" alt="" width={8} height={8} />
+          <Image src="/images/home/8.svg" alt="scroll" width={56} height={74} />
         </motion.div>
       </motion.div>
     </section>
@@ -684,7 +687,7 @@ function ThreePillarsSection() {
   const t = useNewHomeT();
 
   const pillars = [
-    { img: '/images/home/pillar1-main.png', title: t('pillar1Title'), desc: t('pillar1Desc'), bgImg: '/images/home/pillar1-bg.png' },
+    { img: '/images/home/80.png', title: t('pillar1Title'), desc: t('pillar1Desc'), bgImg: '/images/home/91.png' },
     { img: '/images/home/81.png', title: t('pillar2Title'), desc: t('pillar2Desc') },
     { img: '/images/home/82.png', title: t('pillar3Title'), desc: t('pillar3Desc') },
   ];

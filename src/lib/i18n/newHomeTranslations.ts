@@ -4,10 +4,13 @@ export const newHomeTranslations = {
   en: {
     // Hero Section
     heroTag: 'NTU · Singapore Research Team',
+    heroTagNTU: 'NTU Strategic Partner',
+    heroTagHCI: 'Home Control International (1747.HK) Brand',
     heroTitle: 'The Next-Gen Health Tech Brand\nPowered by AIoT',
     heroSubtitle: 'Making health data collection as natural as tapping your card at home',
-    heroCTA: 'Early Access →',
+    heroCTA: 'Early Access',
     heroSecondaryCTA: 'Learn More',
+    heroScrollMore: 'Learn More',
 
     // A/B Duality Section
     dualityTitle: 'The A/B Duality of ',
@@ -109,10 +112,13 @@ export const newHomeTranslations = {
   'zh-CN': {
     // Hero Section
     heroTag: 'NTU · 新加坡研究团队',
+    heroTagNTU: 'NTU 战略合作',
+    heroTagHCI: 'Home Control International (1747.HK) 旗下品牌',
     heroTitle: '以 AIoT 为核心的\n新一代健康科技品牌',
     heroSubtitle: '让健康数据的采集，像回家放卡一样自然',
-    heroCTA: '抢先体验 →',
+    heroCTA: '抢先体验',
     heroSecondaryCTA: '了解更多',
+    heroScrollMore: '了解更多',
 
     // A/B Duality Section
     dualityTitle: 'AI 健康的',
@@ -214,10 +220,13 @@ export const newHomeTranslations = {
   'zh-TW': {
     // Hero Section
     heroTag: 'NTU · 新加坡研究團隊',
+    heroTagNTU: 'NTU 戰略合作',
+    heroTagHCI: 'Home Control International (1747.HK) 旗下品牌',
     heroTitle: '以 AIoT 為核心的\n新一代健康科技品牌',
     heroSubtitle: '讓健康數據的採集，像回家放卡一樣自然',
-    heroCTA: '搶先體驗 →',
+    heroCTA: '搶先體驗',
     heroSecondaryCTA: '了解更多',
+    heroScrollMore: '了解更多',
 
     // A/B Duality Section
     dualityTitle: 'AI 健康的',
